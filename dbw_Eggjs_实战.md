@@ -5,6 +5,10 @@ git remote add Demo https://github.com/BoweiDufei/Demo
 git remote -v
 git pull Demo master
 
+git add .
+git commit -m "add"
+git push Demo master
+
 Egg-实战
 https://eggjs.org/zh-cn/
 
