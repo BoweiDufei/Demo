@@ -1,5 +1,10 @@
 https://blog.csdn.net/weixin_42490398/article/details/90212418
 
+git remote add BoweiDufei https://github.com/BoweiDufei/Demo
+git remote add Demo https://github.com/BoweiDufei/Demo
+git remote -v
+git pull Demo master
+
 Egg-实战
 https://eggjs.org/zh-cn/
 
