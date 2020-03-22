@@ -19,10 +19,24 @@ class UserController extends Controller {
    */
   async create() {
     const { ctx, service } = this;
-    // ctx.validate(ctx.rule.createUserRequest);
+    ctx.validate(ctx.rule.createUserRequest);
     const mobile = ctx.query.mobile;
     const token = await service.actionToken.apply(mobile);
     const res = { token };
+    ctx.helper.success(ctx, res);
+  }
+
+  /**
+   * @summary 健全
+   * @description 创建用户，记录用户账号/密码/类型
+   * @router get /auth/checkUser
+   * @request query createUserRequest *query
+   * @response 200 baseResponse 创建成功
+   */
+  async checkUser() {
+    const { ctx } = this;
+    console.log('check----');
+    const res = { userId: ctx.state.userId };
     ctx.helper.success(ctx, res);
   }
 }

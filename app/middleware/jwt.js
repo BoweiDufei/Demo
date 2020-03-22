@@ -4,8 +4,8 @@ module.exports = (option, app) => {
     const token = ctx.request.header.authorization.replace('Bearer ', '');
     try {
       const ret = await app.jwt.verify(token, app.config.jwt.secret);
-      ctx.state.email = ret.email;
-      ctx.state.userid = ret.id;
+      console.log(` ==== ${ret.data.userId}`);
+      ctx.state.userId = ret.data.userId;
       await next();
     } catch (err) {
       if (err.name === 'TokenExpiredError') {
