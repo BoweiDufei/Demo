@@ -34,6 +34,12 @@ module.exports = appInfo => {
     enable: true,
   };
 
+  config.jwt = {
+    secret: 'Great-M',
+    enable: true,
+    match: /^\/auth/,
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

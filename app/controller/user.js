@@ -19,14 +19,11 @@ class UserController extends Controller {
    */
   async create() {
     const { ctx, service } = this;
-    console.log('------------uuuu');
-    console.log(service);
-    console.log('------------dddd');
-    service.first.method('调用一下');
     // ctx.validate(ctx.rule.createUserRequest);
-    const res = { abc: 123 };
-    const str = ctx.helper.dbw_json.changeObjToStr(res);
-    console.log(str);
+    const mobile = ctx.query.mobile;
+    const token = await service.actionToken.apply(mobile);
+    const res = { token };
+    ctx.helper.success(ctx, res);
   }
 }
 

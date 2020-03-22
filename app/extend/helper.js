@@ -4,7 +4,7 @@ const moment = require('moment');
 
 exports.formatTime = time => moment(time).formate('YYYY-MM-DD HH:mm:ss');
 
-exports.success = ({ ctx, res = null, msg = '请求成功' }) => {
+const success = (ctx, res, msg = '请求成功') => {
   ctx.body = {
     code: 0,
     data: res,
@@ -739,7 +739,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success };
 
 /**
  * 外部使用方法
