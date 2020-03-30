@@ -24,5 +24,5 @@ open http://127.0.0.1:7001
 
 2，添加依赖
 
-npm i egg-swagger-doc-feat egg-validate egg-mongoose egg-bcrypt egg-jwt -s
+npm i egg-swagger-doc-feat egg-validate egg-mongoose egg-bcrypt egg-jwt apn -s
 
