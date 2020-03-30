@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
   dio: ^2.1.2
   url_launcher: ^5.0.1
   flutter_easyrefresh: ^1.2.7
-  provice: ^1.0.2
+  provide: ^1.0.2
   fluttertoast: ^3.0.1
   fluro: ^1.4.0
   flutter_html: ^0.9.6
