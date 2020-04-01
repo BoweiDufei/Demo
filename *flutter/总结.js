@@ -13,3 +13,4 @@ var Flutter = {
 };
 
 //json转dart模型网站 ： https://javiercbk.github.io/json_to_dart/
+//flutter插件下载 ： https://pub.dev/

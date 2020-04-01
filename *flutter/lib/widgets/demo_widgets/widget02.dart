@@ -28,19 +28,40 @@ class _DemoSecondWidgetState extends State<DemoSecondWidget> {
                   decoration: BoxDecoration(
                     color: Colors.blue,
                   ),
-                  child: Row(children: [
-                    RaisedButton(
-                        child: Text('返回'),
-                        onPressed: () {
-                          Navigator.pop(context,'我是返回值');
-                        }),
-                    Text('${widget.titleStr ?? "暂无"}')
-                  ]),
+                  child: _items(context),
                 ),
               )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _items(BuildContext context){
+    List<Widget> list = [];
+    int num = 6;
+    for (var i = 0; i < num; i++) {
+      list.add(createContain(i,context));
+    }
+    return Row(
+      children: list,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    );
+  }
+
+  Widget createContain(int index,BuildContext context){
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.redAccent
+      ),
+      width: 100,
+      height: 100,
+      child: RaisedButton(
+        onPressed: (){
+          Navigator.pop(context);
+        },
+        child: Text('${index}号'),
       ),
     );
   }

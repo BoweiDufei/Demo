@@ -9,16 +9,16 @@ class DemoThirdWidget extends StatefulWidget {
 }
 
 class _DemoThirdWidgetState extends State<DemoThirdWidget> {
-
-  ScrollController _listViewScrollController = ScrollController(initialScrollOffset: 200);
+  ScrollController _listViewScrollController =
+      ScrollController(initialScrollOffset: 200);
   double alpha = 0;
 
   @override
   void initState() {
     super.initState();
-    _listViewScrollController.addListener((){
+    _listViewScrollController.addListener(() {
       setState(() {
-        double tmpScale = min(_listViewScrollController.offset/100, 1);
+        double tmpScale = min(_listViewScrollController.offset / 100, 1);
         alpha = max(tmpScale, 0);
       });
     });
@@ -29,7 +29,7 @@ class _DemoThirdWidgetState extends State<DemoThirdWidget> {
     _listViewScrollController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -50,16 +50,18 @@ class _DemoThirdWidgetState extends State<DemoThirdWidget> {
               controller: _listViewScrollController,
             ),
             Positioned(
-              left: 10,
-              right: 10,
-              top: 20,
-              child: Opacity(
-               opacity: alpha,
-               child: Container(
-                 child: Text('这是啥啊'),
-                 decoration: BoxDecoration(color: Colors.blue),
-               ),
-            ))
+                left: 10,
+                right: 10,
+                top: 20,
+                child: Opacity(
+                  opacity: alpha,
+                  child: Container(
+                    child: Text('这是啥啊'),
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                  ),
+                ))
           ],
         ),
       ),

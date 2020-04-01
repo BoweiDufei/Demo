@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
   flutter_html: ^0.9.6
   sqflite: ^1.1.0
   shared_preferences: ^0.5.1
+  flutter_webview_plugin: ^0.3.10+2
  */
 /// DateFormat.
 enum DateFormat {
