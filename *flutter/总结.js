@@ -11,3 +11,5 @@ var Flutter = {
 	"VSCode命令运行flutter":"flutter run",
 	"material官网":"https://material.io/"
 };
+
+//json转dart模型网站 ： https://javiercbk.github.io/json_to_dart/
