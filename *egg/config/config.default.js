@@ -55,6 +55,10 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  exports.bcrypt = {
+    saltRounds: 10,
+  };
+
   return {
     ...config,
     ...userConfig,

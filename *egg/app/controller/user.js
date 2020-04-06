@@ -46,6 +46,81 @@ class UserController extends Controller {
   }
 
   /**
+   * @summary 用户登录
+   * @description 用户登录
+   * @router post /api/login
+   * @request query loginUserRequest *query
+   * @response 200 baseResponse 创建成功
+   */
+  async login() {
+    const { ctx, service } = this;
+    // 参数验证
+    ctx.validate(ctx.rule.loginUserRequest, ctx.query);
+    const mobile = ctx.query.mobile;
+    const password = ctx.query.password;
+    // 根据mobile查找用户
+    const userInfo = await service.user.findByMobile(mobile);
+    console.log('对比结果前');
+    const ensurePsd = await this.ctx.genHash(password);
+
+    const checked = await this.ctx.compare(ensurePsd, userInfo.password);
+    console.log(`对比结果是：${checked}`);
+    if (userInfo.password !== ensurePsd) {
+      ctx.throw(404, `密码错误 : ${userInfo.password} and ${ensurePsd} ${password}`);
+    }
+    // 登录成功
+    const token = await service.actionToken.apply(mobile);
+    const res = { token };
+    ctx.helper.success(ctx, res);
+  }
+
+  /**
+   * @summary 更新用户
+   * @description 更新用户
+   * @router post /auth/updateUser
+   * @request query updateUserByIdRequest *query
+   * @response 200 baseResponse 创建成功
+   */
+  async update() {
+    const { ctx, service } = this;
+    // 参数验证
+    ctx.validate(ctx.rule.createUserRequest, ctx.query);
+    const _id = ctx.query.id;
+    ctx.helper.success(ctx, await service.user.updateUser(_id, ctx.query));
+  }
+
+  /**
+   * @summary 删除用户
+   * @description 删除用户
+   * @router post /auth/deleteUserById
+   * @request query deleteUserByIdRequest *query
+   * @response 200 baseResponse 创建成功
+   */
+  async deleteUser() {
+    const { ctx, service } = this;
+    // 参数验证
+    ctx.validate(ctx.rule.deleteUserByIdRequest, ctx.query);
+    const _id = ctx.query.id;
+    ctx.helper.success(ctx, await service.user.deleteUersById(_id));
+  }
+
+
+  /**
+   * @summary 通过手机号删除用户
+   * @description 通过手机号删除用户
+   * @router post /auth/deleteUserByMobile
+   * @request query deleteUserByMobileRequest *query
+   * @response 200 baseResponse 创建成功
+   */
+  async deleteUserByMobile() {
+    const { ctx, service } = this;
+    // 参数验证
+    ctx.validate(ctx.rule.deleteUserByMobileRequest, ctx.query);
+    const mobile = ctx.query.mobile;
+    ctx.helper.success(ctx, await service.user.deleteUersByMobile(mobile));
+  }
+
+  /**
    * @summary 健全
    * @description 创建用户，记录用户账号/密码/类型
    * @router get /auth/checkUser
