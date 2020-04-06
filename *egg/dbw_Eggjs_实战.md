@@ -26,3 +26,5 @@ open http://127.0.0.1:7001
 
 npm i egg-swagger-doc-feat egg-validate egg-mongoose egg-bcrypt egg-jwt apn -s
 
+3, 数据库的配置，一定要先mongod --dbpath ***/***
+

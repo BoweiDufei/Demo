@@ -40,6 +40,16 @@ module.exports = appInfo => {
     match: /^\/auth/,
   };
 
+  config.mongoose = {
+    url: 'mongodb://127.0.0.1:27017/egg_x',
+    options: {
+      // useMongoClient: true,
+      autoReconnect: true,
+      reconnectTries: Number.MAX_VALUE,
+      bufferMaxEntries: 0,
+    },
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
