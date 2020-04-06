@@ -29,7 +29,7 @@ class UserController extends Controller {
   /**
    * @summary 创建用户
    * @description 创建用户，记录用户账号/密码/类型
-   * @router get /api/createUser
+   * @router post /api/createUser
    * @request query createUserRequest *query
    * @response 200 baseResponse 创建成功
    */
