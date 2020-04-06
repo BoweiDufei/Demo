@@ -9,6 +9,8 @@ class UserService extends Service {
    */
   async createrUser(payload) {
     const { ctx } = this;
+    // 进行加密
+    payload.password = await this.ctx.genHash(payload.password);
     return ctx.model.User.create(payload);
   }
 }
