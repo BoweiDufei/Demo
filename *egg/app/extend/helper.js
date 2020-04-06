@@ -13,6 +13,11 @@ const success = (ctx, res, msg = '请求成功') => {
   ctx.status = 200;
 };
 
+const md5 = content => {
+  const crypto = require('crypto');
+  return crypto.createHash('md5').update(content).digest('hex');
+};
+
 // https://blog.csdn.net/weidfyr/article/details/48209537
 
 // const fs = require('fs');
@@ -739,7 +744,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, md5 };
 
 /**
  * 外部使用方法
