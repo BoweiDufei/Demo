@@ -60,17 +60,15 @@ class UserController extends Controller {
     const password = ctx.query.password;
     // 根据mobile查找用户
     const userInfo = await service.user.findByMobile(mobile);
-    console.log('对比结果前');
-    const ensurePsd = await this.ctx.genHash(password);
-
-    const checked = await this.ctx.compare(ensurePsd, userInfo.password);
-    console.log(`对比结果是：${checked}`);
+    console.log(`对比结果前password = ${password} mobile = ${mobile}`);
+    console.log(`对比结果前locPassword = ${userInfo}`);
+    const ensurePsd = await ctx.helper.md5(password);
     if (userInfo.password !== ensurePsd) {
       ctx.throw(404, `密码错误 : ${userInfo.password} and ${ensurePsd} ${password}`);
     }
     // 登录成功
     const token = await service.actionToken.apply(mobile);
-    const res = { token };
+    const res = { token, userInfo };
     ctx.helper.success(ctx, res);
   }
 
