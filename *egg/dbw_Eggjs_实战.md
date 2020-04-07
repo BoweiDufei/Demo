@@ -28,3 +28,8 @@ npm i egg-swagger-doc-feat egg-validate egg-mongoose egg-bcrypt egg-jwt apn cryp
 
 3, 数据库的配置，一定要先mongod --dbpath ***/***
 
+4，可视化mongodb
+mongo-express的设置：https://www.jianshu.com/p/b6ea35eb4762
+前往路径：/Users/dbw/node_modules/mongo-express
+
+
