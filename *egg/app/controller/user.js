@@ -10,7 +10,6 @@ class UserController extends Controller {
     super(ctx);
   }
 
-
   /**
    * @summary 测试
    * @description 测试
