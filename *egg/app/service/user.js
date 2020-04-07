@@ -20,8 +20,8 @@ class UserService extends Service {
    * @param {*} payload
    */
   async updateUser(_id, payload) {
-    const { ctx } = this;
-    const user = await ctx.service.user.find(_id);
+    const { ctx, service } = this;
+    const user = await service.user.findById(_id);
     if (!user) {
       ctx.throw(404, 'user not found');
     }
