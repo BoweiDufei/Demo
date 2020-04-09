@@ -1,10 +1,14 @@
 'use strict';
 module.exports = (option, app) => {
   return async function verify(ctx, next) {
-    const token = ctx.request.headers.authorization.replace('Bearer ', '');
+    console.log(ctx.request.headers);
     try {
+      if (ctx.request.headers.authorization === undefined) {
+        ctx.helper.fail(ctx, 'token无效');
+        return;
+      }
+      const token = ctx.request.headers.authorization.replace('Bearer ', '');
       const ret = await app.jwt.verify(token, app.config.jwt.secret);
-      console.log(` ==== ${ret.data.userId}`);
       // 根据userId查找是否存在此用户
       const user = await ctx.service.user.findByMobile(ret.data.userId);
       if (!user) {
@@ -14,7 +18,8 @@ module.exports = (option, app) => {
           message: '不存在此用户',
         };
       }
-      ctx.state.userId = ret.data.userId;
+      ctx.currentUser = user; // 以后可以直接使用这个获取当前用户
+      ctx.userId = ctx.currentUser;
       await next();
     } catch (err) {
       if (err.name === 'TokenExpiredError') {

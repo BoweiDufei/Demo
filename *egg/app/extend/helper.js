@@ -12,6 +12,14 @@ const success = (ctx, res, msg = '请求成功') => {
   };
   ctx.status = 200;
 };
+const fail = (ctx, res, msg = '请求失败') => {
+  ctx.body = {
+    code: 404,
+    data: res,
+    msg,
+  };
+  ctx.status = 404;
+};
 
 const md5 = content => {
   const crypto = require('crypto');
@@ -744,7 +752,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, md5 };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5 };
 
 /**
  * 外部使用方法

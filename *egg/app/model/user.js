@@ -11,6 +11,10 @@ module.exports = app => {
     },
     extra: { type: mongoose.Schema.Types.Mixed },
     createdAt: { type: Date, default: Date.now },
+    children: { type: Array, default: [] },
+  },
+  {
+    strict: false,
   });
   return mongoose.model('user', UserSchema);
 };

@@ -93,6 +93,20 @@ class UserService extends Service {
     }
     return this.ctx.model.User.findById(_id);
   }
+
+  /**
+   * 添加孩子信息
+   */
+  async addChildInfo(_info) {
+    return this.ctx.model.User.updateOne({ mobile: this.ctx.state.userId }, { $addToSet: { children: _info } });
+  }
+  /**
+   * 更新孩子
+   */
+  async updateManyChildren() {
+    console.log('updateManyChildren ---- service');
+    return this.ctx.model.User.updateOne({ mobile: this.ctx.state.userId }, { $set: { realName: '飞翔ad发了卡时代峻峰离开' } });
+  }
 }
 
 module.exports = UserService;

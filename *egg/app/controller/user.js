@@ -35,10 +35,10 @@ class UserController extends Controller {
   async create() {
     const { ctx, service } = this;
     // 参数验证
-    ctx.validate(ctx.rule.createUserRequest, ctx.query);
-    const mobile = ctx.query.mobile;
+    ctx.validate(ctx.rule.createUserRequest, ctx.request.body);
+    const mobile = ctx.request.body.mobile;
     const token = await service.actionToken.apply(mobile);
-    const userinfo = await service.user.createrUser(ctx.query);
+    const userinfo = await service.user.createrUser(ctx.request.body);
     const res = { token, userinfo };
     console.log('create----' + userinfo);
     ctx.helper.success(ctx, res);
@@ -54,9 +54,9 @@ class UserController extends Controller {
   async login() {
     const { ctx, service } = this;
     // 参数验证
-    ctx.validate(ctx.rule.loginUserRequest, ctx.query);
-    const mobile = ctx.query.mobile;
-    const password = ctx.query.password;
+    ctx.validate(ctx.rule.loginUserRequest, ctx.request.body);
+    const mobile = ctx.request.body.mobile;
+    const password = ctx.request.body.password;
     // 根据mobile查找用户
     const userInfo = await service.user.findByMobile(mobile);
     console.log(`对比结果前password = ${password} mobile = ${mobile}`);
@@ -129,6 +129,59 @@ class UserController extends Controller {
     console.log('check----');
     const res = { userId: ctx.state.userId };
     ctx.helper.success(ctx, res);
+  }
+
+
+  /**
+   * @summary 通过手机号删除用户
+   * @description 通过手机号删除用户
+   * @router post /auth/addChildrenInfo
+   * @request query addChildrenInfoRequest *query
+   * @response 200 baseResponse 创建成功
+   */
+  async addChildInfo() {
+    const { ctx, service } = this;
+    // 参数验证
+    ctx.validate(ctx.rule.addChildrenInfoRequest, ctx.request.body);
+    console.log('-----addChildInfo------');
+    ctx.helper.success(ctx, await service.user.addChildInfo(ctx.request.body.info));
+  }
+
+  /**
+   * @summary 判断是否存在某数据
+   * @description 判断是否存在数据
+   * @router post /auth/containObj
+   * @request query containChildrenInfoRequest *query
+   * @response 200 baseResponse 创建成功
+   */
+  async containChildInfo() {
+    const { ctx } = this;
+    // 参数验证
+    ctx.validate(ctx.rule.containChildrenInfoRequest, ctx.request.body);
+    const info = ctx.request.body.info;
+    const result = ctx.currentUser.children.includes(info);
+    return ctx.helper.success(ctx, result);
+  }
+
+  /**
+   * @summary 存1000条
+   * @description 判断是否存在数据
+   * @router post /auth/saveManyChild
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async saveManyChild() {
+    const { ctx, service } = this;
+    // 参数验证
+    // ctx.validate(ctx.rule.containChildrenInfoRequest, ctx.request.body);
+    // const result = ctx.currentUser.children.includes(info);
+    const list = [];
+    for (let i = 0; i < 10; i++) {
+      list.push(`这是第${i}条数据`);
+    }
+    console.log(list);
+    await service.user.updateManyChildren();
+    return ctx.helper.success(ctx, '存储成功');
   }
 }
 

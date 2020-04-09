@@ -19,4 +19,10 @@ module.exports = {
   deleteUserByMobileRequest: {
     mobile: { type: 'string', description: 'id 唯一键', required: true, example: '123123123124123' },
   },
+  addChildrenInfoRequest: {
+    info: { type: 'string', description: 'id 唯一键', required: true, example: '123123123124123' },
+  },
+  containChildrenInfoRequest: {
+    info: { type: 'string', description: 'id 唯一键', required: true, example: '123123123124123' },
+  },
 };
