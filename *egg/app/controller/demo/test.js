@@ -42,6 +42,18 @@ class TestController extends Controller {
     ]);
     this.ctx.body = result;
   }
+
+  /**
+   * @summary 下载地址
+   * @description 测试
+   * @router get /api/uploadPath
+   * @response 200 baseResponse 创建成功
+   */
+  async loadpath() {
+    const path = await this.ctx.service.tool.getUploadFile('abc.jpg');
+    console.log(path);
+    this.ctx.body = path;
+  }
 }
 
 module.exports = TestController;

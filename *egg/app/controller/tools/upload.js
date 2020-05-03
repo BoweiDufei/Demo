@@ -27,13 +27,11 @@ class UploadController extends Controller {
     // 上传文件必须在所有其他的 fields 后面，否则在拿到文件流时可能还获取不到 fields。
     const stream = await ctx.getFileStream();
     // 所有表单字段都能通过 `stream.fields` 获取到
-    // const filename = path.basename(stream.filename); // 文件名称
-    const extname = path.extname(stream.filename).toLowerCase(); // 文件扩展名称
-    const uuid = (Math.random() * 999999).toFixed();
-
-    // 组装参数 stream
-    const target = path.join(this.config.baseDir, 'app/public/uploads', `${uuid}${extname}`);
-    const writeStream = fs.createWriteStream(target);
+    const filename = path.basename(stream.filename); // 文件名称
+    // 获取的是个对象，有上传地址和数据库存储地址
+    const targetDict = await this.service.tool.getUploadFile(filename);
+    console.log(`获取到的地址为${targetDict.uploadDir}`);
+    const writeStream = fs.createWriteStream(targetDict.uploadDir);
     // 文件处理，上传到云存储等等
     try {
       await awaitWriteStream(stream.pipe(writeStream));
