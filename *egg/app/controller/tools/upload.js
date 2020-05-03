@@ -42,6 +42,16 @@ class UploadController extends Controller {
     }
     // 调用 Service 进行业务处理
     // 设置响应内容和响应状态码
+    const url = targetDict.saveDir;
+    console.log(`url = ${url}`);
+    // 存储数据库
+    const pic = {
+      title: filename,
+      link: url,
+      url,
+    };
+    const result = await this.ctx.model.Picture.create(pic);
+    console.log(result);
     ctx.helper.success(ctx);
   }
 

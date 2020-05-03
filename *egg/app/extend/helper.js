@@ -1,6 +1,7 @@
 'use strict';
 
 const moment = require('moment');
+const sd = require('silly-datetime');
 
 exports.formatTime = time => moment(time).formate('YYYY-MM-DD HH:mm:ss');
 
@@ -24,6 +25,11 @@ const fail = (ctx, res, msg = '请求失败') => {
 const md5 = content => {
   const crypto = require('crypto');
   return crypto.createHash('md5').update(content).digest('hex');
+};
+
+// 13位的时间戳，10位的要*1000
+const formateTime = params => {
+  return sd.format(new Date(params), 'YYY-MM-DD HH:mm');
 };
 
 // https://blog.csdn.net/weidfyr/article/details/48209537
@@ -752,7 +758,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5 };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime };
 
 /**
  * 外部使用方法
