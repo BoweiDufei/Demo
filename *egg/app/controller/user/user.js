@@ -35,10 +35,10 @@ class UserController extends Controller {
   async create() {
     const { ctx, service } = this;
     // 参数验证
-    ctx.validate(ctx.rule.createUserRequest, ctx.request.body);
-    const mobile = ctx.request.body.mobile;
+    ctx.validate(ctx.rule.createUserRequest, ctx.query);
+    const mobile = ctx.query.mobile;
     const token = await service.actionToken.apply(mobile);
-    const userinfo = await service.user.createrUser(ctx.request.body);
+    const userinfo = await service.user.createrUser(ctx.query);
     const res = { token, userinfo };
     console.log('create----' + userinfo);
     ctx.helper.success(ctx, res);
