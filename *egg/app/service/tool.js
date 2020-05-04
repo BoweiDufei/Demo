@@ -48,6 +48,7 @@ class ToolService extends Service {
     return {
       uploadDir,
       saveDir: uploadDir.slice(3).replace(/\\/g, '/'),
+      fileExt,
     };
   }
 }

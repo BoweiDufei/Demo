@@ -5,6 +5,7 @@ const path = require('path');
 const awaitWriteStream = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
 const download = require('image-downloader');
+const picJimp = require('jimp');
 
 const Controller = require('egg').Controller;
 
@@ -40,6 +41,17 @@ class UploadController extends Controller {
       await sendToWormhole(stream);
       throw err;
     }
+
+    // 生成缩略图
+    picJimp.read(targetDict.uploadDir, (err, lenna) => {
+      console.log(err);
+      if (err) throw err;
+      lenna
+        .resize(200, 200) // resize
+        .quality(60) // set JPEG quality
+        .write(`${targetDict.uploadDir + '_200*200' + targetDict.fileExt}`); // save
+    });
+
     // 调用 Service 进行业务处理
     // 设置响应内容和响应状态码
     const url = targetDict.saveDir;
