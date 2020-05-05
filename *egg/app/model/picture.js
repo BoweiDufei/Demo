@@ -10,6 +10,8 @@ module.exports = app => {
     safe: { type: String },
     authId: { type: String },
     arg: { type: String },
+    jimp01: { type: String }, // 缩略图200
+    jimp02: { type: String }, // 缩略图400
     createdAt: { type: Date, default: Date.now },
   },
   {
