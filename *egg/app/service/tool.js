@@ -4,6 +4,7 @@ const Service = require('egg').Service;
 const sd = require('silly-datetime');
 const path = require('path');
 const mkdirp = require('mz-modules/mkdirp');
+const jimp = require('jimp');
 
 class ToolService extends Service {
   /**
@@ -47,10 +48,42 @@ class ToolService extends Service {
     const uploadDir = path.join(dir, resultStr) + fileExt;
     return {
       uploadDir,
-      saveDir: uploadDir.slice(3).replace(/\\/g, '/'),
+      saveDir: this.dealUploadPath(uploadDir),
       fileExt,
     };
   }
+
+  /** 处理图片路径 */
+  dealUploadPath(path) {
+    return path.slice(3).replace(/\\/g, '/');
+  }
+
+  /**
+   * 制作缩略图
+  */
+  async jimpImg(filePath) {
+    // 生成缩略图
+    const lenna = await jimp.read(filePath);
+    console.log(`lenna.bitmap.width = ${lenna.bitmap.width} and lenna.bitmap.height = ${lenna.bitmap.height}`);
+    const scale = lenna.bitmap.height * 1.0 / lenna.bitmap.width;
+    const imgWidth1 = 200;
+    const imgHeight1 = imgWidth1 * scale;
+    const img01 = filePath + '_200' + path.extname(filePath);
+    const img02 = filePath + '_400' + path.extname(filePath);
+    lenna
+      .resize(imgWidth1, imgHeight1) // resize
+      .quality(60) // set JPEG quality
+      .write(img01); // save
+
+    const imgWidth2 = 400;
+    const imgHeight2 = imgWidth2 * scale;
+    lenna
+      .resize(imgWidth2, imgHeight2) // resize
+      .quality(60) // set JPEG quality
+      .write(img02); // save
+    return { img01: this.dealUploadPath(img01), img02: this.dealUploadPath(img02) };
+  }
+
 }
 
 module.exports = ToolService;

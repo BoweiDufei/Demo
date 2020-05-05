@@ -30,17 +30,26 @@ class TestController extends Controller {
     //     });
     //   }
     // }
-    const result = await this.ctx.model.Order.aggregate([
-      {
-        $lookup: {
-          from: 'product',
-          localField: '_id',
-          foreignField: 'orderId',
-          as: 'items',
-        },
-      },
-    ]);
-    this.ctx.body = result;
+    // const result = await this.ctx.model.Order.aggregate([
+    //   {
+    //     $lookup: {
+    //       from: 'product',
+    //       localField: '_id',
+    //       foreignField: 'orderId',
+    //       as: 'items',
+    //     },
+    //   },
+    // ]);
+    // 使用redis加速
+    const info = await this.ctx.service.cache.get('navInfo');
+    if (info) {
+      this.ctx.body = info;
+    } else {
+      // 从数据库中查找
+      await this.ctx.service.cache.set('navInfo', '存储到redis的数据', '5');
+      this.ctx.body = '数据库查找获取数据';
+    }
+
   }
 
   /**
