@@ -34,3 +34,9 @@ mongo-express的设置：https://www.jianshu.com/p/b6ea35eb4762
 或者：/usr/local/lib/node_modules/mongo-express
 
 
+5，python相关资料
+尚鸿元：
+https://github.com/jackfrued/Python-100-Days
+https://www.runoob.com/python3/python3-intro.html
+
+
