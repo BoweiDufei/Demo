@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import './config/index.dart';
 import './provide/current_index_provide.dart';
 import 'package:provide/provide.dart';
-import './pages/index_page.dart';
+import 'routers/Routers.dart';
+import './pages/HomePage.dart';
 
 /**
   flutter_swiper: ^1.1.6
@@ -37,52 +38,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: KColor.primaryColor,
       ),
-      home: IndexPage(),
+      routes: myRoutes,
+      initialRoute: '/', //初始化的时候加载的路由
+      onGenerateRoute: onGenerateRoute,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title2}) : super(key: key);
-  final String title2;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title2),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}

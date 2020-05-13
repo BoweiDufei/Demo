@@ -7,4 +7,10 @@ class CurrentIndexProvide with ChangeNotifier{
     currentIndex = newIndex;
     notifyListeners();//通知
   }
+  login(){
+    notifyListeners();//通知
+  }
+  logOut(){
+    notifyListeners();//通知
+  }
 }
