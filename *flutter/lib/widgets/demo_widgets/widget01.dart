@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './widget02.dart';
 import './widget03.dart';
 import '../mywidgets/dbw_webview.dart';
+import './widget04.dart';
 import 'dart:async';
 
 class DemoFirstPlusWidget extends StatefulWidget {
@@ -15,7 +16,7 @@ class DemoFirstPlusWidget extends StatefulWidget {
 class _DemoFirstPlusWidgetState extends State<DemoFirstPlusWidget> {
   int currentNumber = 0; //当前数量
 
-  List _items = ['路由跳转','滚动界面','跳转web容器'];
+  List _items = ['路由跳转','滚动界面','跳转web容器','横排流水布局'];
 
   @override
   void initState() {
@@ -70,6 +71,14 @@ class _DemoFirstPlusWidgetState extends State<DemoFirstPlusWidget> {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return DBWWebviewWidget(url: 'https://www.baidu.com',);
+                          }));
+                        }
+                      break;
+                      case 3://横排流水布局
+                        {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return DemoFourWidget();
                           }));
                         }
                       break;
