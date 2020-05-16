@@ -74,28 +74,27 @@ class _DBWWebviewWidgetState extends State<DBWWebviewWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('首页'),
-      ),
-      body: Column(
-        children: <Widget>[
-          _appBar(Colors.white, Colors.blue),
-          Expanded(
-            child: WebviewScaffold(
-              url: widget.url,
-              withZoom: true, //手势捏合
-              withLocalStorage: true, //缓存
-              hidden: true,
-              initialChild: Container(
-                color: Colors.white,
-                child: Center(
-                  child: Text('Waiting...'),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            _appBar(Colors.white, Colors.blue),
+            Expanded(
+              child: WebviewScaffold(
+                url: widget.url,
+                withZoom: true, //手势捏合
+                withLocalStorage: true, //缓存
+                hidden: true,
+                initialChild: Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: Text('Waiting...'),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
-      ),
+            )
+          ],
+        ),
+      )
     );
   }
 

@@ -19,12 +19,6 @@ class LoginPage extends StatelessWidget {
             onPressed: (){
               // print('${this.arguments}');
               Navigator.pushNamed(context, '/secondlogin');
-              // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-              // 返回根目录
-              // Navigator.of(context).pushAndRemoveUntil(
-              //   new MaterialPageRoute(builder: (context) => TabsPage()),
-              //   (route) => route == null
-              // );
             },
           ),
         ),

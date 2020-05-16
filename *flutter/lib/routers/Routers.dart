@@ -18,9 +18,6 @@ final onGenerateRoute=(RouteSettings settings) {
   // 统一处理
   final String name = settings.name; 
   final Function pageContentBuilder = myRoutes[name];
-
-  print('settings = ${settings}');
-  print('router = ${pageContentBuilder}');
   if (pageContentBuilder != null) {
     if (settings.arguments != null) {
       final Route route = MaterialPageRoute(
