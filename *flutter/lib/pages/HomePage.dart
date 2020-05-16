@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
         child: RaisedButton(
           child: Text('进入登录中心'),
           onPressed: (){
-            bool flag = false;
+            bool flag = true;
             if(flag){
               Navigator.pushNamed(context, '/secondlogin');
             }else{
