@@ -9,6 +9,8 @@ git add .
 git commit -m "add"
 git push Demo master
 
+#git clean -df
+
 Egg-实战
 https://eggjs.org/zh-cn/
 
