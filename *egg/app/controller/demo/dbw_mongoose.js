@@ -14,8 +14,6 @@ class Dbw_mongooseController extends Controller {
    * @response 200 baseResponse 创建成功
    */
   async addStucent() {
-    // const params = this.ctx.query;
-    // console.log(`params = ${params}`);
     const snos = [ '108', '105', '107', '101', '109', '103' ];
     const snames = [ '曾华', '匡明', '王丽', '李军', '王芳', '陆军' ];
     const ssexs = [ '1', '1', '0', '1', '0', '1' ];
@@ -367,6 +365,222 @@ class Dbw_mongooseController extends Controller {
     ]);
     this.ctx.body = result;
   }
+
+  /**
+   * @summary    、查询选修“3-105”课程的成绩高于“109”号同学成绩的所有同学的记录。
+   * @description
+   * @router get /api/search19
+   * @response 200 baseResponse 创建成功
+   */
+  async search19() {
+    // 1，先查出109号同学分数
+    const score = await this.ctx.model.Score.find({ sno: '109', cno: '3-105' });
+    console.log((`109号同学分数为：${score[0]}`));
+    const scoreModel = score[0];
+    if (scoreModel != null) {
+      const stuScore = scoreModel.degree;
+      // 2，查出比109号同学分数高的同学集合
+      const result = await this.ctx.model.Score.aggregate([
+        {
+          $match: {
+            cno: '3-105',
+            degree: {
+              $gt: stuScore,
+            },
+          },
+        },
+        {
+          $lookup: {
+            from: 'student',
+            localField: 'sno',
+            foreignField: 'sno',
+            as: 'student',
+          },
+        },
+      ]);
+      this.ctx.body = result;
+    } else {
+      this.ctx.body = '没找到数据';
+    }
+  }
+
+  /**
+   * @summary    查询成绩高于学号为“101”、课程号为“3-105”的成绩的所有记录。
+   * @description
+   * @router get /api/search21
+   * @response 200 baseResponse 创建成功
+   */
+  async search21() {
+    // 1，查找学号为109 且课程号为3-105的成绩
+    const scoreList = await this.ctx.model.Score.find({ sno: '101', cno: '3-105' });
+    const scoreItem = scoreList[0];
+    if (scoreItem != null) {
+      console.log(`数据为：${scoreItem.degree}`);
+      // 2，查找成绩高于此成绩的所有记录
+      const result = await this.ctx.model.Score.aggregate([
+        {
+          $match: {
+            cno: '3-105',
+            degree: {
+              $gt: scoreItem.degree,
+            },
+          },
+        },
+        {
+          $lookup: {
+            from: 'student',
+            localField: 'sno',
+            foreignField: 'sno',
+            as: 'student',
+          },
+        },
+      ]);
+      this.ctx.body = result;
+    } else {
+      this.ctx.body = '没有找到数据';
+    }
+  }
+
+  /**
+   * @summary    查询和学号为108、101的同学同年出生的所有学生的Sno、Sname和Sbirthday列。
+   * @description
+   * @router get /api/search22
+   * @response 200 baseResponse 创建成功
+   */
+  async search22() {
+    const result = await this.ctx.model.Student.aggregate([
+      {
+        $match: {
+          $or: [{ sno: '108' }, { sno: '101' }],
+        },
+      },
+      {
+        $lookup: {
+          from: 'student',
+          localField: 'sbirthday',
+          foreignField: 'sbirthday',
+          as: 'other',
+        },
+      },
+    ]);
+    this.ctx.body = result;
+  }
+
+  /**
+   * @summary     查询“张旭“教师任课的学生成绩。
+   * @description
+   * @router get /api/search23
+   * @response 200 baseResponse 创建成功
+   */
+  async search23() {
+    // 1，先查询老师
+    const teacherList = await this.ctx.model.Teacher.aggregate([
+      {
+        $match: {
+          tname: '张旭',
+        },
+      },
+      {
+        $lookup: {
+          from: 'course',
+          localField: 'tno',
+          foreignField: 'tno',
+          as: 's',
+        },
+      },
+    ]);
+    //
+    const teacherModel = teacherList[0];
+    if (teacherModel != null) {
+      const s = teacherModel.s;
+      const s_0 = s[0];
+      if (s_0 != null) {
+        const cno = s_0.cno;
+
+        // 2，获取到课程编码，从score表中查询学生数据
+        const resultInfo = await this.ctx.model.Score.aggregate([
+          {
+            $match: { cno },
+          },
+          {
+            $lookup: {
+              from: 'student',
+              localField: 'sno',
+              foreignField: 'sno',
+              as: 's',
+            },
+          },
+        ]);
+        this.ctx.body = resultInfo;
+      } else {
+        this.ctx.body = '没有查到数据';
+      }
+    } else {
+      this.ctx.body = '没有查到数据';
+    }
+  }
+
+  /**
+   * @summary     查询选修某课程的同学人数多于5人的教师姓名。
+   * @description
+   * @router get /api/search24
+   * @response 200 baseResponse 创建成功
+   */
+  async search24() {
+    // 查询某课程人数
+    const t_result = await this.ctx.model.Score.aggregate([
+      {
+        $group: {
+          _id: '$cno',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $match: {
+          count: {
+            $gt: 5,
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'course',
+          localField: '_id',
+          foreignField: 'cno',
+          as: 't',
+        },
+      },
+    ]);
+    // 查询对应的老师
+    const teacherModel = t_result[0];
+    if (teacherModel != null) {
+      const t_0 = teacherModel.t[0];
+      if (t_0 != null) {
+        const tno = t_0.tno;
+        this.ctx.body = await this.ctx.model.Teacher.find({ tno });
+      } else {
+        this.ctx.body = '没有查到数据';
+      }
+    } else {
+      this.ctx.body = '没有查到数据';
+    }
+  }
+
+  /**
+   * @summary     查询95033班和95031班全体学生的记录。
+   * @description
+   * @router get /api/search25
+   * @response 200 baseResponse 创建成功
+   */
+  async search25() {
+    const result = await this.ctx.model.Student.aggregate([
+      {
+        
+      },
+    ]);
+    this.ctx.body = result;
+  }
+
 }
 
 module.exports = Dbw_mongooseController;
