@@ -48,6 +48,7 @@ module.exports = appInfo => {
       autoReconnect: true,
       reconnectTries: Number.MAX_VALUE,
       bufferMaxEntries: 0,
+      useUnifiedTopology: true,
     },
   };
 
