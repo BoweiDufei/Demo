@@ -23,7 +23,7 @@ module.exports = {
     package: 'egg-bcrypt',
   },
   redis: {
-    enable: true,
+    enable: false,
     package: 'egg-redis',
   },
 };
