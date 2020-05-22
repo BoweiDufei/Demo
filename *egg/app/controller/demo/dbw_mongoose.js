@@ -3,9 +3,6 @@
 // https://blog.csdn.net/weixin_39718665/article/details/78161013
 const Controller = require('egg').Controller;
 
-/**
- * @Controller 数据库操作
- */
 class Dbw_mongooseController extends Controller {
   /**
    * @summary 添加学生信息方法
