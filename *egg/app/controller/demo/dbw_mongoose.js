@@ -105,7 +105,15 @@ class Dbw_mongooseController extends Controller {
    * @response 200 baseResponse 创建成功
    */
   async search01() {
-    const result = await this.ctx.model.Student.find({}, { ssex: 1, sname: 1, class: 1 });
+    const result = await this.ctx.model.Student.aggregate([
+      {
+        $project: {
+          sname: 1,
+          ssex: 1,
+          class: 1,
+        },
+      },
+    ]);
     this.ctx.body = result;
   }
 
@@ -162,16 +170,20 @@ class Dbw_mongooseController extends Controller {
    * @response 200 baseResponse 创建成功
    */
   async search06() {
-    const result = await this.ctx.model.Student.find({
-      $or: [
-        {
-          class: '95031',
+    const result = await this.ctx.model.Student.aggregate([
+      {
+        $match: {
+          $or: [
+            {
+              class: '95031',
+            },
+            {
+              ssex: '0',
+            },
+          ],
         },
-        {
-          ssex: '0',
-        },
-      ],
-    });
+      },
+    ]);
     this.ctx.body = result;
   }
 
@@ -294,14 +306,40 @@ class Dbw_mongooseController extends Controller {
           from: 'score',
           localField: 'sno',
           foreignField: 'sno',
-          as: 'item',
+          as: 'score',
+        },
+      },
+      {
+        $unwind: {
+          path: '$score',
         },
       },
       {
         $project: {
           sname: 1,
-          'item.cno': 1,
-          'item.degree': 1,
+          degree: '$score.degree',
+          cno: '$score.cno',
+        },
+      },
+      {
+        $lookup: {
+          from: 'course',
+          localField: 'cno',
+          foreignField: 'cno',
+          as: 'course',
+        },
+      },
+      {
+        $unwind: {
+          path: '$course',
+        },
+      },
+      {
+        $project: {
+          sname: 1,
+          degree: 1,
+          cno: 1,
+          cname: '$course.cname',
         },
       },
     ]);
@@ -398,34 +436,6 @@ class Dbw_mongooseController extends Controller {
           },
         },
       },
-
-
-      // {
-      //   $project: {
-      //     _id: 0,
-      //     value: {
-      //       $setUnion: [ '$score' ],
-      //     },
-      //   },
-      // },
-      // {
-      //   $unwind: {
-      //     path: '$value',
-      //   },
-      // },
-      // {
-      //   $project: {
-      //     degree: '$value.degree',
-      //   },
-      // },
-      // {
-      //   $group: {
-      //     _id: 'degree',
-      //     vag: {
-      //       $avg: '$degree',
-      //     },
-      //   },
-      // },
     ]);
     this.ctx.body = result;
   }
@@ -537,6 +547,8 @@ class Dbw_mongooseController extends Controller {
    * @response 200 baseResponse 创建成功
    */
   async search23() {
+
+    console.time();
     // 1，先查询老师
     const teacherList = await this.ctx.model.Teacher.aggregate([
       {
@@ -591,6 +603,7 @@ class Dbw_mongooseController extends Controller {
             },
           },
         ]);
+        console.timeEnd();
         this.ctx.body = resultInfo;
       } else {
         this.ctx.body = '没有查到数据';
@@ -1486,6 +1499,121 @@ class Dbw_mongooseController extends Controller {
       },
     ]);
     this.ctx.body = resule;
+  }
+
+  /**
+   * @summary 用一条SQL 语句 查询出每门课都大于80 分的学生姓名
+   * @description
+   * @router get /api/search46
+   * @response 200 baseResponse 创建成功
+   */
+  async search46() {
+    const result = await this.ctx.model.Score.aggregate([
+      {
+        $group: {
+          _id: '$sno',
+          min: {
+            $min: '$degree',
+          },
+        },
+      },
+      {
+        $match: {
+          min: {
+            $gt: 80,
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'student',
+          localField: '_id',
+          foreignField: 'sno',
+          as: 'student',
+        },
+      },
+      {
+        $unwind: {
+          path: '$student',
+        },
+      },
+      {
+        $project: {
+          _id: '$student._id',
+          sno: '$student.sno',
+          sname: '$student.sname',
+          ssex: '$student.ssex',
+          class: '$student.class',
+        },
+      },
+    ]);
+    this.ctx.body = result;
+  }
+
+
+  /**
+   * @summary 删除除了自动编号不同, 其他都相同的学生冗余信息
+   * @description 重要 首次用到$group多个值的方法 用到$push方法构造结果数组
+   * @router get /api/search47
+   * @response 200 baseResponse 创建成功
+   */
+  async search47() {
+    const result = await this.ctx.model.Score.aggregate([
+      {
+        $group: {
+          _id: {
+            sno: '$sno',
+            cno: '$cno',
+            degree: '$degree',
+          },
+          list: {
+            $push: '$_id',
+          },
+          count: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $match: {
+          count: {
+            $gt: 1,
+          },
+        },
+      },
+    ]);
+    if (result.length > 0) {
+      const item = result[0];
+      const list = item.list;
+      const r = await this.ctx.model.Score.deleteMany({
+        _id: {
+          $in: list,
+        },
+      });
+      this.ctx.body = r;
+    } else {
+      this.ctx.body = '没有查找到符合条件的数据';
+    }
+  }
+
+  /**
+   * @summary 修改除了自动编号不同, 其他都相同的学生冗余信息
+   * @description
+   * @router get /api/search48
+   * @response 200 baseResponse 创建成功
+   */
+  async search48() {
+    const result = await this.ctx.model.Score.updateOne(
+      {
+        _id: '5ec26cbee37c80158b0506a6',
+      },
+      {
+        $set: {
+          degree: 89,
+        },
+      }
+    );
+    this.ctx.body = result;
   }
 
 }
