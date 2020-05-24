@@ -3,6 +3,9 @@
 // https://blog.csdn.net/weixin_39718665/article/details/78161013
 const Controller = require('egg').Controller;
 
+/**
+ * @Controller 数据库操作
+ */
 class Dbw_mongooseController extends Controller {
   /**
    * @summary 添加学生信息方法
@@ -122,7 +125,7 @@ class Dbw_mongooseController extends Controller {
    */
   async search02() {
     const result = await this.ctx.model.Student.distinct('class');
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -140,7 +143,7 @@ class Dbw_mongooseController extends Controller {
         },
       }
     );
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -157,7 +160,7 @@ class Dbw_mongooseController extends Controller {
         },
       }
     );
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -181,7 +184,7 @@ class Dbw_mongooseController extends Controller {
         },
       },
     ]);
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -196,7 +199,7 @@ class Dbw_mongooseController extends Controller {
         class: 1,
       }
     );
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -212,7 +215,7 @@ class Dbw_mongooseController extends Controller {
         degree: -1,
       }
     );
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -225,7 +228,7 @@ class Dbw_mongooseController extends Controller {
     const result = await this.ctx.model.Student.find({
       class: '95031',
     }).count();
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -241,7 +244,7 @@ class Dbw_mongooseController extends Controller {
     }).sort({
       degree: -1,
     }).limit(1);
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -261,7 +264,7 @@ class Dbw_mongooseController extends Controller {
         },
       },
     ]);
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
   /**
    * @summary 查询分数大于70，小于90的Sno列。
@@ -287,7 +290,7 @@ class Dbw_mongooseController extends Controller {
         },
       },
     ]);
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -340,7 +343,7 @@ class Dbw_mongooseController extends Controller {
         },
       },
     ]);
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -391,7 +394,7 @@ class Dbw_mongooseController extends Controller {
         },
       },
     ]);
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -434,7 +437,7 @@ class Dbw_mongooseController extends Controller {
         },
       },
     ]);
-    this.ctx.body = result;
+    this.ctx.helper.success(this.ctx, result);
   }
 
   /**
@@ -469,9 +472,9 @@ class Dbw_mongooseController extends Controller {
           },
         },
       ]);
-      this.ctx.body = result;
+      this.ctx.helper.success(this.ctx, result);
     } else {
-      this.ctx.body = '没找到数据';
+      this.ctx.helper.fail(this.ctx);
     }
   }
 
@@ -1611,6 +1614,38 @@ class Dbw_mongooseController extends Controller {
       }
     );
     this.ctx.body = result;
+  }
+
+  /**
+   * @summary 修改除了自动编号不同, 其他都相同的学生冗余信息
+   * @description
+   * @router get /api/search49
+   * @response 200 baseResponse 创建成功
+   */
+  async search49() {
+    const fs = require('fs');
+    const fromPath = 'app/public/1.html';
+    const toPath = 'app/public/2.html';
+
+    const readStream = fs.createReadStream(fromPath);
+    const writeStream = fs.createWriteStream(toPath);
+    writeStream.on('finish', () => {
+      // this.ctx.body = 'body finish';
+      // this.ctx.res.end('finish');
+    });
+    readStream.pipe(writeStream);
+    this.ctx.res.end('finish');
+    // https://www.jianshu.com/p/3e4da3b39444
+    // const rs = fs.createReadStream(path);
+    // rs.pipe(this.ctx.body);
+    // rs.on('end', () => {
+    //   this.ctx.body.end();
+    // });
+    // ServerResponse
+    // ServerResponse
+    // fs.createReadStream(path).pipe(this.ctx.res);
+    // console.log(this.ctx.res);
+    // this.ctx.body = 'aaa';
   }
 
 }
