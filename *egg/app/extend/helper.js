@@ -22,6 +22,21 @@ const fail = (ctx, res, msg = '请求失败') => {
   ctx.status = 404;
 };
 
+// 将某方法promise化
+const promisify = function(nodeFunction) {
+  return function(...args) {
+    return new Promise((resolve, reject) => {
+      nodeFunction.call(this, ...args, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  };
+};
+
 const md5 = content => {
   const crypto = require('crypto');
   return crypto.createHash('md5').update(content).digest('hex');
@@ -758,7 +773,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime, promisify };
 
 /**
  * 外部使用方法
