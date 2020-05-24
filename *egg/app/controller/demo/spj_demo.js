@@ -4,7 +4,7 @@
 const Controller = require('egg').Controller;
 
 /**
- * @Controller 数据库操作
+ * @Controller 数据库操作2
  */
 class SPJController extends Controller {
 
