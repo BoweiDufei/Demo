@@ -44,4 +44,7 @@ https://www.runoob.com/python3/python3-intro.html
 #####
 6，egg.js相关知乎：https://www.zhihu.com/topic/20073492/hot
 
+7，NUXT + eggjs 实现SSR技术 (重要)
+https://www.npmjs.com/package/nuxt-egg
+
 
