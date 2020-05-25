@@ -14,3 +14,8 @@ mongodb的所有驱动安装方法 ： https://docs.mongodb.com/drivers/
 
 ########################################################
 数据库模型设计工具 PDMan : https://github.com/405go/pdman
+########################################################
+环境变量
+vim ~/.bash_profile
+改完后
+source ~/.bash_profile
