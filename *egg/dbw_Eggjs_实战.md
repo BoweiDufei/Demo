@@ -47,4 +47,6 @@ https://www.runoob.com/python3/python3-intro.html
 7，NUXT + eggjs 实现SSR技术 (重要)
 https://github.com/doubi-NO1/egg-nuxt-demo
 
+8，mongodb的所有驱动安装方法 ： https://docs.mongodb.com/drivers/
+
 
