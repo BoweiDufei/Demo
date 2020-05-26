@@ -26,4 +26,8 @@ module.exports = {
     enable: false,
     package: 'egg-redis',
   },
+  cors: {
+    enable: true,
+    package: 'egg-cors',
+  },
 };
