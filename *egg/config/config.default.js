@@ -60,6 +60,17 @@ module.exports = appInfo => {
       db: 0,
     },
   };
+  config.security = {
+    csrf: {
+      enable: false,
+      ignoreJSON: true,
+    },
+    domainWhiteList: [ 'http://127.0.0.1:3000' ],
+  };
+  config.cors = {
+    origin: '*', // 匹配规则  域名+端口  *则为全匹配
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
 
   // add your user config here
   const userConfig = {
