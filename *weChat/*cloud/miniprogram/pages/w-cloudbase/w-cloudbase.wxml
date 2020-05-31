@@ -1,0 +1,4 @@
+<button bindtap="addDataToDB">增加数据</button>
+<button bindtap="removeDataToDB">删除数据</button>
+<button bindtap="updateDataToDB">修改数据</button>
+<button bindtap="queryDataToDB">查询数据</button>
