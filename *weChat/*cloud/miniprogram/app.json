@@ -12,7 +12,8 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room"
+    "pages/im/room/room",
+    "pages/w-cloudbase/w-cloudbase"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -22,5 +23,17 @@
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "style": "v2",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "官方实例"
+      },
+      {
+        "pagePath": "pages/w-cloudbase/w-cloudbase",
+        "text": "云数据库"
+      }
+    ]
+  }
 }
