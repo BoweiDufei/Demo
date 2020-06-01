@@ -9,3 +9,5 @@ go get -u github.com/tidwall/gjson
 //go get go.mongodb.org/mongo-driver/mongo
 go mod 的包管理教程：https://www.jianshu.com/p/bbed916d16ea
 引入包方法 import "XXXX/tool"
+############################################
+go语言很好的博客https://www.cnblogs.com/endurance9/p/10434738.html
