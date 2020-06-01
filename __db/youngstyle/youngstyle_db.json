@@ -185,6 +185,198 @@
           ],
           "chnname": "users",
           "nameTemplate": "{code}[{用户信息}]"
+        },
+        {
+          "title": "sport_types",
+          "fields": [
+            {
+              "name": "typeId",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "类型id",
+              "pk": true,
+              "notNull": true
+            },
+            {
+              "name": "userId",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "创建人"
+            },
+            {
+              "name": "create_time",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "typeName",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "类型名字"
+            },
+            {
+              "name": "desc",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "解释说明"
+            },
+            {
+              "name": "showflag",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "是否显示"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "sport_types",
+          "nameTemplate": "{code}[{运动类型列表}]",
+          "remark": "比如：街舞、跆拳道、泰拳等等"
+        },
+        {
+          "title": "organizations",
+          "fields": [
+            {
+              "name": "organId",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "组织id",
+              "pk": true,
+              "notNull": true
+            },
+            {
+              "name": "userId",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "创建人"
+            },
+            {
+              "name": "typeId",
+              "type": "IdOrKey",
+              "remark": "",
+              "chnname": "运动类型id"
+            },
+            {
+              "name": "createtime",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间"
+            },
+            {
+              "name": "desc",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "解释说明"
+            },
+            {
+              "name": "img",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "组织头像"
+            },
+            {
+              "name": "organName",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "组织名字"
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "organizations",
+          "nameTemplate": "{code}[{培训组织}]",
+          "remark": "比如：青春派街舞等等"
         }
       ],
       "graphCanvas": {
@@ -193,8 +385,8 @@
             "shape": "table",
             "title": "user_auths",
             "moduleName": false,
-            "x": 184.81217662978466,
-            "y": 112.74947440881101,
+            "x": 230,
+            "y": 60,
             "id": "f6f41e71"
           },
           {
@@ -204,6 +396,22 @@
             "x": 790,
             "y": 120,
             "id": "93b9c16a"
+          },
+          {
+            "shape": "table",
+            "title": "sport_types",
+            "moduleName": false,
+            "x": 30,
+            "y": 300,
+            "id": "9ea771e9"
+          },
+          {
+            "shape": "table",
+            "title": "organizations",
+            "moduleName": false,
+            "x": 412.5961293815674,
+            "y": 366.7263721287345,
+            "id": "98bc1188"
           }
         ],
         "edges": [
@@ -219,12 +427,69 @@
                 "y": 92.28846153846153
               },
               {
-                "x": 499.12370006728463,
-                "y": 105.1917821011187
+                "x": 544.3115234375,
+                "y": 52.44230769230769
               }
             ],
             "sourceAnchor": 0,
             "targetAnchor": 3
+          },
+          {
+            "shape": "erdRelation",
+            "relation": "0,n:1",
+            "source": "9ea771e9",
+            "target": "93b9c16a",
+            "id": "f3cbc485",
+            "controlPoints": [
+              {
+                "x": 154.109375,
+                "y": 282.3833333333333
+              },
+              {
+                "x": 659.7275390625,
+                "y": 92.28846153846153
+              }
+            ],
+            "sourceAnchor": 3,
+            "targetAnchor": 0
+          },
+          {
+            "shape": "erdRelation",
+            "relation": "0,n:1",
+            "source": "98bc1188",
+            "target": "9ea771e9",
+            "id": "a52853f6",
+            "controlPoints": [
+              {
+                "x": 283.8139028190674,
+                "y": 359.18225448167567
+              },
+              {
+                "x": 154.109375,
+                "y": 262.25
+              }
+            ],
+            "sourceAnchor": 4,
+            "targetAnchor": 1
+          },
+          {
+            "shape": "erdRelation",
+            "relation": "0,n:1",
+            "source": "98bc1188",
+            "target": "93b9c16a",
+            "id": "e827b94c",
+            "controlPoints": [
+              {
+                "x": 541.3783559440674,
+                "y": 339.0646074228522
+              },
+              {
+                "x": 659.7275390625,
+                "y": 92.28846153846153
+              }
+            ],
+            "sourceAnchor": 3,
+            "targetAnchor": 0
           }
         ]
       },
@@ -238,6 +503,39 @@
           "to": {
             "entity": "user_auths",
             "field": "user_id"
+          }
+        },
+        {
+          "relation": "0,n:1",
+          "from": {
+            "entity": "sport_types",
+            "field": "userId"
+          },
+          "to": {
+            "entity": "users",
+            "field": "id"
+          }
+        },
+        {
+          "relation": "0,n:1",
+          "from": {
+            "entity": "organizations",
+            "field": "typeId"
+          },
+          "to": {
+            "entity": "sport_types",
+            "field": "typeId"
+          }
+        },
+        {
+          "relation": "0,n:1",
+          "from": {
+            "entity": "organizations",
+            "field": "userId"
+          },
+          "to": {
+            "entity": "users",
+            "field": "id"
           }
         }
       ]
