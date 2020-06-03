@@ -1,0 +1,13 @@
+
+
+1、新建项目
+npx create-nuxt-app XXX
+2，选择配置 - 要选择SSR渲染
+3，安装axios、 npm install --save axios
+4，异步获取数据方式，一定要是 query
+
+  async asyncData ({ query }) {
+    const { data } = await axios.get(`http://127.0.0.1:7001/api/search21?id=${query.id}`)
+    return { title: data }
+  }
+搞定！！
