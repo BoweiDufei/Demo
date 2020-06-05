@@ -48,25 +48,13 @@ class DownController extends Controller {
     console.log(`range = ${range}`);
     if (range) {
       let [ , start, end ] = range.match(/(\d*)-(\d*)/);
-
-      // eslint-disable-next-line no-unused-vars
-      // let statObj = {};
-      // try {
-      //   statObj = fs.statSync(filePath);
-      // } catch (e) {
-      //   this.ctx.body = '错误';
-      //   return;
-      // }
       const total = (await this.ctx.helper.promisify(fs.stat)(filePath)).size;
-      // const total = statObj.size;
-      console.log(`totlal ==== ${total}`);
       // 处理请求头中范围参数不传的问题
       start = start ? parseInt(start) : 0;
       end = end ? parseInt(end) : total - 1;
       this.ctx.statusCode = 206;
       this.ctx.set('Accept-Ranges', 'bytes');
       this.ctx.set('Content-Range', `bytes ${start}-${end}/${total}`);
-      console.log(`fileSize3 = ${total} start3=${start} end3=${end}`);
       this.ctx.body = fs.createReadStream(filePath, { start, end });
     } else {
       this.ctx.body = fs.createReadStream(filePath);
