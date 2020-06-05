@@ -54,10 +54,9 @@ class DownController extends Controller {
       // 处理请求头中范围参数不传的问题
       start = start ? parseInt(start) : 0;
       end = end ? parseInt(end) : total - 1;
-      this.ctx.body.statusCode = 206;
-      this.ctx.body.setHeader("Accept-Ranges", "bytes");
-      this.ctx.body.setHeader("Content-Range", `bytes ${start}-${end}/${total}`);
-      console.log(`start = ${start} end = ${end}`)
+      this.ctx.response.statusCode = 206;
+      this.ctx.response.set("Accept-Ranges", "bytes");
+      this.ctx.response.set("Content-Range", `bytes ${start}-${end}/${total}`);
       this.ctx.body = fs.createReadStream(filePath, start, end);
     }else{
       this.ctx.body = fs.createReadStream(filePath);
