@@ -38,27 +38,37 @@ class DownController extends Controller {
   /**
    * @summary 下载
    * @description nodejs版本大文件之断点下载 https://www.chrunlee.cn/article/nodejs-file-range-download.html
-   * @router get /api/superdown
+   * @router get /api/superdown/:file
    * @response 200 uploadBaseResponse 创建成功
    */
   async superDown() {
     const fs = require('fs');
-    const filePath = 'app/public/DBWJBQ.zip';
+    const filePath = 'app/public/' + this.ctx.params.file;
     const range = this.ctx.request.headers.range;
-    console.log(`range = ${range}`)
-    if(range){
-      console.log('------->-----')
-      const [, start, end] = range.match(/(\d*)-(\d*)/);
+    console.log(`range = ${range}`);
+    if (range) {
+      let [ , start, end ] = range.match(/(\d*)-(\d*)/);
+
+      // eslint-disable-next-line no-unused-vars
+      // let statObj = {};
+      // try {
+      //   statObj = fs.statSync(filePath);
+      // } catch (e) {
+      //   this.ctx.body = '错误';
+      //   return;
+      // }
       const total = (await this.ctx.helper.promisify(fs.stat)(filePath)).size;
-      console.log(`fileSize = ${total}`);
+      // const total = statObj.size;
+      console.log(`totlal ==== ${total}`);
       // 处理请求头中范围参数不传的问题
       start = start ? parseInt(start) : 0;
       end = end ? parseInt(end) : total - 1;
-      this.ctx.response.statusCode = 206;
-      this.ctx.response.set("Accept-Ranges", "bytes");
-      this.ctx.response.set("Content-Range", `bytes ${start}-${end}/${total}`);
-      this.ctx.body = fs.createReadStream(filePath, start, end);
-    }else{
+      this.ctx.statusCode = 206;
+      this.ctx.set('Accept-Ranges', 'bytes');
+      this.ctx.set('Content-Range', `bytes ${start}-${end}/${total}`);
+      console.log(`fileSize3 = ${total} start3=${start} end3=${end}`);
+      this.ctx.body = fs.createReadStream(filePath, { start, end });
+    } else {
       this.ctx.body = fs.createReadStream(filePath);
     }
   }
