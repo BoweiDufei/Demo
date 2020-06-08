@@ -36,5 +36,7 @@ https://www.runoob.com/python3/python3-intro.html
 7，NUXT + eggjs 实现SSR技术 (重要)
 https://github.com/doubi-NO1/egg-nuxt-demo
 
+8，协同过滤推荐算法 https://github.com/TSonono/collaborative-filtering#readme
+
 
 
