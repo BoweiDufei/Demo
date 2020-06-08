@@ -1648,6 +1648,21 @@ class Dbw_mongooseController extends Controller {
     // this.ctx.body = 'aaa';
   }
 
+  /**
+   * @summary 协同过滤算法
+   * @description
+   * @router get /api/search50
+   * @response 200 baseResponse 创建成功
+   */
+  async search50() {
+    const ratings = [
+      [ 1, 1, 1 ],
+      [ 1, 0, 1 ],
+      [ 1, 0, 0 ],
+    ];
+    const result = await this.ctx.service.filter.startFilterMethod(ratings, 2);
+    this.ctx.helper.success(this.ctx, result);
+  }
 }
 
 module.exports = Dbw_mongooseController;

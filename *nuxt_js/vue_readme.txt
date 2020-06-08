@@ -152,6 +152,7 @@ const result = await axios.get('http://localhost:3000?id=xxx');
 
 
 13 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+官网：https://router.vuejs.org/zh/guide/#html
 路由 vue-router
 安装1、 npm install vue-router -s
    2、 在main.js 中引入 
