@@ -181,3 +181,115 @@ const result = await axios.get('http://localhost:3000?id=xxx');
           <router-view></router-view> 放在App.vue里面
       6，设置路由切换按钮
           <router-link to="/myhome">myhome</router-link>
+
+14 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+动态路由 
+  1> 新建组件 Content.vue
+  2> main.js中引入
+     import Content from './components/Content.vue'
+     { path: '/content/:id', component: Content },
+  3> 触发跳转 <router-link to="/content/123">跳转新闻详情</router-link>
+     <router-link :to="'/content/'+index">跳转新闻详情</router-link> （注意这种写法）
+  4> 在Content组件中使用id方法： {{this.$route.params.id}}
+     同理，如果获取?拼接后面的参数：{{this.$route.query.id}}
+
+
+15 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+编程式导航 
+     path路由跳转
+  1> this.$router.push({path: '/content/123123'}); 
+  2> 命名路由 
+     this.$router.push({name: 'product'}) // 不传参
+     this.$router.push({name: 'content',params:{id:'lfkdjaklsdf'}}) // 传参
+
+     history 了解
+
+16 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+嵌套路由
+  0> 新建几个子路由 UserList、AddUser
+  1> 新建主路由 MainUser.vue
+  2> main.js 中引用MainUser 和 UserList、AddUser
+     import MainUser from './components/MainUser.vue'
+     import AddUser from './components/user/AddUser.vue';
+     import UserList from './components/user/UserList.vue';
+  3> 配置嵌套路由
+     {
+        path: '/mainUser' ,
+        component: MainUser,
+        children: [
+          {
+            path: '/',  // 默认路由
+            component: AddUser
+          },
+          {
+            path: 'adduser', // 注意没有 /
+            component: AddUser
+          },
+          {
+            path: 'userlist', // 注意没有 /
+            component: UserList
+          },
+        ]
+      }
+  4> 在MainUser配置路由分支
+    <div class="leftBlock">
+      // 一定要注意 router-link to="" 路径要有/
+      <router-link to="/mainUser/adduser">增加用户</router-link>
+      <br>
+      <router-link to="/mainUser/userlist">用户列表</router-link>
+    </div>
+    <div class="rightBlock">
+      <router-view></router-view>
+    </div>
+
+17 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+VUEX 解决不同组件数据共享以及数据持久化
+小项目不建议使用vuex 建议使用localstorage
+安装vuex     npm install vuex --save
+使用 1，在src下新建一个vuex的文件夹
+    2，在vuex文件夹下新建一个store.js
+    3，在store.js中添加代码
+
+    import Vue from 'vue'
+    import Vuex from 'vuex'
+
+    Vue.use(Vuex);
+    /**1，在vue中主要用于存储数据 */
+    var state = {
+      count:1
+    }
+    /**2，mutations 主要放的是方法，用于改变state中的数据 */
+    var mutations = {
+      increseCount(){
+        state.count++;
+      },
+      setCountNumber(state, value){ // 直接修改count数值 注意参数
+        state.count = value;
+      }
+    }
+    const store = new Vuex.Store({
+      state,
+      mutations
+    })
+    export default store
+
+    4> vuex的使用 （展示数据）
+      1、在<script> 中引入 import store from '../../vuex/store.js'
+      2、在<script> 中注册  要与data并列平行
+         export default {
+          data() {
+            return {
+              
+            }
+          },
+          store,
+        }
+      3、在合适的地方使用 {{this.$store.state.count}}
+
+      改变数据： this.$store.commit('increseCount') //触发increseCount方法
+      如果直接修改数据 this.$store.commit('setCountNumber',100)
+
+
+
+    
+
