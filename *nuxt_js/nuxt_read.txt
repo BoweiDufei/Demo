@@ -4,6 +4,7 @@
 npx create-nuxt-app XXX
 2，选择配置 - 要选择SSR渲染
 3，安装axios、 npm install --save axios
+npm install swiper vue-awesome-swiper --save
 4，异步获取数据方式，一定要是 query
 
   async asyncData ({ query }) {
