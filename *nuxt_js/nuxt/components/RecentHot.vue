@@ -30,7 +30,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .hotLeft{
@@ -38,13 +38,13 @@ export default {
     margin-right: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 .hotLeft .hotLeftTitle {
     font-size: 30px;
     color: white;
-    align-self: start;
+    align-self: flex-start;
     margin-bottom: 25px;
 }
 
