@@ -1,16 +1,14 @@
 <template>
-    <div class="loginMainContainer">
-        <div class="loginWindow">
-            <div class="loginTopNav">
-                登录
+    <div class="registryMainContainer">
+        <div class="registryWindow">
+            <div class="registryTopNav">
+                注册
             </div>
-            <div class="loginContent">
+            <div class="registryContent">
                 <el-input class="elementInput" v-model="account" placeholder="请输入账号"></el-input>
                 <el-input class="elementInput" v-model="psd" placeholder="请输入密码" show-password></el-input>
-                <el-button class="elementLogin" type="primary">登录</el-button>
-            </div>
-            <div class="registryDiv">
-                <el-button class="elementRegistry" plain @click="registryBtnClick">注册</el-button>
+                <el-input class="elementInput" v-model="repsd" placeholder="请再次输入密码" show-password></el-input>
+                <el-button class="elementregistry" type="primary">注册</el-button>
             </div>
         </div>
     </div>
@@ -24,19 +22,15 @@ export default {
     data() {
         return {
             account:'',
-            psd:''
-        }
-    },
-    methods: {
-        registryBtnClick(){
-            this.$router.push('/login/registry')
+            psd:'',
+            repsd:''
         }
     },
 }
 </script>
 
 <style scolped>
-    .loginMainContainer{
+    .registryMainContainer{
         width: 100%;
         height: 100vh;
         display: flex;
@@ -44,7 +38,7 @@ export default {
         justify-content: flex-start;
         align-items: center;
     }
-    .loginWindow{
+    .registryWindow{
         width: 428px;
         height: 430px;
         background-color: rgb(250, 250, 250);
@@ -54,7 +48,7 @@ export default {
         justify-content: flex-start;
         border-radius: 12px;
     }
-    .loginWindow .loginTopNav{
+    .registryWindow .registryTopNav{
         height: 117px;
         width: 100%;
         background-color:rgb(89, 93, 172);
@@ -66,14 +60,14 @@ export default {
         justify-content: center;
         border-radius: 12px 12px 0px 0px;
     }
-    .loginContent{
+    .registryContent{
         padding: 20px;
         box-sizing: border-box;
     }
     .elementInput{
         margin-top: 20px;
     }
-    .elementLogin{
+    .elementregistry{
         width: 100%;
         margin-top: 40px;
     }

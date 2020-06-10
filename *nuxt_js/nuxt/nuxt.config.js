@@ -23,12 +23,14 @@ export default {
   ** Global CSS
   */
   css: [
+    {src:'element-ui/lib/theme-chalk/index.css'}
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     '~/plugins/vue-awesome-swiper',
+    '~/plugins/element-ui',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -48,6 +50,7 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
+    },
+    vendor: ['element-ui']
   }
 }

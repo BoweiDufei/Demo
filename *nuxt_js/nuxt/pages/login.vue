@@ -1,6 +1,5 @@
 <template>
-    <div>
-        login-home
+    <div class="loginContainer">
         <nuxt-child />
     </div>
 </template>
@@ -14,5 +13,10 @@ export default {
 </script>
 
 <style scoped>
+
+.loginContainer{
+    width: 100%;
+    height: 100%;
+}
     
 </style>
