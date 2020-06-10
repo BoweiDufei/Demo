@@ -8,13 +8,14 @@
                 <el-input class="elementInput" v-model="account" placeholder="请输入账号"></el-input>
                 <el-input class="elementInput" v-model="psd" placeholder="请输入密码" show-password></el-input>
                 <el-input class="elementInput" v-model="repsd" placeholder="请再次输入密码" show-password></el-input>
-                <el-button class="elementregistry" type="primary">注册</el-button>
+                <el-button class="elementregistry" type="primary" @click="registryBtnClick">注册</el-button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     mounted() {
         
@@ -24,6 +25,36 @@ export default {
             account:'',
             psd:'',
             repsd:''
+        }
+    },
+    methods: {
+        registryBtnClick(){
+            console.log(this.account)
+            if(this.account.length < 6){
+                this.$notify({
+                    title: '提示',
+                    message: '请输入账号',
+                    duration: 1500
+                });
+                return
+            }
+            if(this.psd.length < 6){
+                this.$notify({
+                    title: '提示',
+                    message: '请输入密码',
+                    duration: 1500
+                });
+                return;
+            }
+            if(this.psd !== this.repsd){
+                this.$notify({
+                    title: '提示',
+                    message: '请保证两次密码一致',
+                    duration: 1500
+                });
+                return
+            }
+            axios.post('aaa')
         }
     },
 }

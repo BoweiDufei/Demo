@@ -1,5 +1,10 @@
 <template>
   <div class="mainNuxtEnter">
+    <el-button
+      plain
+      @click="open1">
+      可自动关闭
+    </el-button>
     <nuxt />
   </div>
 </template>
