@@ -7,7 +7,7 @@
             <div class="loginContent">
                 <el-input class="elementInput" v-model="account" placeholder="请输入账号"></el-input>
                 <el-input class="elementInput" v-model="psd" placeholder="请输入密码" show-password></el-input>
-                <el-button class="elementLogin" type="primary">登录</el-button>
+                <el-button class="elementLogin" type="primary" @click="loginBtnClick">登录</el-button>
             </div>
             <div class="registryDiv">
                 <el-button class="elementRegistry" plain @click="registryBtnClick">注册</el-button>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     mounted() {
         
@@ -30,6 +31,59 @@ export default {
     methods: {
         registryBtnClick(){
             this.$router.push('/login/registry')
+        },
+        loginBtnClick(){
+
+            console.log(this.account)
+            if(this.account.length < 6){
+                this.$notify({
+                    title: '提示',
+                    message: '请输入账号',
+                    duration: 1500
+                });
+                return
+            }
+            if(this.psd.length < 6){
+                this.$notify({
+                    title: '提示',
+                    message: '请输入密码',
+                    duration: 1500
+                });
+                return;
+            }
+            let data = {"mobile":this.account,"password":this.psd};
+            axios.post('http://localhost:7001/api/login',data).then(result=>{
+                console.log(result)
+                const d = result.data
+                console.log(d)
+                if(d.code === 0){
+                    const target = d.data
+                    console.log(target)
+                    // 获取到token，存储本地
+                    if(target){
+                        console.log('token')
+                        console.log(target.token)
+                        localStorage.setItem("token", target.token);
+                        localStorage.setItem("userinfo", target.userinfo);
+                        console.log('userinfo')
+                        console.log(target.userinfo)
+                        
+                        this.$notify({
+                            title: '提示',
+                            message: '登录成功',
+                            duration: 2000
+                        });
+                        this.$router.push('/login')
+                    }
+                }else{
+                    const msg = d.error;
+                    this.$notify({
+                        title: '提示',
+                        message: msg,
+                        duration: 2000
+                    });
+                }
+            })
         }
     },
 }
