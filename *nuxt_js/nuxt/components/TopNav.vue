@@ -23,9 +23,10 @@
 
             <!-- 1.3右侧内容 -->
             <div class="rightBlock">
-                <div class="login" @click="loginBtnClick">
+                <div class="login" @click="loginBtnClick" v-if="!loginFlag">
                     登录
                 </div>
+                <div class="manager"  @click="managerBtnClick" v-if="loginFlag">管理</div>
             </div>
 
             </div>
@@ -35,10 +36,20 @@
 
 <script>
 export default {
+    mounted(){
+        const token = localStorage.getItem("token");
+        if (token.length> 0){
+            // 登录成功
+            this.loginFlag = true
+        }else{
+            this.loginFlag = false
+        }
+    },
     name:'TopNav',
     data() {
         return {
             selectedNumber: 0,
+            loginFlag : false,
         }
     },
     props:{
@@ -54,7 +65,10 @@ export default {
             this.topElementClick(this.selectedNumber);
         },
         loginBtnClick(){
-            this.$router.push('/login')
+            this.$router.push('/login/mainlogin')
+        },
+        managerBtnClick(){
+            this.$router.push('/admin/home')
         }
     },
 }
@@ -117,7 +131,7 @@ export default {
   align-items: center;
 }
 
-.rightBlock .login{
+.rightBlock .login, .manager{
   width: 85px;
   height: 35px;
   border-radius: 17.5px;
@@ -126,6 +140,7 @@ export default {
   color: brown;
   cursor: pointer;
 }
+
 
 /* 元素布局 */
 .middle-items-block{
