@@ -31,6 +31,7 @@ export default {
   plugins: [
     '~/plugins/vue-awesome-swiper',
     '~/plugins/element-ui',
+    '~/plugins/providers',
   ],
   /*
   ** Nuxt.js dev-modules

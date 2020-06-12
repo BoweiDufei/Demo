@@ -51,10 +51,9 @@ export default {
                 });
                 return;
             }
-            let data = {"mobile":this.account,"password":this.psd};
-            axios.post('http://localhost:7001/api/login',data).then(result=>{
-                console.log(result)
-                const d = result.data
+            let paramObj = {"mobile":this.account,"password":this.psd};
+            this.$server.login(paramObj).then(d => {
+                
                 console.log(d)
                 if(d.code === 0){
                     const target = d.data
