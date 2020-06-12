@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             account:'',
-            psd:''
+            psd:'',
         }
     },
     methods: {
@@ -52,6 +52,7 @@ export default {
                 return;
             }
             let paramObj = {"mobile":this.account,"password":this.psd};
+            console.log(`发送的参数是:${this.psd}`)
             this.$server.login(paramObj).then(d => {
                 
                 console.log(d)

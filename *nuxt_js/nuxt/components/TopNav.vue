@@ -38,7 +38,7 @@
 export default {
     mounted(){
         const token = localStorage.getItem("token");
-        if (token.length> 0){
+        if (token != null && token.length> 0){
             // 登录成功
             this.loginFlag = true
         }else{

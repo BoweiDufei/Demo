@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL ='http://127.0.0.1:7001'; //填写域名
+axios.defaults.baseURL ='http://localhost:7001'; //填写域名
 //http request 拦截器
 axios.interceptors.request.use(
     config => {
       const token = localStorage.getItem("token");
-      if (token.length > 0) {
+      if (token !=null && token.length > 0) {
         config.headers = {
           'Content-Type':'application/json',
           'Authorization':token
@@ -108,6 +108,7 @@ axios.interceptors.request.use(
      return new Promise((resolve,reject) => {
        axios.post(url,data)
             .then(response => {
+              console.log(response)
               resolve(response.data);
             },err => {
               reject(err)
