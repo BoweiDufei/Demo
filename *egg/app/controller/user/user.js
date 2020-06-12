@@ -183,6 +183,18 @@ class UserController extends Controller {
     await service.user.updateManyChildren();
     return ctx.helper.success(ctx, '存储成功');
   }
+
+
+  /**
+   * @summary 查询用户图片轮播图
+   * @description 查询用户图片轮播图
+   * @router post /auth/getCarousels
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async getCarousels(){
+    this.ctx.body = 'aaa'
+  }
 }
 
 module.exports = UserController;
