@@ -170,5 +170,14 @@ axios.interceptors.request.use(
       },
       login: function(paramObj){
           return post('/api/login',paramObj);
+      },
+      addCarousel: function(paramObj){
+          return post('/auth/addOneCarousel',paramObj);
+      },
+      getCarousels: function(paramObj){
+          return post('/api/getCarousels',paramObj);
+      },
+      deleteOneCarousel: function(paramObj){
+          return post('/auth/deleteOneCarousel',paramObj);
       }
   }

@@ -1,6 +1,6 @@
 <template>
     <div class="homeOutContainer">
-        123123
+        
     </div>
 </template>
 

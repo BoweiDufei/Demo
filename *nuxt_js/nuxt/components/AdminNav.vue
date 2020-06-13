@@ -5,8 +5,8 @@
             <div class="pcHeader">
 
                 <!-- 1.1店标 -->
-                <div class="shopIcon">
-
+                <div class="shopIcon" @click="iconTapMethod">
+                    <img src="http://www.hiphopcn.com.cn/static/img/Hip-hop-logo.png" alt="">
                 </div>
 
                 <!-- 1.2中间内容 -->
@@ -44,13 +44,12 @@ export default {
             }).then(() => {
                 localStorage.setItem("token","")
                 this.$router.push('/home')
-                this.$message({
-                    type: 'success',
-                    message: '退出成功!'
-                });
             }).catch(() => {
 
             });
+        },
+        iconTapMethod(){
+            this.$router.push('/home')
         }
     },
 }

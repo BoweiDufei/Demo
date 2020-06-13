@@ -10,7 +10,7 @@ export default {
         console.log(token)
         if(token.length > 0){
             console.log('登录成功啦')
-            this.$router.push('/admin/home');
+            this.$router.push('/admin/carousel');
         }else{
             this.$router.push('/login/mainlogin');
         }

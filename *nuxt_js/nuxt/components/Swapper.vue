@@ -19,11 +19,11 @@ export default {
         Swiper,
         SwiperSlide
     },
+    props:{
+      list:Array
+    },
     data () {
       return {
-        banners: [ 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2550227348,24176815&fm=15&gp=0.jpg', 
-        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2550227348,24176815&fm=15&gp=0.jpg', 
-        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2550227348,24176815&fm=15&gp=0.jpg' ],
         swiperOption: {
           pagination: {
             el: '.swiper-pagination',
@@ -38,7 +38,20 @@ export default {
     },
     mounted() {
       // this.mySwiper.slideTo(3, 1000, false)
-    }
+      console.log(`this.list = ${this.list}`)
+    },
+    computed: {
+      banners(){
+        var b_list = []
+
+        for (let index = 0; index < this.list.length; index++) {
+          const element = this.list[index];
+          b_list.push(element.pic)
+        }
+
+        return b_list
+      }
+    },
 }
 </script>
 

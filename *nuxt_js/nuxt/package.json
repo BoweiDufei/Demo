@@ -1,0 +1,21 @@
+{
+  "name": "qcp",
+  "version": "1.0.0",
+  "description": "My laudable Nuxt.js project",
+  "author": "DuBowei",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "element-ui": "^2.13.2",
+    "nuxt": "^2.0.0",
+    "swiper": "^5.4.2",
+    "vue-awesome-swiper": "^4.1.1"
+  },
+  "devDependencies": {}
+}
