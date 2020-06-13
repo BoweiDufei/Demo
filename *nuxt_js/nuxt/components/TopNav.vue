@@ -68,7 +68,7 @@ export default {
             this.$router.push('/login/mainlogin')
         },
         managerBtnClick(){
-            this.$router.push('/admin/home')
+            this.$router.push('/admin/carousel')
         }
     },
 }

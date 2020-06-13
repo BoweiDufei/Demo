@@ -184,16 +184,53 @@ class UserController extends Controller {
     return ctx.helper.success(ctx, '存储成功');
   }
 
+  /**
+   * @summary 新增图片轮播图
+   * @description 新增图片轮播图
+   * @router post /auth/addOneCarousel
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async addOneCarousel(){
+    const pic = this.ctx.request.body.pic;
+    if (pic != null && pic.length > 0){
+      let item = this.ctx.request.body
+      item.userId = this.ctx.userId;
+      const result = await this.ctx.model.Carousel.create(item);
+      this.ctx.helper.success(this.ctx, result, '存储成功')
+    }else{
+      this.ctx.helper.fail(this.ctx,{},'请保证有图片链接')
+    }
+    // this.userId
+    // 参数验证
+    // this.ctx.body = 'aaa'
+  }
 
   /**
    * @summary 查询用户图片轮播图
    * @description 查询用户图片轮播图
-   * @router post /auth/getCarousels
+   * @router post /api/getCarousels
    * @request aaa
    * @response 200 baseResponse 创建成功
    */
   async getCarousels(){
-    this.ctx.body = 'aaa'
+    // const userId = this.ctx.userId
+    // console.log('userid = ${userId}')
+    const result = await this.ctx.model.Carousel.find()
+    this.ctx.helper.success(this.ctx, result, '发送成功')
+  }
+  /**
+   * @summary 删除某一图片轮播图
+   * @description 删除某一图片轮播图
+   * @router post /auth/deleteOneCarousel
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async deleteOneCarousel(){
+    const _id = this.ctx.request.body._id
+    console.log('userid = ${userId}')
+    const result = await this.ctx.model.Carousel.deleteOne({_id})
+    this.ctx.helper.success(this.ctx, result, '发送成功')
   }
 }
 

@@ -19,7 +19,7 @@ module.exports = (option, app) => {
         };
       }
       ctx.currentUser = user; // 以后可以直接使用这个获取当前用户
-      ctx.userId = ctx.currentUser;
+      ctx.userId = ctx.currentUser.mobile;
       await next();
     } catch (err) {
       if (err.name === 'TokenExpiredError') {

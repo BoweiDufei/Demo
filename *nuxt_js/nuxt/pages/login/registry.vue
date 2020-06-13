@@ -72,11 +72,6 @@ export default {
                         console.log('userinfo')
                         console.log(target.userinfo)
                         
-                        this.$notify({
-                            title: '提示',
-                            message: '注册成功',
-                            duration: 2000
-                        });
                         this.$router.push('/login')
                     }
                 }else{
