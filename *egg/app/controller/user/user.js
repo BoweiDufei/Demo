@@ -201,9 +201,6 @@ class UserController extends Controller {
     } else {
       this.ctx.helper.fail(this.ctx, {}, '请保证有图片链接');
     }
-    // this.userId
-    // 参数验证
-    // this.ctx.body = 'aaa'
   }
 
   /**
@@ -232,6 +229,65 @@ class UserController extends Controller {
     const result = await this.ctx.model.Carousel.deleteOne({ _id });
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }
+
+
+  /**
+   * @summary 新增文章
+   * @description 新增文章
+   * @router post /auth/addOneArticle
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async addOneArticle() {
+    const content = this.ctx.request.body.content;
+    if (content != null && content.length > 10) {
+      const item = this.ctx.request.body;
+      item.userId = this.ctx.userId;
+      const result = await this.ctx.model.Article.create(item);
+      this.ctx.helper.success(this.ctx, result, '存储成功');
+    } else {
+      this.ctx.helper.fail(this.ctx, {}, '请保证文章内容有效');
+    }
+  }
+
+  /**
+   * @summary 查询用户文章
+   * @description查询用户文章
+   * @router post /auth/getArticles
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async getArticles() {
+    const result = await this.ctx.model.Article.find({ userId: this.ctx.userId });
+    this.ctx.helper.success(this.ctx, result, '发送成功');
+  }
+  /**
+   * @summary 查询用户文章
+   * @description查询用户文章
+   * @router get /api/getDetailArticle
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async getDetailArticle() {
+    const result = await this.ctx.model.Article.find({ _id: this.ctx.query.id });
+    this.ctx.helper.success(this.ctx, result, '发送成功');
+  }
+
+
+  /**
+   * @summary 删除某一文章
+   * @description 删除某一文章
+   * @router post /auth/deleteOneArticle
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async deleteOneArticle() {
+    const _id = this.ctx.request.body._id;
+    console.log('userid = ${userId}');
+    const result = await this.ctx.model.Article.deleteOne({ _id });
+    this.ctx.helper.success(this.ctx, result, '发送成功');
+  }
+
 }
 
 module.exports = UserController;
