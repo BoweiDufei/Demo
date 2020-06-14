@@ -183,5 +183,14 @@ axios.interceptors.request.use(
       },
       uploadPic: function(paramObj){
           return post('/auth/upload/single',paramObj);
-      }
+      },
+      addArticle: function(paramObj){
+        return post('/auth/addOneArticle',paramObj);
+      },
+      getArticles: function(paramObj){
+        return post('/auth/getArticles',paramObj);
+      },
+      getDetailArticle: function(paramObj){
+        return get('/api/getDetailArticle',paramObj);
+      },
   }

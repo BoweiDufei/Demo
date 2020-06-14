@@ -1,32 +1,34 @@
 <template>
   <div>
     <section class="container">
-    <div class="quill-editor" 
-         :content="content"
-         @change="onEditorChange($event)"
-         @blur="onEditorBlur($event)"
-         @focus="onEditorFocus($event)"
-         @ready="onEditorReady($event)"
-         v-quill:myQuillEditor="editorOption"
-         ref="QuillEditor">
-    </div>
-    <div class="btn-container">
-      <el-button @click="sureBtnClick" type="primary">确定</el-button>
-    </div>
+      <el-input  v-model="title" placeholder="请输入标题"></el-input>
+      <el-input class="eleInput" v-model="desc" placeholder="请输入描述"></el-input>
+      <div class="quill-editor" 
+          :content="content"
+          @change="onEditorChange($event)"
+          @blur="onEditorBlur($event)"
+          @focus="onEditorFocus($event)"
+          @ready="onEditorReady($event)"
+          v-quill:myQuillEditor="editorOption"
+          ref="QuillEditor">
+      </div>
+      <div class="btn-container">
+        <el-button @click="sureBtnClick" type="primary">确定</el-button>
+      </div>
     
-    <!-- 文件选择 -->
-    <el-upload
-      class="avatar-uploader"
-      :action="uploadAddress"
-      :headers="headInfo"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload">
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-    </el-upload>
+      <!-- 文件选择 -->
+      <el-upload
+        class="avatar-uploader"
+        :action="uploadAddress"
+        :headers="headInfo"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
 
-  </section>
+    </section>
   </div>
 </template>
 
@@ -53,6 +55,8 @@ const toolbarOptions = [
 export default {
   data () {
     return {
+      title: '',
+      desc: '',
       imageUrl:'',
       content: '<p>I am Example</p>',
       editorOption: {
@@ -88,7 +92,7 @@ export default {
     },
     headInfo(){
 
-      const token = localStorage.getItem("token");
+      const token = window.localStorage.getItem("token");
       let item = {
         'Authorization':token
       }
@@ -109,9 +113,22 @@ export default {
       console.log('editor change!', editor, html, text)
       this.content = html
     },
-    sureBtnClick(){
+    async sureBtnClick(){
       console.log('fdlkajsdlkg')
       console.log(this.content);
+      let item = {}
+      item.title = this.title;
+      item.desc = this.desc;
+      item.content = this.content;
+      const result = await this.$server.addArticle(item)
+      console.log(result)
+      if (result.code == 0){
+        this.$notify({
+          title: '提示',
+          message: '您新增文章成功',
+          duration: 2000
+        });
+      }
     },
     handleAvatarSuccess(res, file) {
       if (res.code == 0) {
@@ -142,6 +159,10 @@ export default {
 
 <style scoped>
 
+.eleInput{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .container{
   background-color: lightcyan;
   padding: 20px;
