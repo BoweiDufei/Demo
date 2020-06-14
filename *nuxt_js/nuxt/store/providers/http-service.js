@@ -165,6 +165,7 @@ axios.interceptors.request.use(
   * 方式：fetch/post/patch/put
   */
   export const server = {
+      localurl:axios.defaults.baseURL,
       exam: function(paramObj){
           return get('',paramObj);
       },
@@ -179,5 +180,8 @@ axios.interceptors.request.use(
       },
       deleteOneCarousel: function(paramObj){
           return post('/auth/deleteOneCarousel',paramObj);
+      },
+      uploadPic: function(paramObj){
+          return post('/auth/upload/single',paramObj);
       }
   }

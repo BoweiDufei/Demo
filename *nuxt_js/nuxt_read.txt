@@ -7,6 +7,7 @@ npx create-nuxt-app XXX
 npm install --save axios
 npm install swiper vue-awesome-swiper --save
 npm i element-ui -S
+npm install vue-quill-editor --save
 4，异步获取数据方式，一定要是 query
 
   async asyncData ({ query }) {

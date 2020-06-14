@@ -97,7 +97,7 @@ export default {
 .adminCenterBlock{
     width: 1170px;
     height: 100%;
-    background-color: skyblue;
+    background-color: lightgoldenrodyellow;
     display: flex;
     font-display: row;
     justify-content: flex-start;
@@ -106,7 +106,6 @@ export default {
 .leftBlock{
     width: 200px;
     height: 100vh;
-    background-color: saddlebrown;
 }
     
 .leftItem{

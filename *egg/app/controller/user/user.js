@@ -191,15 +191,15 @@ class UserController extends Controller {
    * @request aaa
    * @response 200 baseResponse 创建成功
    */
-  async addOneCarousel(){
+  async addOneCarousel() {
     const pic = this.ctx.request.body.pic;
-    if (pic != null && pic.length > 0){
-      let item = this.ctx.request.body
+    if (pic != null && pic.length > 0) {
+      const item = this.ctx.request.body;
       item.userId = this.ctx.userId;
       const result = await this.ctx.model.Carousel.create(item);
-      this.ctx.helper.success(this.ctx, result, '存储成功')
-    }else{
-      this.ctx.helper.fail(this.ctx,{},'请保证有图片链接')
+      this.ctx.helper.success(this.ctx, result, '存储成功');
+    } else {
+      this.ctx.helper.fail(this.ctx, {}, '请保证有图片链接');
     }
     // this.userId
     // 参数验证
@@ -213,11 +213,11 @@ class UserController extends Controller {
    * @request aaa
    * @response 200 baseResponse 创建成功
    */
-  async getCarousels(){
+  async getCarousels() {
     // const userId = this.ctx.userId
     // console.log('userid = ${userId}')
-    const result = await this.ctx.model.Carousel.find()
-    this.ctx.helper.success(this.ctx, result, '发送成功')
+    const result = await this.ctx.model.Carousel.find();
+    this.ctx.helper.success(this.ctx, result, '发送成功');
   }
   /**
    * @summary 删除某一图片轮播图
@@ -226,11 +226,11 @@ class UserController extends Controller {
    * @request aaa
    * @response 200 baseResponse 创建成功
    */
-  async deleteOneCarousel(){
-    const _id = this.ctx.request.body._id
-    console.log('userid = ${userId}')
-    const result = await this.ctx.model.Carousel.deleteOne({_id})
-    this.ctx.helper.success(this.ctx, result, '发送成功')
+  async deleteOneCarousel() {
+    const _id = this.ctx.request.body._id;
+    console.log('userid = ${userId}');
+    const result = await this.ctx.model.Carousel.deleteOne({ _id });
+    this.ctx.helper.success(this.ctx, result, '发送成功');
   }
 }
 
