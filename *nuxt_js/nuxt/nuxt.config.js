@@ -23,8 +23,12 @@ export default {
   ** Global CSS
   */
   css: [
-    {src:'element-ui/lib/theme-chalk/index.css'}
+    {src:'element-ui/lib/theme-chalk/index.css'},
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css',
   ],
+  
   /*
   ** Plugins to load before mounting the App
   */
@@ -32,6 +36,7 @@ export default {
     '~/plugins/vue-awesome-swiper',
     '~/plugins/element-ui',
     '~/plugins/providers',
+    { src: "~plugins/vue-quill-editor.js", ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules

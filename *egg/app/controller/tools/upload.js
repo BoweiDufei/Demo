@@ -30,7 +30,6 @@ class UploadController extends Controller {
     const filename = path.basename(stream.filename); // 文件名称
     // 获取的是个对象，有上传地址和数据库存储地址
     const targetDict = await this.service.tool.getUploadFile(filename);
-    console.log(`获取到的地址为${targetDict.uploadDir}`);
     const writeStream = fs.createWriteStream(targetDict.uploadDir);
     // 文件处理，上传到云存储等等
     try {
@@ -42,10 +41,10 @@ class UploadController extends Controller {
     }
     // 制作缩略图
     const litImg = await this.service.tool.jimpImg(targetDict.uploadDir);
+    console.log('上传方法 成功 并且只做了缩略图');
     // 调用 Service 进行业务处理
     // 设置响应内容和响应状态码
     const url = targetDict.saveDir;
-    console.log(`url = ${url}`);
     // 存储数据库
     const pic = {
       title: filename,
@@ -55,8 +54,7 @@ class UploadController extends Controller {
       jimp02: litImg.img02,
     };
     const result = await this.ctx.model.Picture.create(pic);
-    console.log(result);
-    ctx.helper.success(ctx);
+    ctx.helper.success(ctx, result);
   }
 
   /**
