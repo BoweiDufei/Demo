@@ -288,6 +288,25 @@ class UserController extends Controller {
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }
 
+  /**
+   * @summary 获取某文章爬虫
+   * @description 删除某一文章
+   * @router post /auth/getArticleReptile
+   * @request aaa
+   * @response 200 baseResponse 创建成功
+   */
+  async getArticleReptile() {
+    const address = this.ctx.request.body.address;
+    console.log(address)
+    if (address === null || address.length===0){
+      this.ctx.helper.fail(this.ctx,'请输入address')
+      return
+    }
+    const result = await this.ctx.service.tool.setPcPromise(address)
+    const juice = require('juice')
+    this.ctx.helper.success(this.ctx, juice(result), '发送成功');
+  }
+
 }
 
 module.exports = UserController;

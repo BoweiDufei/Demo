@@ -58,6 +58,23 @@ class ToolService extends Service {
     return path.slice(3).replace(/\\/g, '/');
   }
 
+  // 爬虫设置
+  setPcPromise(url){
+    const request = require('request')
+    return new Promise((resolve, reject)=>{
+      request(url, (error, _, body)=>{
+        if (error) {
+          reject(error)
+        } else {
+          const cheerio = require('cheerio')
+          const $ = cheerio.load(body)
+          const a = $('p').html()
+          resolve(a)
+        }
+      });
+    });
+  }
+
   /**
    * 制作缩略图
   */
