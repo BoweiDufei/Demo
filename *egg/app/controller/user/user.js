@@ -303,8 +303,8 @@ class UserController extends Controller {
       return
     }
     const result = await this.ctx.service.tool.setPcPromise(address)
-    const juice = require('juice')
-    this.ctx.helper.success(this.ctx, juice(result), '发送成功');
+    // const juice = require('juice')
+    this.ctx.helper.success(this.ctx, result, '发送成功');
   }
 
 }
