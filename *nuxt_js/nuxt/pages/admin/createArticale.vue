@@ -3,6 +3,10 @@
     <section class="container">
       <el-input  v-model="title" placeholder="请输入标题"></el-input>
       <el-input class="eleInput" v-model="desc" placeholder="请输入描述"></el-input>
+      <div class="addressDiv">
+        <el-input class="eleAddressInput" v-model="address" placeholder="请输入连接地址"></el-input>
+        <el-button @click="addressBtnClick" type="primary">发送</el-button>
+      </div>
       <div class="quill-editor" 
           :content="content"
           @change="onEditorChange($event)"
@@ -58,6 +62,7 @@ export default {
       title: '',
       desc: '',
       imageUrl:'',
+      address:'',
       content: '<p>I am Example</p>',
       editorOption: {
         // some quill options
@@ -100,6 +105,19 @@ export default {
     }
   },
   methods: {
+    async addressBtnClick(){
+      console.log('addressBtnClick')
+      if(this.address.length == 0){
+        return
+      }
+      var item = {}
+      item.address = this.address;
+      const result = await this.$server.getArticleReptile(item)
+      if(result.code == 0){
+        console.log(result.data)
+        this.content = result.data;
+      }
+    },
     onEditorBlur(editor) {
       console.log('editor blur!', editor)
     },
@@ -162,6 +180,19 @@ export default {
 .eleInput{
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.addressDiv{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.eleAddressInput{
+  background-color: rosybrown;
+  margin-bottom: 10px;
+  width: 100%;
+  align-self: flex-start;
 }
 .container{
   background-color: lightcyan;

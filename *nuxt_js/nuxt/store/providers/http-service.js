@@ -193,4 +193,7 @@ axios.interceptors.request.use(
       getDetailArticle: function(paramObj){
         return get('/api/getDetailArticle',paramObj);
       },
+      getArticleReptile: function(paramObj){
+        return post('/auth/getArticleReptile',paramObj);
+      },
   }
