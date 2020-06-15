@@ -69,10 +69,13 @@ class ToolService extends Service {
           const cheerio = require('cheerio')
           const $ = cheerio.load(body)
           let target = []
-          $('p').each(function(i, ele){
-            const txt = $(ele).text();
-            const richTxt = `<p style="text-indent:2em;">${txt}</p>`
-            target.push(richTxt)
+
+          $('*').each(function(i, ele){
+            if ($(ele).is('p')){
+              const txt = $(ele).text();
+              const richTxt = `<p style="text-indent:2em; line-height:22px; font-size:16px;">${txt}</p>`
+              target.push(richTxt)
+            }
           })
           const w = target.join('<br>');
           resolve(w)
