@@ -68,8 +68,14 @@ class ToolService extends Service {
         } else {
           const cheerio = require('cheerio')
           const $ = cheerio.load(body)
-          const a = $('p').html()
-          resolve(a)
+          let target = []
+          $('p').each(function(i, ele){
+            const txt = $(ele).text();
+            const richTxt = `<p style="text-indent:2em;">${txt}</p>`
+            target.push(richTxt)
+          })
+          const w = target.join('<br>');
+          resolve(w)
         }
       });
     });
