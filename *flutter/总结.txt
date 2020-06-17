@@ -17,6 +17,7 @@ var Flutter = {
 
 // 快捷键 fim = import 'package:flutter/material.dart'
 // main方法是入口
+// o 切换 ios和安卓模式
 
 // 自定义组件 - 其实就是创建一个类
 class XXX extends StatelessWidget {} // 重写build抽象方法
