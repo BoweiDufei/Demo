@@ -1,0 +1,44 @@
+var Flutter = {
+	"创建一个Flutter项目":{
+		"1":"CD到某个路径",
+		"2":"flutter create -i objc -a java XXXX... (名字不能使用横线，可以使用下划线)"
+		
+	},
+	"VSCode打开命令面板":"shift + cmd + p",
+	"VSCode创建项目":"打开命令面板后 flutter new project",
+	"VSCode命令列出模拟器列表":"flutter emulator",
+	"VSCode命令打开其中一个模拟器":"flutter emulator --launch ...(模拟器名字)...",
+	"VSCode命令运行flutter":"flutter run",
+	"material官网":"https://material.io/"
+};
+//中文官网 https://flutter.cn/docs/get-started/install/macos
+//json转dart模型网站 ： https://javiercbk.github.io/json_to_dart/
+//flutter插件下载 ： https://pub.dev/
+
+// 快捷键 fim = import 'package:flutter/material.dart'
+// main方法是入口
+
+// 自定义组件 - 其实就是创建一个类
+class XXX extends StatelessWidget {} // 重写build抽象方法
+flutter中所有涉及到数字的都是double类型
+
+MaterialApp通常作为根组件使用，添加导航
+     home(主页)
+		 title(标题)
+		 color(颜色)
+		 theme(主题)
+		 routes(路由)
+
+Scaffold 有一下几个主要属性
+     appbar 显示顶部的导航条
+		 body 当前界面所显示的主要内容
+		 drawer 抽屉菜单
+
+
+// 常用组建的用法
+1 Text ：
+*************** ***************
+textDirection:TextDirection.ltr, // 对齐方式
+style:TextStyle()  // 字体，大小， 
+      *** fontSize
+			*** color:Colors.red
