@@ -38,33 +38,40 @@ Scaffold 有一下几个主要属性
 
 // 常用组建的用法
 1 Text ：
-******************************
+************************************************************
 textDirection:TextDirection.ltr, // 
 textAlign：TextAlign.right, //对齐方式 左右
 overflow：TextOverflow.ellipsis,//文本超出后的显示方式
 textScaleFactor：2, // 文字倍数
 maxLines：最大行数
-style:TextStyle()  // 字体，大小， 
-      *** fontSize
-			*** color:Colors.red
-			*** fontWeight: FontWeight.w300, // 加粗
-			*** fontStyle:FontStyle.italic, // 倾斜
-      *** decoration:TextDecoration.lineThrough // 中划线
-			*** decorationColor:Colors.white // 中划线颜色
-			*** decorationStyle:TextDecorationStyle.dashed, // 虚线
-			*** letterSpacing:5.0, // 字间距
+style:TextStyle()  // 字体，大小
+	*** fontSize
+	*** color:Colors.red
+	*** fontWeight: FontWeight.w300,                 // 加粗
+	*** fontStyle: FontStyle.italic,                 // 倾斜
+	*** decoration: TextDecoration.lineThrough       // 中划线
+	*** decorationColor: Colors.white                // 中划线颜色
+	*** decorationStyle: TextDecorationStyle.dashed, // 虚线
+	*** letterSpacing: 5.0, // 字间距
+
 2 Container :
-******************************
+************************************************************
 child:Widget 
-height: //高
-width: //宽
-margin: // 外距离
-padding: EdgeInsets.all(10)// 内边距
-alignment: Alignment.bottomCenter, // 内部元素方位
+height:    //高
+width:     //宽
+margin:    // 外距离
+padding:   EdgeInsets.all(10)         // 内边距
+alignment: Alignment.bottomCenter,    // 内部元素方位 
 transform: 
-           *** Matrix4.translationValues() // 位移
-					 *** Matrix4.rotationZ(0.4) // 旋转 +正时针 -逆时针
-decoration: BoxDecoration() // 装饰器
-           *** color: 容器背景色
-					 *** border:Border.all() // 边框颜色、宽度
-					 *** borderRadius:BorderRadius.all(Radius.circular(8)) // 圆角
+        *** Matrix4.translationValues()  // 位移
+		*** Matrix4.rotationZ(0.4)       // 旋转 +正时针 -逆时针
+decoration: BoxDecoration()              // 装饰器
+        *** color: 容器背景色
+		*** border:Border.all() // 边框颜色、宽度
+		*** borderRadius:BorderRadius.all(Radius.circular(8)) // 圆角
+		*** boxShadow:[ BoxShadow() ] , //阴影，里面阴影元素
+
+
+
+
+
