@@ -71,6 +71,99 @@ decoration: BoxDecoration()              // 装饰器
 		*** borderRadius:BorderRadius.all(Radius.circular(8)) // 圆角
 		*** boxShadow:[ BoxShadow() ] , //阴影，里面阴影元素
 
+3，图片组件
+************************************************************
+Image.asset，本地图片
+Image.network("http://....png") //远程图片
+      *** alignment:Alignment.topLeft // 左上角
+			*** color:Colors.yellow,
+			*** colorBlendModel: BlendMode.luminosity, // 混合颜色
+			*** fit:BoxFit.cover  //（重要）图片覆盖模式不变形充满整个容器
+			              .fill // 变形充满容器
+										.fillWidth // 横向充满
+		  *** repeat:ImageRepeat.repeatX; x轴平铺
+
+圆角和圆形图片有两种方法
+1，Container + decoration + image + networkimage
+      *** decoration: BoxDecoration()
+			    *** borderRadius: BorderRadius.circular(150),
+					*** image: DecorationImage()
+					          *** image: NetworkImage("src")
+										*** fit: BoxFit.cover
+2，Container + child +  ClipOval() // 组件 实际用的比较多
+      *** child: ClipOval()
+			            *** child: Image.network("src")
+									*** width:100,
+									*** height:100,
+									*** fit:BoxFit.cover, 
+
+加载本地图片
+1，新建images文件夹
+2，在文件夹中创建2.0x,3.0x,4.0x 三个文件夹 文件夹中都放上图片
+3，找到pubspec.yaml 配置图片
+assets:
+ - images/a.jpeg
+ - images/2.0x/a.jpeg
+ - images/3.0x/a.jpeg
+ - images/4.0x/a.jpeg
+4，代码中使用 Image.asset("images/a.jpeg")
+
+4，ListView 列表组件
+************************************************************
+列表分 1、垂直列表 2、垂直图文列表 3、水平列表 4、动态列表 5、矩阵式列表
+参数
+scrollDirecrion:Axis.horizontal // 水平列表
+                    .vertical   // 垂直列表
+padding:EdgeInsets()
+resolve:
+children:[]
+
+水平方向，设置高度无效；垂直方向，设置宽度无效；所以，一般都把ListView放在Container里面
+
+map方法 
+List<Widget> tmpList = listData.map((value)=>{
+	return ListTitle(
+		title:Text(value["title"])
+	);
+}).toList();
+
+组件的构造函数
+class XXX extends StatelessWidget{
+	List l = new List()
+	XXX(){
+    // this.l
+	}
+}
+私有方法命名 以 _ 开始 调用方法this._getList()，
+Widget _getList(){}
+
+ListView.builder()
+         *** itemCount:10 // 数据长度
+				 *** itemBuilder:(context,index){} // 算法
+
+5，GridView 网格组件
+************************************************************
+两种常用的GridView.count和GridView.builder
+crossAxisCount: 一行的Widget数量
+crossAxisSpacing: 水平Widget间距
+mainAxisSpacing: 垂直Widget间距
+childAspectRatio: 宽高比
+GridView.count() 静态网格
+        ***Children:[]
+				***crossAxisCount:3, // 一行有3列
+				***crossAxisSpacing:10 // 左右间距
+				***mainAxisSpacing:20, // 上下间距
+				***padding:EdgeInsets() // 内边距
+				***childAspectRatio:0.7 // 宽高比
+
+GridView.builder() 动态网格
+        ***itemCount:10, // 数量
+				***itemBuilder:(context,index){},
+				***gridDelegate:SliverGridDelegateWithFixedCrossAxisCount() // 传入的数据和count一样
+				
+
+
+
 
 
 
