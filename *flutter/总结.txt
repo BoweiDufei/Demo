@@ -15,6 +15,8 @@ var Flutter = {
 //json转dart模型网站 ： https://javiercbk.github.io/json_to_dart/
 //flutter插件下载 ： https://pub.dev/
 
+// vscode 插件： Flutter Widget Snippets
+
 // 快捷键 fim = import 'package:flutter/material.dart'
 // main方法是入口
 // o 切换 ios和安卓模式
