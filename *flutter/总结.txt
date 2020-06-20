@@ -162,7 +162,56 @@ GridView.builder() 动态网格
         ***itemCount:10, // 数量
 				***itemBuilder:(context,index){},
 				***gridDelegate:SliverGridDelegateWithFixedCrossAxisCount() // 传入的数据和count一样
-				
+
+
+构造方法传值
+class XXXX extends StatelessWidget{
+	double size;
+	Color color = Colors.red; // 默认值
+	XXXX(this.size,{this.color}){
+
+	}
+
+	build(){}
+}
+		
+6，Row Colum水平布局组件
+************************************************************
+mainAxisAlignment: MainAxisAlignment.center 主轴的排序方式
+                                    ***.spaceEvenly 用的比较多(元素间隔位置一样)
+																		***.stretch 会被拉伸
+crossAxisAlignment: CrossAxisAlignment.center 次轴的排序方式
+children    孩子组件
+
+7，Expand布局
+************************************************************
+Expand 可以结合Row和Colum使用
+Row + Expand(flex:1)  宽度自适应
+注意 Colum子元素不会扩展全部宽度，Colum+Row来实现子元素扩展宽度
+    ListView可以自动扩展全部宽度，也可以使用Colum+ListView来实现子元素扩展宽度
+技巧：间距可以使用SizeBox来实现 也可以使用margin ，一般sb用的最多 
+
+8，Stack层叠组件  Stack与Align， Stack与Positioned实现定位布局
+************************************************************
+Stack+children+Positioned()+child
+               ***left 
+							 ***right 
+							 ***bottom
+							 ***top 
+
+9，AspectRatio组件 相对于父容器
+作用是根据设置调整子元素child的宽高比
+Container+child+AspectRatio+child 
+                ***aspectRatio:(2/1) 
+10， Card组件 卡片组件 主要是有阴影这个功能
+margin , child：子组件 
+shape： 阴影						
+一般使用 Card+Colum 实现ListView的cell样式
+Image.network()可以设置宽高
+             ***width:
+						 ***height:
+专门处理头像的组件 CircleAvatar+backgroundImage+NetworkImage 远程图片		 
+ 
 
 
 
