@@ -211,7 +211,26 @@ Image.network()可以设置宽高
              ***width:
 						 ***height:
 专门处理头像的组件 CircleAvatar+backgroundImage+NetworkImage 远程图片		 
- 
+
+11，wrap组件
+与row和 colum 组件差不多 但是会折行
+directions 主轴的方向，默认水平
+alignment  主轴对齐方式
+spacing 主轴方向间距
+textDirection 文本方向
+verticalDirection children的摆放顺序默认是down见 flex相关属性介绍
+runAlignment  run的对齐方式，run可以理解为新的一行或新的列
+runSpacing run的间距
+使用方法： 
+Wrap(
+	spacing: 10,  // 主轴间距
+	runSpacing: 40, // 纵轴间距
+	alignment: WrapAlignment.end, // 一般不用设置，对齐方式
+	runAlignment: WrapAlignment.spaceAround
+	direction:Axis.vertical, // 元素排列方式
+	children:[]
+)
+
 
 
 
