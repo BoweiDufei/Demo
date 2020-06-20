@@ -232,6 +232,12 @@ Wrap(
 )
 
 
+12，有状态的组件 statefullWidget
+关键是方法 setState((){
+	this.count++;
+})
+
+
 
 
 
