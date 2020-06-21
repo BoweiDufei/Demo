@@ -237,6 +237,102 @@ Wrap(
 	this.count++;
 })
 
+13 BottomNavigationBar 自定义底部导航条、以及实现页面切换
+************************************************************
+属于scaffold组件
+Scaffold()
+***bottomNavigationVar:BottomNavigationBar()
+常见属性
+items:[<BottomNavigationBarItem>] // BottomNavigationBarItem类型
+currentIndex: // 第几个选中
+onTap:(index){} // 触发的方法
+iconSize:45,
+fixColor: //选中的颜色
+type:BottomNavigationBarType.fixed // 按钮比较多的情况有用
+body:this.list[this._currentIndex] // 动态控制页面的显示
+floatingActionButton: FloatingActionButton(
+	child:
+	onPress:(){}
+)// 浮动按钮
+
+14 路由
+************************************************************
+通过navigator组件来管理导航
+配置路由有两种方式1，基本路由 2，命名路由
+基本路由。
+Navigator.of(context).push()
+                      ***MaterialPageRouter(builder:)
+											                     ***(BuildContext context){
+																						 return SearchPage();
+																					 }
+1 , 基本路由传值 小项目
+class FormPage extends StatelessWidget{
+	String title; // 默认参数
+	FormPage({this.title="表单"}) // 构造方法传值
+}
+
+// 跳转的时候赋值 FormPage(title:"chuanzhi")
+//返回方法 Navigation.of(context).pop()
+
+2，命名路由  大型项目
+要在MaterialApp中配置路由
+routers:{
+	'/form':(context)=>FormPage(),
+	'/search':(context)=>SearchPage(),
+}
+
+// 使用
+Navigator.pushNamed(context,'/sarch');
+
+关键******，命名路由传值，老版本不支持，新版本支持
+:& 1 新增一个类，暴露参数，和使用参数
+class SearchPage extends StatelessWidget{
+	final Map arguments;
+	SearchPage({this.arguments})
+
+	// Text("参数： ${this.arguments!=null?this.arguments['id']:'0'}")
+}
+:& 2 Material 中配置map routers
+final routers = {
+	'/':(context)=>TabPage(), // 根路由
+	'/form':(context)=>FormPage(),
+	'/search':(context,{arguments})=>SearchPage(arguments:arguments),
+}
+:& 3 编写onGenerateRoute方法
+MaterialApp()
+      *** initialRoute: '/', // 初始化加载的路由 不用配置home了
+      *** onGenerateRoute:(RouteSetting settings)
+			      {
+							final String name = settings.name
+							final Function pageContentBuilder = this.routers[name];
+							if (pageContentBuilder != null){
+								if(setting.arguments != null){
+									finale Route route = MaterialPageRoute(
+										builder: (context)=>pageContentBuilder(context,arguments:settings.argument)
+									)
+									return route;
+								}else{
+									final Route route = MaterialPageRoute(
+										builder:(contenx)=>pageContentBuilder(context)
+									)
+									return route;
+								}
+							}
+						}
+
+:& 4 使用
+Navigator.pushNamed(context,'/search',arguments:{
+	'id': 123
+})
+
+
+
+
+
+
+
+
+
 
 
 
