@@ -326,7 +326,69 @@ Navigator.pushNamed(context,'/search',arguments:{
 })
 
 
+15 路由替换，返回子路由
+************************************************************
+替换路由 ，跳转下一个路由，替换上一个，返回直接返回到根目录
+Navigator.of(context).pushReplacementNamed('/register')
+普通轮有， 返回根目路由
+Navigator.of(context).pushAndRemoveUntil(
+	MaterialPageRoute(builder:(context)=>Tabs(),(route)=>route==null)
+)
 
+16 自定义导航 实现顶部tab切换
+************************************************************
+AppBar()
+   *** backgroundColor: //导航背景颜色
+	 *** leading: // 左侧图标 IconButton(icon:) 按钮图标
+	 *** actions: // 导航右侧按钮
+	 *** centerTitle: true // 标题居中显示
+
+DefaultTabController()
+  *** length:2
+	*** child:Scaffold()
+	          ***AppBar()
+						    ***bottom: TabBar(
+									tabs:[<Tab>]
+									...
+								)
+						***body:TabBarView()
+TabBar常见属性
+tabs : 显示标签内容，一般使用tab对象
+controller ： TabController对象
+isScrollable ： 是否可滚动 （如果标签比较多，可以开启）
+indicatorColor ： 指示器颜色
+indicator  ： 指示器decoration，比如边框等等
+unselectedLabelColor ： 未选中的颜色
+indicatorSize : TabBarIndicatorSize.label // 指示器宽度
+
+
+17 通过TabController来实现切换tab切换
+************************************************************
+1> 组件必须是statefulWidget
+2> 实现类SingleTickerProviderStateMixin
+state<AppBarDemoPage> with SingleTickerProviderStateMixin
+3> 初始化方法中实例
+void initState(){
+	super.initState()
+	_tabController = new TabController(vsync:this,length:3)
+	_tabController.addListener((){
+		print(_tabController.index) // 当前选中的组件
+	});
+}
+4> 在AppBar中设置tab，并且设置controller为:_tabController
+  ***AppBar()
+						    ***bottom: TabBar(
+									tabs:[<Tab>]
+									controller: _tabController,
+								)
+5> 在body:TabBarView(
+	controller: _tabController,
+	children:<Widget>[]
+)
+6> void dispose(){
+	super.dispose();
+	_tabController.dispose();
+}
 
 
 
