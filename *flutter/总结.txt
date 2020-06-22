@@ -291,6 +291,7 @@ class SearchPage extends StatelessWidget{
 	SearchPage({this.arguments})
 
 	// Text("参数： ${this.arguments!=null?this.arguments['id']:'0'}")
+	// statefullWidget使用widget.arguments
 }
 :& 2 Material 中配置map routers
 final routers = {
