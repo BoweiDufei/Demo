@@ -242,13 +242,13 @@ Wrap(
 属于scaffold组件
 Scaffold()
 ***bottomNavigationVar:BottomNavigationBar()
-常见属性
-items:[<BottomNavigationBarItem>] // BottomNavigationBarItem类型
-currentIndex: // 第几个选中
-onTap:(index){} // 触发的方法
-iconSize:45,
-fixColor: //选中的颜色
-type:BottomNavigationBarType.fixed // 按钮比较多的情况有用
+		常见属性
+		items:[<BottomNavigationBarItem>] // BottomNavigationBarItem类型
+		currentIndex: // 第几个选中
+		onTap:(index){} // 触发的方法
+		iconSize:45,
+		fixColor: //选中的颜色
+		type:BottomNavigationBarType.fixed // 按钮比较多的情况有用
 body:this.list[this._currentIndex] // 动态控制页面的显示
 floatingActionButton: FloatingActionButton(
 	child:
@@ -262,9 +262,9 @@ floatingActionButton: FloatingActionButton(
 基本路由。
 Navigator.of(context).push()
                       ***MaterialPageRouter(builder:)
-											                     ***(BuildContext context){
-																						 return SearchPage();
-																					 }
+										***(BuildContext context){
+																return SearchPage();
+															}
 1 , 基本路由传值 小项目
 class FormPage extends StatelessWidget{
 	String title; // 默认参数
@@ -298,32 +298,62 @@ final routers = {
 	'/form':(context)=>FormPage(),
 	'/search':(context,{arguments})=>SearchPage(arguments:arguments),
 }
-:& 3 编写onGenerateRoute方法
+:& 3 编写 onGenerateRoute 方法
 MaterialApp()
       *** initialRoute: '/', // 初始化加载的路由 不用配置home了
-      *** onGenerateRoute:(RouteSetting settings)
-			      {
-							final String name = settings.name
-							final Function pageContentBuilder = this.routers[name];
-							if (pageContentBuilder != null){
-								if(setting.arguments != null){
-									finale Route route = MaterialPageRoute(
-										builder: (context)=>pageContentBuilder(context,arguments:settings.argument)
-									)
-									return route;
-								}else{
-									final Route route = MaterialPageRoute(
-										builder:(contenx)=>pageContentBuilder(context)
-									)
-									return route;
-								}
-							}
+      *** onGenerateRoute:(RouteSettings settings)
+				{
+					final String name = settings.name;
+					final Function pageContentBuilder = routes[name];
+					if (pageContentBuilder != null){
+						if(settings.arguments != null){
+							final Route route = MaterialPageRoute(
+								builder: (context)=>pageContentBuilder(context,arguments:settings.argument)
+							);
+							return route;
+						}else{
+							final Route route = MaterialPageRoute(
+								builder:(context)=>pageContentBuilder(context)
+							);
+							return route;
 						}
+					}
+				};
 
 :& 4 使用
 Navigator.pushNamed(context,'/search',arguments:{
 	'id': 123
 })
+
+
+:&5 封装代码
+Routes.dart:
+****************************************** 上 **********************************************
+final Map routes = {
+  '/': (context) => TabPage(),
+  '/product': (context) => Product(),
+  '/productInfo': (context,{arguments}) => ProductDetailPage(arguments: arguments,), 
+  // 使用 Navigator.pushNamed(context, '/productInfo',arguments: {"id":'我是上个界面传过来的id'});
+};
+
+var onGenerateRoute = (RouteSettings settings) {
+  final String name = settings.name;
+  final Function pageContentBuilder = routes[name];
+  if (pageContentBuilder != null) {
+    if (settings.arguments != null) {
+      final Route route = MaterialPageRoute(
+          builder: (context) =>
+              pageContentBuilder(context, arguments: settings.arguments));
+      return route;
+    } else {
+      final Route route =
+          MaterialPageRoute(builder: (context) => pageContentBuilder(context));
+      return route;
+    }
+  }
+};
+****************************************** 下 **********************************************
+
 
 
 15 路由替换，返回子路由
@@ -339,9 +369,9 @@ Navigator.of(context).pushAndRemoveUntil(
 ************************************************************
 AppBar()
    *** backgroundColor: //导航背景颜色
-	 *** leading: // 左侧图标 IconButton(icon:) 按钮图标
-	 *** actions: // 导航右侧按钮
-	 *** centerTitle: true // 标题居中显示
+	*** leading: // 左侧图标 IconButton(icon:) 按钮图标
+	*** actions: // 导航右侧按钮
+	*** centerTitle: true // 标题居中显示
 
 DefaultTabController()
   *** length:2
