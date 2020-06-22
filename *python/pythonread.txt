@@ -1,0 +1,109 @@
+1，python是跨平台语言，mac自带python，
+一般使用2.7版本的python，因为3.2版本的python很多第三方库不兼容
+在终端输入python可进入python开发环境
+输入exit() 可退出python交互式环境
+
+2，新建h.py 
+print 'Hello world'
+行首不能有空格
+运行python h.py
+
+3， 整数 ，浮点数 字符串事宜''或者“” 括起来的任意文本
+布尔值 True、 False
+布尔值运算 and 、 or 、 not 、in
+空值 None
+Number 数字
+String 字符串 '' 或 ""
+List 列表 []
+Tuple 元祖 (1,2,3) 这些项目不能变
+Dictionary 字典 {'a': A}
+
+comple(3,4) // 复数类型
+
+要求 1>变量名不能是数字开头 2>不能特殊符号 3>下划线
+4> 全部缩写 
+a=1.1
+b=2
+c=True
+d=False
+
+type(d) //查看某个数据类型 = bool
+数字的使用 ***************
+a=5
+b=2
+a**b = 25 (a的b次方)
+a/b 
+a//b （除法结果取整）
+a%b （取余数）
+(a>b) and (a<b) 答案是False
+(a>b) or (a<b) 答案是true
+
+字符串的使用 ***************
+str2="abc"
+print(str2)
+str3="aaa'bcc"  //单引号 双引号
+str3[2]  // 访问某元素
+str3[-1]  // 显示c，从后往前
+str3[0:1]  // 切片访问某个别字符串
+注意，python中字符串是不可改的，不能更改某个元素
+如果真的想改，1 字符串转列表 ，2 列表中修改某元素 3，列表拼成字符串
+str1='abc'
+list1=list(str1)
+list1[0]='A'
+str1=''.join(list1)
+str1 :就是Abc
+
+列表的使用 ***************
+概念就是数组 内容任意
+fruits=['apple','pear','grape',123]
+type(fruits) == list
+l1=[]
+fruits[0]  // 访问
+fruits[-1] // 访问倒数第一个元素
+fruits[0:2] // 访问前两个元素，切片
+遍历
+for var in l2:
+  print(var)
+
+元祖的使用 ***************
+列表可修改，元祖不可以修改
+当元祖只有一个元素，也要加上,
+a=(1,2,4)
+b=(8,) // 不加,就是个int
+print(b)
+print(a[1])
+print(a[-1])
+print(a[0:2])
+删除整个元祖 del b  // 跟go语言很像
+len()  // 计算元祖个数
+max(a) // 计算最大值
+min(a) // 计算最小值
+
+字典的使用 ***************
+dict={} // 创建字典
+key唯一，值可以一样
+添加数据或者修改
+dict['a']='A'
+删除某key
+del dict['a']
+len(dict) // 计算字典键值对
+str(dict) // 用字符串的形式展示
+
+
+输入输出的使用 ***************
+input() 函数 [参数] 可有可无 接受标准输入数据，返回字符串类型
+print() 输出函数
+
+age=input('请输入您的年龄')  // age 是字符串
+age=int(age) // 字符串转int
+help(input) // 内置函数查询input使用
+
+
+
+
+5, python通过缩进区分代码块
+a=1
+if a==1:
+  print('a is 1')
+else:
+  print('a is 1')
