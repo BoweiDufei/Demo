@@ -202,7 +202,7 @@ Stack+children+Positioned()+child
 9，AspectRatio组件 相对于父容器
 作用是根据设置调整子元素child的宽高比
 Container+child+AspectRatio+child 
-                ***aspectRatio:(2/1) 
+                ***aspectRatio:(2/1)
 10， Card组件 卡片组件 主要是有阴影这个功能
 margin , child：子组件 
 shape： 阴影						
@@ -303,23 +303,23 @@ final routers = {
 MaterialApp()
       *** initialRoute: '/', // 初始化加载的路由 不用配置home了
       *** onGenerateRoute:(RouteSettings settings)
-				{
-					final String name = settings.name;
-					final Function pageContentBuilder = routes[name];
-					if (pageContentBuilder != null){
-						if(settings.arguments != null){
-							final Route route = MaterialPageRoute(
-								builder: (context)=>pageContentBuilder(context,arguments:settings.argument)
-							);
-							return route;
-						}else{
-							final Route route = MaterialPageRoute(
-								builder:(context)=>pageContentBuilder(context)
-							);
-							return route;
-						}
+			{
+				final String name = settings.name;
+				final Function pageContentBuilder = routes[name];
+				if (pageContentBuilder != null){
+					if(settings.arguments != null){
+						final Route route = MaterialPageRoute(
+							builder: (context)=>pageContentBuilder(context,arguments:settings.argument)
+						);
+						return route;
+					}else{
+						final Route route = MaterialPageRoute(
+							builder:(context)=>pageContentBuilder(context)
+						);
+						return route;
 					}
-				};
+				}
+			};
 
 :& 4 使用
 Navigator.pushNamed(context,'/search',arguments:{
@@ -395,8 +395,8 @@ indicatorSize : TabBarIndicatorSize.label // 指示器宽度
 
 17 通过TabController来实现切换tab切换
 ************************************************************
-1> 组件必须是statefulWidget
-2> 实现类SingleTickerProviderStateMixin
+1> 组件必须是 statefulWidget
+2> 实现类 SingleTickerProviderStateMixin
 state<AppBarDemoPage> with SingleTickerProviderStateMixin
 3> 初始化方法中实例
 void initState(){
@@ -408,10 +408,10 @@ void initState(){
 }
 4> 在AppBar中设置tab，并且设置controller为:_tabController
   ***AppBar()
-						    ***bottom: TabBar(
-									tabs:[<Tab>]
-									controller: _tabController,
-								)
+			***bottom: TabBar(
+					tabs:[<Tab>]
+					controller: _tabController,
+				)
 5> 在body:TabBarView(
 	controller: _tabController,
 	children:<Widget>[]

@@ -47,11 +47,11 @@ v-for需要绑定key
 多个判断 ： <div :class="{red:redFlag,blue:!redFlag}">
 动态内联样式：<div class="red" :style="{width:boxWidth+'px'}">
 ###################
-5，获取dom节点元素 v-model 双向绑定。 
-   使用ref来获取：<input type="text" ref="myinput">  
+5，获取dom节点元素 v-model 双向绑定。
+   使用ref来获取：<input type="text" ref="myinput">
    获取方式：alert(this.$refs.myinput.value)
    使用refs来动态更改box元素颜色 this.$refs.myinput.style.background='red';
-6，执行方法传值 
+6，执行方法传值
 <button @click="clickDeleteData('aaa')">传值</button>
 事件对象传值 最常用两个点：1 获取dom节点 2，获取自定义属性值
 <button data-aid='123' @click="clickEventFn($event)">事件对象</button>
