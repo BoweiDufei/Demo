@@ -3,20 +3,20 @@
 在终端输入python可进入python开发环境
 输入exit() 可退出python交互式环境
 
-2，新建h.py 
+2，新建h.py
 print 'Hello world'
 行首不能有空格
 运行python h.py
 
 3， 整数 ，浮点数 字符串事宜''或者“” 括起来的任意文本
 布尔值 True、 False
-布尔值运算 and 、 or 、 not 、in
+布尔值运算 and 、 or 、 not 、 in
 空值 None
 Number 数字
 String 字符串 '' 或 ""
 List 列表 []
 Tuple 元祖 (1,2,3) 这些项目不能变
-Dictionary 字典 {'a': A}
+Dictionary 字典 {'a': 'A'}
 
 comple(3,4) // 复数类型
 
