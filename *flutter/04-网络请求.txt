@@ -96,9 +96,30 @@ await Dio().post("/info",data:formData)
 
 11, ********************************
 本地存储 使用shared_perferences来实现
+封装 类
+class Storage{
+  static Future<void> setString(key,value) async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString(key,value);
+  }
+  static Future<String> getString(key) async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    return sp.getString(key)
+  }
+  static Future<String> removeString(key) async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.remove(key)
+  }
+}
 
+12, ********************************
+flutter扫描二维码 barcode_scan 
+配置要在androidStudio中配置
+AndroidX错误 要升级androidStudio
 
-
+13, ********************************
+打开外部浏览器，外部应用，拨打电话
+使用url_launcher第三方库实现
 
 
 
