@@ -1,0 +1,41 @@
+
+JSON字符串和Map类型的转换
+
+1, ********************************
+import 'dart:convert'
+var mapData={};
+var strData='{}'
+json.decode(strData) // 将json字符串转为map （屌丝）
+json.encode(mapData) // 将map转为json字符串 （耳膜）
+判断是否是指定类型 userInfo is Map
+
+2, ********************************
+使用http实现网络请求
+http是第三方 在https://pub.dev实现
+
+3, ********************************
+Dio库实现网络请求
+dio是一个强大的Dart Http请求库，支持Restful API、FormData
+拦截器、请求取消、Cookie管理、文件上传/下载、超时、自定义适配器等等
+1> https://pub.dev 中搜索dio
+2> 配置依赖
+获取get方法数据一般步骤
+Response response = await Dio().get(url)
+print(response.data);
+用post发送数据一般步骤
+Map jsonData={
+  
+  "username":"哈哈哈",
+  "age":20
+};
+var apiUrl = "http://***";
+Response response = await Dio().post(apiUrl,data:jsonData)
+print(response.data);
+
+
+
+
+
+
+
+
