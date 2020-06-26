@@ -33,6 +33,70 @@ Response response = await Dio().post(apiUrl,data:jsonData)
 print(response.data);
 
 
+4, ********************************
+flutter 下拉刷新和上拉加载更多
+第三方：easyrefresh 
+在Flutter官方sdk中给我们提供了下拉刷新的组件
+RefreshIndicator。但是没有提供上拉分页加载更多的组件
+在fullter listview中有一个scrollController的属性
+可以控制listview的滑动事件，在这里我们可以根据listview的位置
+来判断是否滑动到底部来加载更多的处理。
+
+上拉加载更多实现！
+ScrollController _scrollController = ScrollController()
+_scrollController.addListener((){
+    // 获取滚动的距离 _scrollController.position.pixels
+    // 获取总距离 _scrollController.position.maxScrollExtent
+    // 当滚动的高度 大于 总距离就触发上拉加载更多方法
+    if (_scrollController.position.pixels > _scrollController.position.maxScrollExtent-40){
+
+    }
+});
+
+
+Listview.build()
+   ***controller:_scrollController
+
+
+5, ********************************
+实现简单的新闻系统
+解析html插件 flutter_html
+简单的html可以用这个组件实现，复杂的使用webview
+
+6, ********************************
+使用flutter的webview来加载远程数据
+flutter_inappbrowser 这个第三方很好用，原生的api，需要重启项目
+必须要是swift工程，oc工程需要做配置 
+
+7, ********************************
+获取设备信息 device_info这个第三方库可以实现
+获取地理位置 amap_location 这个库可以实现 高德地图
+要先申请一个appkey
+获取应用包名android-app-src-main-AndroidManifest.xml中获取package
+
+8, ********************************
+拍照和相册选择 使用image_picker 来实现
+await ImagePicker.pickImage(soruce:,maxWidth:400) // maxWidth可以对图片进行剪切操作
+
+上传图片服务器 可以使用dio库来实现
+FormData formData = FormData.from({
+  "name":"wendux",
+  "age":25,
+  "file":UploadFileInfo(_dir,"xxx.jpg"),
+})
+await Dio().post("/info",data:formData)
+
+9, ********************************
+实现视频播放 使用chewie来实现，基于video_player
+要先配置和安装video_player
+
+10, ********************************
+检测网络连接
+使用第三方connectivity
+
+11, ********************************
+本地存储 使用shared_perferences来实现
+
 
 
 
