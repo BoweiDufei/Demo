@@ -1,0 +1,172 @@
+
+1 实现抽屉效果，侧边栏
+*********************************************
+Scaffold()
+            ***drawer:Drawer() // 左侧侧边栏
+            ***endDrawer:Drawer() // 右侧侧边栏
+CircleAvatar() 专门设置头像切圆形的组件
+Divider() 横线组件
+
+Column + Row + Expanded 实现全横屏布局
+注意Colum和Row的对齐模式 mainAxisAlignment
+
+// 设置抽屉头像专用header
+UserAccountsDrawerHeader
+  ***accountName: // 用户名字
+  ***accountEmail:// 邮箱
+  ***curentAccountPicture: CircleAvatar()***backgroundImage:NetwrokImage() 头像
+  ***decoration:BoxDecoration()***image:DecorationImage()***image：NetworkImage()
+
+侧边栏路由跳转
+点击侧边栏按钮，侧边栏消失，再进行跳转
+Navigator.of(context).pop(); // 隐藏侧边栏 （重要）
+Navigator.pushName(context,'/user')
+
+2 常用的按钮组件
+*********************************************
+RaisedButton 凸起按钮
+FlatButton 扁平化按钮
+OutlineButton 线框按钮
+IconButton 图标按钮
+ButtonBar 按钮组
+FloatingActionButton 浮动按钮
+
+***splashColor: // 水波纹颜色(长按时候会出现)
+***color://背景颜色
+***textColor://字体颜色
+***elevation://阴影
+***shap://按钮切圆角
+             // 圆角
+             ***RoundedRectangleBorder()***borderRadius:BorderRadius.circular(10)
+             ***CircleBorder()***side:BorderSide() // 圆形
+设置按钮宽度高度，在按钮的外部包含一个Container，给这个
+Container设置宽高即可
+
+带图标的按钮 左侧按钮右侧文字的那种
+RaisedButton.icon()
+                         ***icon:
+                         ***label:
+                         ***color:
+                         ***textcolor:
+                         ***onPress:
+最好自定义一个button，封装一下
+ 
+
+3 floatingActionButton 高仿咸鱼按钮
+*********************************************
+scaffold()
+***floatingActionButton:FloatingActionButton()
+                                         ***backgroundColor://背景颜色
+                                         ***child:
+//设置浮动按钮位置
+***floatingActonButtonLocation:FloatingActonButtonLocation.centerDocked
+
+//实现咸鱼效果 思路，修改浮动按钮大小，并放中间遮盖原来的tab
+使用container包装浮动按钮，可以修改浮动按钮大小
+在container中使用margin调整按钮的位置
+
+4 Flutter中的表单
+*********************************************
+TextField 、 CheckBox、Radio（单选）、Switch
+
+TextField（）
+***maxLines：4 多行文本框
+***maxLength：199 最多单词
+***obscureText：true 密码框，文本无法看见
+
+***decoration:InputDecoration()
+      ***hintText：类似于placehold，提示文字
+      ***border:OutlineInputBorder() 边框 与html表单一样
+      ***labelText：提示文本，有动画那种
+      ***labelStyle： 修改文本类型，与text很像
+      ***icon：图标
+
+*********************************************
+获取表单的内容，使用controller
+var _username = TextEditingController()
+
+initState(){
+    _username.text = "初始值"
+}
+ // 赋值
+ TextField(
+  controller:_username
+  onChanged:(value){
+    setState((){
+      _username.text = value
+      })
+   }
+)
+点击按钮获取表单内容
+_username.text 
+
+总结 如果要给TextField赋值初始值，要使用controller，如果不用赋值初始值
+可以不用使用controller，直接在onChanged中进行操作
+
+*********************************************
+// 设置container的宽度与容器宽度一致 （重要）
+width:double.infinity.
+这样是不是就不用使用Column + Row + expand 来实现全屏布局
+可以直接使用Column+Container() 并设置Container的宽度为infinity
+
+*********************************************
+多选框 
+Checkbox（）
+***value: // 是否选中
+***onChanged:(value){}
+***activeColor: // 选中的颜色
+
+单选按钮组
+radio组件
+value:1,
+onChanged:(v){}
+groupValue: this.sex // 必须要配置
+
+多个radio如果groupValue是同一个，那就是按钮组
+RadioListTile
+
+开关Switch
+***value
+***onChanged:(v){
+  setState()
+}
+
+
+
+5 日期
+*********************************************
+分官方日期组件 和第三方组件
+var now = DateTime.now();
+日期转时间戳
+var a = now.millisencondsSinceEpoch // 单位毫秒，13位的时间戳
+时间戳转日期
+DateTime.fromMillisecondsSinceEpoch(a)  // 静态方法
+
+把时间戳转 年月日格式时间（使用第三方裤）
+https://pub.dev 网站里搜 date_format 
+1，第一步安装 在.yaml中配置
+2，引用并使用
+formatDate(DateTime.now(),[yyyy,'年', mm, '-', dd]);
+
+InkWell() 组件，是可以点击的组件 （重要）
+开始日期 DateTime(1980)
+结束日期 DateTime(2100)
+
+flutter 国际化 可自行百度 （重要）
+
+日期时间选择和时间选择器 （使用第三方实现）
+flutter_cupertino_date_picker
+
+
+
+6 图片轮播图  flutter_swiper
+*********************************************
+https://pub.dev 
+1，安装 引入 使用
+
+
+
+
+
+
+
