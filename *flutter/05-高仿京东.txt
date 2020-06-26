@@ -1,0 +1,50 @@
+保持页面的方法 （重要）
+1，with AutomaticKeepAliveClientMiXin
+2，重写 bool get wantKeepAlive=>true;
+3，body：IndexedStatck()
+        *** index:currentIndex,
+				*** children:[]
+
+1，**********************************
+不同手机的缩放比和宽高都是不一样的
+不能直接写数字
+比如Container-height:10，是不对的
+要使用flutter_screeenutil这个第三方库来解决这个问题
+
+ScreenUtil.getInstance().setWidth()
+
+封装屏幕适配第三方flutter_screenutil
+class ScreenAdaper{
+  static init(context){
+    ScreenUtil.instance=ScreenUtil(width:750,height)..init()
+
+  }
+  // 获取高度
+  static height(double value){
+    return ScreenUtil.getInstance().setHeight(value);
+  }
+  // 获取宽度
+  static width(double value){
+    return ScreenUtil.getInstance().setWidth(value);
+  }
+  // 获取屏幕高度
+  static getScreenHeight(){
+    return ScreenUtil.screenHeightDp;
+  }
+}
+
+2，**********************************
+listView中嵌套listView 
+只需要在第二个listView外面包一个container就可以了
+
+3，**********************************
+开发小技巧 p 键盘可以显示布局网格
+使用wrap组件来实现热门推荐
+
+
+
+
+
+
+
+
