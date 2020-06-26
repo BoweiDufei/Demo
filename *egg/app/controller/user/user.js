@@ -297,12 +297,12 @@ class UserController extends Controller {
    */
   async getArticleReptile() {
     const address = this.ctx.request.body.address;
-    console.log(address)
-    if (address === null || address.length===0){
-      this.ctx.helper.fail(this.ctx,'请输入address')
-      return
+    console.log(address);
+    if (address === null || address.length === 0) {
+      this.ctx.helper.fail(this.ctx, '请输入address');
+      return;
     }
-    const result = await this.ctx.service.tool.setPcPromise(address)
+    const result = await this.ctx.service.tool.setPcPromise2(address);
     // const juice = require('juice')
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }

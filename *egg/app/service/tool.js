@@ -59,29 +59,67 @@ class ToolService extends Service {
   }
 
   // 爬虫设置
-  setPcPromise(url){
-    const request = require('request')
-    return new Promise((resolve, reject)=>{
-      request(url, (error, _, body)=>{
+  setPcPromise(url) {
+    const request = require('request');
+    return new Promise((resolve, reject) => {
+      request(url, (error, _, body) => {
         if (error) {
-          reject(error)
+          reject(error);
         } else {
-          const cheerio = require('cheerio')
-          const $ = cheerio.load(body)
-          let target = []
+          const cheerio = require('cheerio');
+          const $ = cheerio.load(body);
+          const target = [];
 
-          $('*').each(function(i, ele){
-            if ($(ele).is('p')){
+          $('*').each(function(i, ele) {
+            if ($(ele).is('p')) {
               const txt = $(ele).text();
               const richTxt = `<p style="text-indent:2em; line-height:22px; font-size:16px;">${txt}</p>`
-              target.push(richTxt)
+              target.push(richTxt);
             }
-          })
+          });
           const w = target.join('<br>');
-          resolve(w)
+          resolve(w);
         }
       });
     });
+  }
+  // 爬虫设置
+  setPcPromise2(url) {
+    const http = require('http');
+    const iconv = require('iconv-lite');
+    const xpath = require('xpath');
+    const dom = require('xmldom').DOMParser;
+
+    return new Promise((resolve, reject) => {
+      http.get(url, function(res) {
+        const htmlData = []; // 用于接收获取到的网页
+        // eslint-disable-next-line no-unused-vars
+        let htmlDataLength = 0;
+
+        res.on('data', function(chunk) {
+          htmlData.push(chunk);
+          htmlDataLength += chunk.length;
+        });
+        res.on('end', function() {
+          // 数据获取完毕后，开始解码
+          const bufferHtmlData = Buffer.concat(htmlData, htmlDataLength);
+          const decodeHtmlData = iconv.decode(bufferHtmlData, 'gbk');
+          const xml = decodeHtmlData;
+          const doc = new dom().parseFromString(xml);
+          const nodes = xpath.select("//*[@id='js_content']/section", doc);
+          const w = nodes.toString();
+          console.log(w);
+          resolve(w);
+        });
+        res.on('error', function(err) {
+          if (err != null) {
+            reject(err);
+          }
+        });
+
+      });
+    });
+
   }
 
   /**
