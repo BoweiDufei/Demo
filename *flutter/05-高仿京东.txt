@@ -75,6 +75,38 @@ IndexedStack 保持页面状态
 大项目使用AutomaticKeepAliveClientMixin
 可是实现部分保持，部分不保持
 
+7，**********************************
+通过事件打开侧边栏
+1>final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+2> Scaffold()*** key:_scaffoldKey // 关联scaffold
+3>监听点击事件
+  _scaffoldKey.currentState.openEndDrawer();
+去掉系统自带的右侧点击按钮
+actions:<Widget>[
+  Text('')
+]
+
+8，**********************************
+ScreenUtil适配字体方法搞一下
+static size(double value){
+  return ScreenUtil.getInstance().setSp(value)
+}
+
+9，**********************************
+Flutter修改主题颜色
+theme: ThemeData{
+  primaryColor:Colors.white,
+}
+10，**********************************
+禁止pageview滑动
+PageView()
+***physics:NeverScrollableScorollPhysics()
+***onPageChanged:(index){
+  //监听滑动
+}
+***children:[]
+***controller:controller
+
 
 
 
