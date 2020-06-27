@@ -41,9 +41,39 @@ listView中嵌套listView
 开发小技巧 p 键盘可以显示布局网格
 使用wrap组件来实现热门推荐
 
+4，**********************************
+JSON的序列化和反序列化
+有两种方式来实现 1，使用dart:convert手动序列化JSON 2，模型类中序列化JSON
+第一个容易出现类型安全，自动补全和编译时异常
+大型项目一般使用第二种
+使用网站 json_to_dart 很重要
+https://javiercbk.github.io/json_to_dart/
 
+List l = [];
+l.forEach((value){}) // for循环
 
+字符串替换，需要添加转义字符
+Sting s = ''
+s.replaceAll('\\','/')
 
+5，**********************************
+域名封装lib-config-Config.dart
+class Config{
+  static domain = 'http://***.com'; // 域名
+}
+使用
+var api = "${Config.domain}/" 
+在return Widget; 之前可以对数据进行一些操作
+flutter所有类型都继承 Object，可以表示任意类型，跟id一样
+
+Divider默认高度是16 ，要改成1
+
+6，**********************************
+大地保持页面状态方法
+IndexedStack 保持页面状态
+小项目适合使用IndexedStack
+大项目使用AutomaticKeepAliveClientMixin
+可是实现部分保持，部分不保持
 
 
 
