@@ -106,9 +106,17 @@ class ToolService extends Service {
           const decodeHtmlData = iconv.decode(bufferHtmlData, 'gbk');
           const xml = decodeHtmlData;
           const doc = new dom().parseFromString(xml);
-          const nodes = xpath.select("//*[@id='js_content']/section", doc);
+          const nodes = xpath.select("//div[@class='image group']", doc);
+
+          for (let index = 0; index < nodes.length; index++) {
+            const element = nodes[index];
+            const elementStr = element.toString();
+            console.log('hrefTxthrefTxt = ',elementStr);
+            const innerDoc = new dom().parseFromString(elementStr);
+            const hrefTxt = xpath.select("//a/text()", innerDoc);
+          }
           const w = nodes.toString();
-          console.log(w);
+          // console.log(w);
           resolve(w);
         });
         res.on('error', function(err) {
