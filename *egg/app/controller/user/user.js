@@ -303,7 +303,25 @@ class UserController extends Controller {
       return;
     }
     const result = await this.ctx.service.tool.setPcPromise2(address);
-    // const juice = require('juice')
+    this.ctx.helper.success(this.ctx, result, '发送成功');
+  }
+
+
+  /**
+   * @summary 爬虫测试
+   * @description 爬虫测试
+   * @router post /api/pcTestMethod
+   * @request bbb
+   * @response 200 baseResponse 创建成功
+   */
+  async pcTextMethod(){
+    const address = this.ctx.request.body.address;
+    console.log(`address = ${address}`);
+    if (address === null) {
+      this.ctx.helper.fail(this.ctx, '请输入address');
+      return;
+    }
+    const result = await this.ctx.service.tool.setPcPromise2(address);
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }
 
