@@ -19,3 +19,8 @@ mongodb的所有驱动安装方法 ： https://docs.mongodb.com/drivers/
 vim ~/.bash_profile
 改完后
 source ~/.bash_profile
+
+
+
+
+

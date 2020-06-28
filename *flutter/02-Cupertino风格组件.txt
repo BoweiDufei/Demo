@@ -83,8 +83,3 @@ child	Widget	页面的主要内容
 middle	Widget	导航栏中间组件，通常为页面标题
 trailing	Widget	导航栏右边组件，通常为菜单按钮
 leading	Widget	导航栏左边组件，通常为返回按钮
-
-作者：腊鸡程序员
-链接：https://www.jianshu.com/p/0093dba9d0e9
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

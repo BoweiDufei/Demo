@@ -198,7 +198,7 @@ showModalBottomSheet()
 自定义dialog对象，需要继承Dialog类，尽管Dialog提供了child参数
 可以用来写师徒界面，但是往往会打不到我们想要的小姑，因为默认的Dialog背景框
 是满屏幕的。如果我们想完全定义界面，就需要重写build函数。
-1> 新建LoadingDialog  MyDialog.dart 
+1> 新建 LoadingDialog  MyDialog.dart 
    class MyDialog extends Dialog{}
 2> 重写build方法
    Widget build(){}
