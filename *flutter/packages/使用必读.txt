@@ -12,3 +12,6 @@ https://www.jianshu.com/p/526ef3cd18d8
   fluttertoast: ^4.0.1
   url_launcher: ^5.4.11
   device_info: ^0.4.2+4
+  date_format: ^1.0.8
+  flutter_cupertino_date_picker: ^1.0.26+2
+  flutter_swiper: ^1.1.6
