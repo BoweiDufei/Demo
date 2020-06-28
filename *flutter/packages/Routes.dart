@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../pages/MainTabPage.dart';
+import '../pages/LocationManager.dart';
 
 final Map routes = {
   '/': (context) => MainTabPage(),
+  '/location':(context) => LocationManager(),
   // 使用 Navigator.pushNamed(context, '/productInfo',arguments: {"id":'我是上个界面传过来的id'});
 };
 
