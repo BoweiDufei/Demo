@@ -1,10 +1,11 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /**选择相册图片 
  * 外部使用 Image.file(File(this.pickedFile.path))
 */
-Future<PickedFile> selectImageFromGallery(
+Future<PickedFile> dbw_selectImageFromGallery(
     {double maxWidth, double maxHeight, int imageQuality}) async {
   try {
     PickedFile pickedFile = await ImagePicker().getImage(
@@ -22,7 +23,7 @@ Future<PickedFile> selectImageFromGallery(
 /**摄像头图片
  * 外部使用 Image.file(File(this.pickedFile.path))
 */
-Future<PickedFile> selectImageFromCamera(
+Future<PickedFile> dbw_selectImageFromCamera(
     {double maxWidth, double maxHeight, int imageQuality}) async {
   try {
     PickedFile pickedFile = await ImagePicker().getImage(
@@ -51,4 +52,25 @@ void dbw_showShortToast(String msg) {
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.CENTER,
   );
+}
+
+/**打开外网 */
+Future<bool> dbw_launchWebURL(String url) async {
+  if (await canLaunch(url)) {
+    return launch(url);
+  } else {
+    return false;
+  }
+}
+/**拨打电话 */
+Future<bool> dbw_launchMobile(String mobileStr) async {
+  if(mobileStr.length == 0){
+    return false;
+  }
+  String url = 'tel:$mobileStr';
+  if (await canLaunch(url)) {
+    return launch(url);
+  } else {
+    return false;
+  }
 }
