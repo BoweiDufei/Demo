@@ -302,8 +302,8 @@ class UserController extends Controller {
       this.ctx.helper.fail(this.ctx, '请输入address');
       return;
     }
-    const result = await this.ctx.service.tool.setPcPromise2(address);
-    this.ctx.helper.success(this.ctx, result, '发送成功');
+    await this.ctx.service.tool.setPcPromise2(address);
+    this.ctx.helper.success(this.ctx, {}, '发送成功');
   }
 
 
@@ -314,7 +314,7 @@ class UserController extends Controller {
    * @request bbb
    * @response 200 baseResponse 创建成功
    */
-  async pcTextMethod(){
+  async pcTextMethod() {
     const address = this.ctx.request.body.address;
     console.log(`address = ${address}`);
     if (address === null) {
