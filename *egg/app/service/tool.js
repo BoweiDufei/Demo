@@ -84,11 +84,56 @@ class ToolService extends Service {
     });
   }
   // 爬虫设置
-  setPcPromise2(url) {
+  async setPcPromise2(url) {
+    const cheerio = require('cheerio');
+    const nodes = await this.getPcBasicContent(url, "//div[@class='image group']");
+    try {
+      for (let index = 0; index < nodes.length; index++) {
+        const element = nodes[index];
+        const elementStr = element.toString();
+        const $ = cheerio.load(elementStr);
+
+        const href = $('.group a').attr('href'); // 跳转路由
+        const titleStr = $('.news_desc h3 a').text(); // 标题
+        const contentStr = $('.news_desc p a').text(); // 简介
+        const imgSrc = $('.grid a img').attr('src'); // 图片
+
+        const item = { href, titleStr, contentStr, imgSrc };
+        const result = await this.ctx.model.Sumarticle.create(item);
+        console.log('result._id = ', result._id);
+
+        // 获取文章内容
+        const detailResult = await this.getDetailArticleMethond(href, result._id, "//*[@id='js_content']");
+        if (!detailResult) {
+          break;
+        }
+      }
+      return true;
+    } catch (error) {
+      console.log(error);
+      console.log('url = ', url);
+      return false;
+    }
+  }
+
+  async getDetailArticleMethond(url, articleId, xpathPath) {
+    try {
+      const nodes = await this.getPcBasicContent(url, xpathPath);
+      const articleStr = nodes.toString();
+      // 开始存储到详情
+      const item = { articleId, articleStr };
+      await this.ctx.model.Detailarticle.create(item);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // 根据url和xpath路径 获取到内容字符串
+  getPcBasicContent(url, xpathPath) {
     const http = require('http');
     const iconv = require('iconv-lite');
     const xpath = require('xpath');
-    const cheerio = require('cheerio');
     const dom = require('xmldom').DOMParser;
 
     return new Promise((resolve, reject) => {
@@ -107,21 +152,8 @@ class ToolService extends Service {
           const decodeHtmlData = iconv.decode(bufferHtmlData, 'gbk');
           const xml = decodeHtmlData;
           const doc = new dom().parseFromString(xml);
-          const nodes = xpath.select("//div[@class='image group']", doc);
-
-          for (let index = 0; index < nodes.length; index++) {
-            const element = nodes[index];
-            const elementStr = element.toString();
-            // console.log('hrefTxthrefTxt = ',elementStr);
-            $ = cheerio.load(elementStr);
-            console.log($('.group a').attr('href'));
-            console.log($('.news_desc h3 a').text());
-            console.log($('.news_desc p a').text());
-            console.log($('.grid a img').attr('src'));
-          }
-          const w = nodes.toString();
-          // console.log(w);
-          resolve(w);
+          const nodes = xpath.select(xpathPath, doc);
+          resolve(nodes);
         });
         res.on('error', function(err) {
           if (err != null) {
