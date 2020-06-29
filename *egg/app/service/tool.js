@@ -88,6 +88,7 @@ class ToolService extends Service {
     const http = require('http');
     const iconv = require('iconv-lite');
     const xpath = require('xpath');
+    const cheerio = require('cheerio');
     const dom = require('xmldom').DOMParser;
 
     return new Promise((resolve, reject) => {
@@ -111,9 +112,12 @@ class ToolService extends Service {
           for (let index = 0; index < nodes.length; index++) {
             const element = nodes[index];
             const elementStr = element.toString();
-            console.log('hrefTxthrefTxt = ',elementStr);
-            const innerDoc = new dom().parseFromString(elementStr);
-            const hrefTxt = xpath.select("//a/text()", innerDoc);
+            // console.log('hrefTxthrefTxt = ',elementStr);
+            $ = cheerio.load(elementStr);
+            console.log($('.group a').attr('href'));
+            console.log($('.news_desc h3 a').text());
+            console.log($('.news_desc p a').text());
+            console.log($('.grid a img').attr('src'));
           }
           const w = nodes.toString();
           // console.log(w);
