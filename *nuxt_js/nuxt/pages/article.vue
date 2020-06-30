@@ -3,13 +3,18 @@
 
     <div class="artM">
 
-      <h1 class="title">
-        {{article.title}}
+      <!-- <h1 class="title">
+        {{article.titleStr}}
       </h1>
       <h3 class="desc">
-        {{article.desc}}
-      </h3>
-      <div class="content" v-html="article.content"></div>
+        {{article.contentStr}}
+      </h3> -->
+      <!-- <section>
+        asdfsdf
+      </section> -->
+      <div class="content" v-html="articleInfo">
+
+      </div>
 
     </div>
 
@@ -25,11 +30,23 @@ export default {
       article:{}
     }
   },
+  computed:{
+    articleInfo(){
+      if(typeof this.article.articleStr == 'string'){
+        const infoStr = this.article.articleStr;
+        const word = infoStr.replace('visibility: hidden','visibility: visible')
+        return word;
+      }else{
+        return '';
+      }
+    }
+  },
   async mounted() {
     console.log('mounted')
     const item = { 'id':this.$route.query.articleId }
-    const result = await this.$server.getDetailArticle(item)
-    this.article = result.data[0]
+    console.log('item = ',item);
+    const result = await this.$server.getNewDetailArticleInfo(item)
+    this.article = result.data[0];
     console.log(result)
   },
   // asyncData({isDev, route, store, env, params, query, req, res, redirect, error}) {
@@ -61,5 +78,8 @@ export default {
 }
 .content img{
   width: 100%;
+}
+.rich_media_content {
+  visibility: visible;
 }
 </style>

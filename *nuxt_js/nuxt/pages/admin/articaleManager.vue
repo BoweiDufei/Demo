@@ -3,16 +3,16 @@
 
     <div class="section-view">
       <div @click="articleClickMethod(item)" class="secton-item" v-for="(item,index) in pics" :key="index">
-        <img :src="item.pic" alt="" srcset="">
+        <img :src="item.imgSrc" alt="" srcset="">
 
         <div class="sectionMiddle">
-          <b>{{item.title}}</b>
-          <b>{{item.desc}}</b>
+          <b>{{item.titleStr}}</b>
+          <b>{{item.contentStr}}</b>
         </div>
 
-        <div class="sectionClose">
+        <!-- <div class="sectionClose">
           <el-button @click="colseBtnClick(item)" class="coloseBtn" type="danger" icon="el-icon-delete" circle></el-button>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -33,7 +33,7 @@
 <script>
 export default {
   async mounted() {
-      const result = await this.$server.getArticles()
+      const result = await this.$server.getArticleList()
       console.log(result)
       this.pics = result.data
   },
@@ -47,7 +47,7 @@ export default {
   },
   methods:{
     async updateArticles(){
-      const result = await this.$server.getArticles()
+      const result = await this.$server.getArticleList()
       // console.log(result)
       this.pics = result.data
     },

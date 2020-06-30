@@ -22,6 +22,11 @@ const fail = (ctx, res, msg = '请求失败') => {
   ctx.status = 404;
 };
 
+const getObjectId = function(idStr) {
+  const mongoose = require('mongoose');
+  return mongoose.Types.ObjectId(idStr);
+}
+
 // 将某方法promise化
 const promisify = function(nodeFunction) {
   return function(...args) {
@@ -773,7 +778,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime, promisify };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime, promisify, getObjectId };
 
 /**
  * 外部使用方法
