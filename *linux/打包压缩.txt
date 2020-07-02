@@ -1,0 +1,66 @@
+先安装zip压缩包软件
+yum install -y unzip zip
+
+1，zip压缩包制作
+ 1> 制作
+    zip -r public.zip public
+    （
+      public.zip 是压缩后的代码
+      public是压缩的目录
+    ）
+ 2> 解压
+    unzip public.zip
+    解压到新目录
+    unzip public -d wwwroot/www_it_ying_com
+    
+ 3> 查看zip文件内容
+ unzip -l public.zip
+
+2 、 gz压缩包（源代码压缩）
+Linux常用的打包就是tar
+  1> 制作tar包 
+     tar cvf public.tar public 仅打包，不压缩
+  2> 解压tar包
+     tar xvf public.tar
+  3> 制作gz包
+     tar czvf public.tar.gz public 又打包又压缩
+  4> 解压gz包
+     tar xzvf public.tar.gz
+  5> tar tf public.tar.gz 查看gz包
+
+3、xz压缩包
+  对于xz压缩包，是linux默认自带的压缩包，
+  压缩格式比7z还要小
+  1> 制作
+     tar cvf xxx.tar xxx // 先创建xxx.tar文件先
+     xz xxx.tar // 将xxx.tar压缩成xxx.tar.xz
+     xz -k xxx.tar // 将xxx.tar压缩成xxx.tar.xz
+  解压
+  2> xz -d xxx.tar.xz 
+
+  二 别名管理
+  1，添加别名 alias chttp:='cat /etc/httpd/conf/httpd....'
+  chttp
+
+  2，删除别名
+  unalias chttp
+
+  3，查看别名
+  alias
+
+
+
+  三 用户管理和用户权限管理
+  Linux 系统同时可以支持多个用户，每隔用户对自己的文件设备有特殊的权利，能够保证用户之间互不干扰。就像手机
+  开了助手一样，同时登陆多个qq账号，当硬件配置非常高的时候，每个用户还可以同时执行多个任务，多个线程同时工作，
+  提高效率。多用户是linux优于其他操作系统的一大特点。
+  1，添加用户
+  useradd lisi
+  2，设置密码
+  passwd lisi
+  passwd root // 修改root密码
+  3，删除用户
+  userdel -r lisi
+
+
+  
