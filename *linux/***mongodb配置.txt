@@ -1,0 +1,21 @@
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/
+
+1、配置 yum 管理包
+1)、在路径/etc/yum.repos.d/下创建文件 mongodb-org-4.0.repo
+ cd /etc/yum.repos.d/
+touch mongodb-org-4.0.repo
+
+2)、在文件 mongodb-org-4.0.repo 中写入如下内容(下面内容可以直接复制，也可以复制官方文档)
+[mongodb-org-4.0]
+name=MongoDB Repository baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/ gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc
+
+2、安装 mongodb(会安装 mongodb-org 包及其依赖包 mongodb-org-server、mongodb-org-mongos、mongodb-org-shell、 mongodb-org-tools)
+数据库实例默认在/var/lib/mongo 路径下，日志默认在/var/log/mongodb 路径下，也可以通过修改配置文件/etc/mongod.conf 文 件的 storage.dbPath 和 systemLog.path 配置
+
+yum install -y mongodb-org
+
+
+3、开启 mongodb 服务
+service mongod start
