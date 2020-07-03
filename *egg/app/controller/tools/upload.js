@@ -60,22 +60,52 @@ class UploadController extends Controller {
   /**
    * @summary 下载单个文件
    * @description 下载单个文件到服务器
-   * @router post /auth/download/downloadImg
+   * @router post /api/download/downloadImg
    * @request query downloadBaseRequest *query
    * @response 200 uploadBaseResponse 创建成功
    */
-  async download() {
+  async easydownloadImage() {
     const { ctx } = this;
-    const url = ctx.query.url;
+    const url = ctx.request.body.url;
+    const convstr = this.ctx.helper.md5(url);
+
+    // 先从数据库中查找有没有这个图片，如果有，直接返回
+    const locPic = await this.ctx.model.Picture.find({title: convstr});
+    if(locPic.length>0){
+      const firstObj = locPic[0];
+      this.ctx.helper.success(ctx, {url: firstObj.url});
+      return ;
+    }
+
     const options = {
       url,
-      dest: 'app/public/uploads',
+      dest: 'app/public/pic',
     };
-    const { filename } = await download.image(options);
-    console.log(filename); // => /path/to/dest/image.jpg
-    // 调用 Service 进行业务处理
-    // 设置响应内容和响应状态码
-    ctx.helper.success(ctx);
+    try {
+      const { filename } = await download.image(options);
+      // 重命名 
+
+      const words = filename.split('/');
+      words.pop()
+      words.push(convstr+'.jpg');
+      const othername = words.join('/');
+
+      await this.ctx.helper.promisify(fs.rename)(filename,othername);
+
+      const pic = {
+        title: convstr,
+        link: othername,
+        url:othername,
+        jimp01: othername,
+        jimp02: othername,
+      };
+      // 存图片数据库
+      const result = await this.ctx.model.Picture.create(pic);
+      // 设置响应内容和响应状态码
+      ctx.helper.success(ctx, {url: othername});
+    } catch (error) {
+      ctx.helper.fail(ctx,{})
+    }
   }
 }
 
