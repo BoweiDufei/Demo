@@ -20,7 +20,7 @@ class DownController extends Controller {
   }
 
   /**
-   * @summary 下载
+   * @summary 流下载
    * @description nodejs版本大文件之断点下载 https://www.chrunlee.cn/article/nodejs-file-range-download.html
    * @router get /api/superdown/:file
    * @response 200 uploadBaseResponse 创建成功

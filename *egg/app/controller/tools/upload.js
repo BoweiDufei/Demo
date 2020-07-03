@@ -65,47 +65,9 @@ class UploadController extends Controller {
    * @response 200 uploadBaseResponse 创建成功
    */
   async easydownloadImage() {
-    const { ctx } = this;
-    const url = ctx.request.body.url;
-    const convstr = this.ctx.helper.md5(url);
-
-    // 先从数据库中查找有没有这个图片，如果有，直接返回
-    const locPic = await this.ctx.model.Picture.find({title: convstr});
-    if(locPic.length>0){
-      const firstObj = locPic[0];
-      this.ctx.helper.success(ctx, {url: firstObj.url});
-      return ;
-    }
-
-    const options = {
-      url,
-      dest: 'app/public/pic',
-    };
-    try {
-      const { filename } = await download.image(options);
-      // 重命名 
-
-      const words = filename.split('/');
-      words.pop()
-      words.push(convstr+'.jpg');
-      const othername = words.join('/');
-
-      await this.ctx.helper.promisify(fs.rename)(filename,othername);
-
-      const pic = {
-        title: convstr,
-        link: othername,
-        url:othername,
-        jimp01: othername,
-        jimp02: othername,
-      };
-      // 存图片数据库
-      const result = await this.ctx.model.Picture.create(pic);
-      // 设置响应内容和响应状态码
-      ctx.helper.success(ctx, {url: othername});
-    } catch (error) {
-      ctx.helper.fail(ctx,{})
-    }
+    const url = this.ctx.request.body.url;
+    const result = await this.ctx.service.downImageWithUrl(url);
+    ctx.helper.success(ctx, {url: result});
   }
 }
 

@@ -5,6 +5,11 @@ const sd = require('silly-datetime');
 const path = require('path');
 const mkdirp = require('mz-modules/mkdirp');
 const jimp = require('jimp');
+const http = require('http');
+const iconv = require('iconv-lite');
+const xpath = require('xpath');
+const dom = require('xmldom').DOMParser;
+const cheerio = require('cheerio');
 
 class ToolService extends Service {
   /**
@@ -85,27 +90,43 @@ class ToolService extends Service {
   }
   // 爬虫设置
   async setPcPromise2(url) {
-    const cheerio = require('cheerio');
     const nodes = await this.getPcBasicContent(url, "//div[@class='image group']");
     try {
       for (let index = 0; index < nodes.length; index++) {
+        if (index != 0) {
+          break;
+        }
         const element = nodes[index];
         const elementStr = element.toString();
         const $ = cheerio.load(elementStr);
 
-        const href = $('.group a').attr('href'); // 跳转路由
         const titleStr = $('.news_desc h3 a').text(); // 标题
+
+        // 先查询一下，数据库中有没有此文章，有的话就不要爬了
+        const locRes = await this.ctx.model.Sumarticle.find({titleStr}) || [];
+        if (locRes.length > 0) {
+          console.log('数据库中已经存在此文章 ',JSON.stringify(locRes[0]));
+          continue;
+        }
+
+        const href = $('.group a').attr('href'); // 跳转路由
         const contentStr = $('.news_desc p a').text(); // 简介
         const imgSrc = $('.grid a img').attr('src'); // 图片
 
-        const item = { href, titleStr, contentStr, imgSrc };
+        // 图片要下载下来 不然不能用
+        console.log('imgSrc = ',imgSrc);
+        const url = await this.ctx.service.down.downImageWithUrl(imgSrc) + '';
+        console.log('url = ',url);
+        const resultImg = url.length>0?'http://127.0.0.1:8899/'+url:imgSrc;
+
+        const item = { href, titleStr, contentStr, imgSrc:resultImg };
         const result = await this.ctx.model.Sumarticle.create(item);
         console.log('result._id = ', result._id);
 
         // 获取文章内容
         const detailResult = await this.getDetailArticleMethond(href, result._id, "//*[@id='js_content']");
         if (!detailResult) {
-          break;
+          continue;
         }
       }
       return true;
@@ -119,7 +140,34 @@ class ToolService extends Service {
   async getDetailArticleMethond(url, articleId, xpathPath) {
     try {
       const nodes = await this.getPcBasicContent(url, xpathPath);
-      const articleStr = nodes.toString();
+
+      console.log('nodes.length = ',nodes.length);
+      //文章中的图片也要下载
+      let articleStr = nodes.toString();
+      const $ = cheerio.load(articleStr);
+      const imglist = [];
+      $('img').each(function(i, elem) {
+        imglist[i] = $(this).attr('data-src');
+      });
+      console.log('imglist ===== ',imglist.toString())
+      // 开始遍历 图片并下载
+      for (let index = 0; index < imglist.length; index++) {
+        const imgStr = imglist[index];
+        const url = await this.ctx.service.down.downImageWithUrl(imgStr) + '';
+        const resultImg = url.length>0?'http://127.0.0.1:8899/'+url:imgStr;
+        articleStr = articleStr.replace(imgStr, resultImg);
+      }
+      // for (let index = 0; index < imglist.length; index++) {
+      //   const element = imglist[index];
+      //   console.log('img ======= ',element.attr('data-src'));
+      // }
+      // for (let index = 0; index < nodes.length; index++) {
+      //   const obj = nodes[index];
+      //   const objStr = obj.toString();
+      //   articleStr += objStr;
+      // }
+
+      // const articleStr = nodes.toString();
       // 开始存储到详情
       const item = { articleId, articleStr };
       await this.ctx.model.Detailarticle.create(item);
@@ -131,10 +179,6 @@ class ToolService extends Service {
 
   // 根据url和xpath路径 获取到内容字符串
   getPcBasicContent(url, xpathPath) {
-    const http = require('http');
-    const iconv = require('iconv-lite');
-    const xpath = require('xpath');
-    const dom = require('xmldom').DOMParser;
 
     return new Promise((resolve, reject) => {
       http.get(url, function(res) {
