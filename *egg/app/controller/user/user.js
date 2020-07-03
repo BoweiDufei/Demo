@@ -321,6 +321,7 @@ class UserController extends Controller {
       this.ctx.helper.fail(this.ctx, '请输入address');
       return;
     }
+    console.log('************begin************')
     const result = await this.ctx.service.tool.setPcPromise2(address);
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }
