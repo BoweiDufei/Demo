@@ -1,0 +1,96 @@
+1、 使用nodejs二进制包安装
+1>下载nodejs二进制包
+2>然后解压到/usr/local/nodejs
+3>配置环境变量
+  1、vi /etc/profile
+  2、最后添加 export NODE_HOME=/usr/local/nodejs/bin
+  export PATH=$NODE_HOME:$PATH
+  3、:wq 保存
+  4、source /etc/profile
+
+安装cnpm
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+
+输入node后不能进行操作
+要使用pm2可以让nodejs 在后台运行
+nodejs不能完全利用计算机资源要使用pm2来管理，能充分应用多核cpu
+并且能负载均衡。实现自动启动
+安装pm2
+npm install pm2 -g
+使用：
+pm2 start app.js --name www_aaa_com
+pm2 start app.js -i 3 --name www_aaa_com // 启动3个进程
+使用 pm2 list 查看所有进程
+pm2 delete all 删除所有
+
+pm2 restart all 重新执行所有node代码
+pm2 查看日志
+pm2 logs 
+pm2 logs www_aaa_com
+
+pm2 stop all
+pm2 stop 0  结束id为0的进程
+pm2 start 0 再次启动id为0的进程
+pm2 delete 0 杀死进程id为0的进程
+
+pm2 restart all 停机后，重新加载
+pm2 reload all 不停机，重新加载
+pm2 show 0 显示进程信息
+
+
+********************************
+nginx 实现一台服务架设多个网站
+反向代理和负载均衡
+1，安装nginx
+通过rpm安装 https://blog.csdn.net/yelllowcong/article/details/76385400
+rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+yum -y install nginx
+2,
+启动nginx 
+systemctl start nginx
+设置为开机启动
+systemctl enable nginx
+
+nginx 反向代理
+1，关闭SELinux防火墙
+vi etc/selinux/config
+修改 SELINUX=enforcing 为SELINUX=disabled
+source /etc/selinux/config
+
+2，配置firewalld 开启80端口
+firewall-cmd --zone=public --list-ports
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+配置nginx配置文件
+find / -name nginx.conf
+cat /etc/nginx/nginx.conf找到 include /etc/nginx/conf.d/*.conf;
+真正的配置文件是 default.conf
+修改default.conf 实现转发
+复制default.conf改名为www_aaa_com.conf
+再复制一份www_bbb_com.conf
+
+修改 server_name www.aaa.com （真实域名）
+location{
+  #设置主机头和客户端真实地址，以便服务器获取客户端真实 IP proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; #禁用缓存
+  proxy_buffering off;
+  #反向代理的地址
+  proxy_pass http://127.0.0.1:3001;
+}
+这就实现了nginx 反向代理
+当用户方位www.aaa.com这个域名的时候，就会转发到http://127.0.0.1:3001  这个地址
+将www_aaa_com.conf和www_bbb_com.conf 上传至 /etc/nginx/conf.d/ 与default.conf同级
+重启 nginx
+systemctl restart nginx 
+nginx -t 看配置是否正确 
+systemctl stop nginx 
+systemctl start nginx
+
+如果会出现问题，
+可能是selinux没有关闭 
+或者没有重新启动计算机
+或者nodejs服务没启动
+或者firewalld没有开启80端口
+
