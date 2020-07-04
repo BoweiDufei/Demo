@@ -1,0 +1,264 @@
+yum -y install zip unzip wget psmisc tree httpd net-tools
+
+psmisc 进程管理
+
+一、rpm安装和卸载软件
+在Linux系统下，几乎所有的软件都通过RPM进行安装、卸载
+虽然rpm可以安装包，一般不用rpm 因为软件之间依赖问题
+
+二、Yum安装软件
+卸载命令
+yum -y remove net-tool
+查找是否安装某个包
+yum list installed | grep net-tools
+安装
+yum -y install net-tools 
+查找
+yum search net-tools
+
+查看包的信息
+yum info package1 
+
+yum -y install wget 
+wget 可以远程下载文件
+查看所有进程 
+pstree -p
+pkill httpd // 删除进程
+
+
+apache相关操作（重要）
+****************************************************************************************************
+yum仓库，有的资源是在yum中没有的，需要我们自己配置一下，比如nginx源
+yum安装Apache
+Apache在Linux就是httpd
+yum -y install httpd  // yum有apache，直接安装
+
+service httpd start 安装启动apache
+curl http://127.0.0.1  //  显示网页源代码查看apache是否安装成功
+systemctl stop firewalld // 关闭防火墙
+关闭防火墙后也可以在mac电脑使用safari浏览器输入ip来访问
+目前只能放静态资源
+查看apache的配置文件
+find / -name httpd.conf
+查找网站默认加载的目录
+cat /etc/httpd/conf/httpd.conf | grep -i documentroot
+结果是 "/var/www/html"
+cd /var/www/html
+如果没有内容会显示默认的网页，如果这个路径下有html页面，就会显示html页面
+touch index.html
+vi index.html 可编辑一下
+
+nginx 不在yum源 要配置yum源
+****************************************************************************************************
+yum的仓库配置文件 /etc/yum.repo.d/*.repo
+cd /etc/yum.repos.d
+配置nginx仓库
+sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+安装nginx
+yum -y install nginx
+
+如果安装不成功，可以参考 https://www.cnblogs.com/boonya/p/7907999.html
+亲测可行
+查找nginx 配置文件
+find / -name nginx.conf
+
+1>源代码安装 要先安装源代码编译的软件
+yum -y install gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel make
+检查系统中是否安装了gcc
+rpm -ql gcc
+
+2> 三步走编译安装linux源代码
+ 1生成编译配置文件(Makefile) 2，开始编译（make） 3，开始安装(make install)
+
+ 源代码安装node.js 
+ 1 先从nodejs官网下载nodejs源代码包
+ 2 将源代码包上传至linux服务器 /opt/路径
+ 3，解压 tar xzvf XXX.tar.gz
+ 4, cd XXX 文件 
+ 找到configure，调整配置路径，一般都安装到/usr/local/路径
+ 5，运行配置文件./configure --prefix=/usr/local/nodejs 
+
+ (nodejs一般可以将安装包复制到/usr/local/直接用./configure来安装，这样的好处是不用配置路径)
+ 在/usr/local/下新建nodejs文件  mkdir nodejs
+ 复制nodejs文件夹下内容到 此目录 cp -rf node-v12.18.2/* /usr/local/nodejs
+ cd /usr/local/nodejs
+ 执行./configure 生成编译配置文件
+ 执行make -j4
+ 执行make install
+
+
+ Mac将本地文件上传到linux服务器的命令
+ https://www.jianshu.com/p/1afd25e7459d
+
+ nodejs 二进制码安装方法（这个最好用）
+ https://www.cnblogs.com/mao2080/p/9346018.html
+ 设置cnpm
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+
+配置环境变量 vi /etc/profile
+source /etc/profile // 生效
+
+内存
+********************************
+top 命令
+ctrl+c或者q 退出
+解读：top命令第一行
+依次对应：系统当前时间 up系统到目前为止i运行的时间
+当前登录系统的用户数量，load average后面的三个数字分别表示
+距离现在一分钟、五分钟、十五分钟的负载情况。
+十五分钟的数字大于5表示服务器压力比较大，大于10表示非常大
+
+top命令第二行
+依次对应：task表示任务进程总量
+running：运行的数量 sleeping：睡眠的
+stopped停止的  zombie：僵尸进程
+
+top命令第三行 cpu使用情况
+依次对应：只看空闲的就可以了
+
+top命令第四行  内存使用情况默认是kb
+总内存：total  可用内存free 缓存内存buff/cache
+
+
+top命令第七行 各进程的监控
+PID 进程id，可以用命令结束进程
+S 进程状态 R运行 S睡眠 %CPU cpu运行比例
+%MEM 内存 TIME+ 运行时间
+COMMAND 进程名称
+
+一般情况不运行top ，一般使用uptime
+uptime就是top的第一行
+
+*********************
+查看当前登录的用户 
+who :显示当前正在系统的用户
+last ：最近有哪些用户登录可查看是否被攻击
+
+*********************
+查看进程 
+pstree 查看进程树
+pstree -ap 显示所有信息
+查找指定的服务
+pstree -a | grep httpd
+结束进程
+pkill httpd 
+不要用kill 去杀进程，杀不死子进程
+kill -9 PID
+
+*********************
+查看端口
+netstat -tunpl | grep httpd
+需要安装net-tools
+netstat -tunpl 命令可以查看当前进程以及端口还是tcp/udp
+
+*********************
+查看硬盘信息
+df 命令
+df /home/ 
+df -h 以人们容易阅读的形式查看
+
+
+
+
+使用systemctl管理服务
+*********************
+systemctl就是service和chkconfig这两个命令的整合，在
+CentOS7就开始被使用了
+
+使某服务自动启动  systemctl enable httpd.service
+使某服务不自动启动 systemctl disable httpd.service
+检查服务状态 systemctl status httpd.service 
+显示所有已启动的服务 systemctl list-units--type=service
+启动某服务  systemctl start httpd.service
+停止某服务  systemctl stop httpd.service
+重启某服务  systemctl restart httpd.service
+
+
+查看某个软件是否安装有两种方式
+yum list installed | grep httpd 
+rpm -ql httpd
+
+// 安装apha
+yum -y install httpd
+
+启动apha
+systemctl start httpd
+关闭
+systemctl stop httpd
+重启
+systemctl restart httpd
+查看状态
+systemctl status httpd 
+查看某服务是否在启动
+systemctl is-active httpd
+查看防火墙是否启动
+systemctl is-active firewalld 
+查看当前服务器已经运行的服务
+systemctl list-units -t service
+// 所有服务
+systemctl list-units -at service
+help帮助文档
+systemctl --help
+
+**** 重要 ************************************
+设置开机自启动
+systemctl enable httpd
+停止开机自启动
+systemctl disable httpd
+列出所有自启动服务：
+systemctl list-unit-files | grep enabled
+systemctl list-unit-files | grep enabled | grep mongod
+// 未启动
+systemctl list-unit-files | grep disabled
+
+
+防火墙相关
+*******************************
+在linux中有两道防火墙 firewalld 和 SELinux。 SELinux太麻烦，一般都关闭
+不建议关闭防火墙
+
+firewalld的基本使用
+启动：systemctl start firewalld
+关闭：systemctl stop firewalld
+查看状态：systemctl status firewalld
+开机禁用：systemctl disable firewalld
+开机启动：systemctl enable firewalld
+
+配置 firewall-cmd
+显示状态： firewall-cmd --state
+查看所有打开的端口： firewall-cmd --zone=public --list-ports
+更新防火墙规则： firewall-cmd --reload
+
+开启一个端口：
+firewall-cmd --zone=public --add-port=80/tcp --permanent 
+(- permanent 永久生效，没有此参数重启后将消失)
+修改firewall-cmd配置后必须重新启动
+firewall-cmd --reload
+
+查看
+firewall-cmd --zone=public --query-port=80/tcp
+删除
+firewall-cmd --zone=public --remove-port=80/tcp --permanent
+
+
+查找httpd （阿帕奇） 的配置文件
+find / -name httpd.confi 
+
+修改监听的端口，重新启动后设置防火墙 
+
+
+
+
+SELinex 防火墙很坑 
+在做nginx分配会出现问题
+
+查看SELinex 状态
+getenforce 或者 /usr/sbin/sestatus -v
+关闭 SELinex
+修改 /etc/selinux/config 文件
+设置SELINUX=enforcing改为SELINUX=disabled
+重启计算机才能生效
+所以拿到linux后先查看是否开启SELinex 如果开启，直接关闭后重启
+
+

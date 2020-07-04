@@ -18,4 +18,32 @@ yum install -y mongodb-org
 
 
 3、开启 mongodb 服务
-service mongod start
+service start mongod 
+或者
+systemctl start mongod
+
+4、设置开机启动 mongodb
+systemctl enable mongod 
+
+5、重启mongdob服务
+systemctl restart mongod
+
+
+**************************
+远程连接mongodb
+1，修改mongo.conf文件
+   命令： sudo vi /etc/mongod.conf
+   将原来的bindIp:127.0.0.1 修改为 0.0.0.0
+bindIp:127.0.0.1 表示只能本机连接
+改为0.0.0.0表示任何IP都能连接
+
+2，重启mongo服务 service mongod restart
+
+3，永久开放27017端口：防火墙
+
+4，配置mongodb密码
+
+
+
+
+
