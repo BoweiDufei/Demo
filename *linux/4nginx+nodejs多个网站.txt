@@ -94,3 +94,9 @@ systemctl start nginx
 或者nodejs服务没启动
 或者firewalld没有开启80端口
 
+四、域名测试
+找到 C:\Windows\System32\drivers\etc\hosts
+浏览器输入
+192.168.1.128
+192.168.1.128 www.bbb.com
+www.aaa.com nginx 转发到了 127.0.0.1:3001
