@@ -100,3 +100,12 @@ systemctl start nginx
 192.168.1.128
 192.168.1.128 www.bbb.com
 www.aaa.com nginx 转发到了 127.0.0.1:3001
+
+
+五  负载均衡
+由nginx 分配北京和深圳服务器
+nginx可以把请求转发给不同区域的服务器
+
+使用ip哈希算法类分配服务器，可以解决token或者session问题
+
+

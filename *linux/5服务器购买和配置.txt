@@ -1,0 +1,27 @@
+一、购买域名、购买服务器
+阿里云、百度云、腾讯云、西部数码
+mirwest.com
+geiliwest.com
+easyget666.com
+1、阿里云 阿里云服务器购买:
+https://www.aliyun.com/product/ecs/?utm_content=se_1000505956
+域名购买:
+https://wanwang.aliyun.com/
+选择西部数码 更简单
+2、西部数码 服务器购买:
+https://www.west.cn/cloudhost/
+域名购买:
+https://www.west.cn/
+后期可以扩容
+
+二、域名备案 大概20天的时间 拍照需要幕布
+阿里云:
+https://beian.aliyun.com/
+西部数码:
+http://beian.west.cn/
+
+三、域名解析
+阿里云:
+https://help.aliyun.com/document_detail/29716.html
+西部数码:
+https://www.west.cn/cms/news/domain/2017-07-17/3717.html
