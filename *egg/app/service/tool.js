@@ -93,9 +93,6 @@ class ToolService extends Service {
     const nodes = await this.getPcBasicContent(url, "//div[@class='image group']");
     try {
       for (let index = 0; index < nodes.length; index++) {
-        if (index != 0) {
-          break;
-        }
         const element = nodes[index];
         const elementStr = element.toString();
         const $ = cheerio.load(elementStr);
@@ -103,9 +100,9 @@ class ToolService extends Service {
         const titleStr = $('.news_desc h3 a').text(); // 标题
 
         // 先查询一下，数据库中有没有此文章，有的话就不要爬了
-        const locRes = await this.ctx.model.Sumarticle.find({titleStr}) || [];
+        const locRes = await this.ctx.model.Sumarticle.find({ titleStr }) || [];
         if (locRes.length > 0) {
-          console.log('数据库中已经存在此文章 ',JSON.stringify(locRes[0]));
+          console.log('数据库中已经存在此文章 ', JSON.stringify(locRes[0]));
           continue;
         }
 
@@ -114,17 +111,17 @@ class ToolService extends Service {
         const imgSrc = $('.grid a img').attr('src'); // 图片
 
         // 图片要下载下来 不然不能用
-        console.log('imgSrc = ',imgSrc);
+        console.log('imgSrc = ', imgSrc);
         const url = await this.ctx.service.down.downImageWithUrl(imgSrc) + '';
-        console.log('url = ',url);
-        const resultImg = url.length>0?'http://127.0.0.1:8899/'+url:imgSrc;
+        console.log('url = ', url);
+        const resultImg = url.length > 0?'http://127.0.0.1:8899/' + url:imgSrc;
 
-        const item = { href, titleStr, contentStr, imgSrc:resultImg };
+        const item = { href, titleStr, contentStr, imgSrc: resultImg };
         const result = await this.ctx.model.Sumarticle.create(item);
         console.log('result._id = ', result._id);
 
         // 获取文章内容
-        const detailResult = await this.getDetailArticleMethond(href, result._id, "//*[@id='js_content']");
+        const detailResult = await this.getDetailArticleMethond(href, result._id, '//*[@id="js_content"]');
         if (!detailResult) {
           continue;
         }
@@ -141,8 +138,7 @@ class ToolService extends Service {
     try {
       const nodes = await this.getPcBasicContent(url, xpathPath);
 
-      console.log('nodes.length = ',nodes.length);
-      //文章中的图片也要下载
+      // 文章中的图片也要下载
       let articleStr = nodes.toString();
       const $ = cheerio.load(articleStr);
       const imglist = [];

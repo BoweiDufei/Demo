@@ -47,6 +47,7 @@ nginx 实现一台服务架设多个网站
 rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 yum -y install nginx
 2,
+
 启动nginx 
 systemctl start nginx
 设置为开机启动

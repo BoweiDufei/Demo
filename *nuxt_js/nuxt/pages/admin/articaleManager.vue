@@ -3,7 +3,7 @@
 
     <div class="section-view">
       <div @click="articleClickMethod(item)" class="secton-item" v-for="(item,index) in pics" :key="index">
-        <img :src="item.imgSrc" alt="" srcset="">
+        <img :src="item.imgSrc.replace('http://127.0.0.1:8899/app','http://127.0.0.1:7001')" alt="" srcset="">
 
         <div class="sectionMiddle">
           <b>{{item.titleStr}}</b>
