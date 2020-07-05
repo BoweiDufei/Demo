@@ -1,0 +1,5 @@
+1，禁止eslinux
+2，安装nodejs 和 nginx
+3，安装mongodb
+4，安装eggjs
+5，开启防火墙端口
