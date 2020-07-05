@@ -35,6 +35,24 @@ class ToolService extends Service {
     const d = new Date();
     return d.getTime();
   }
+
+  /**
+   * 获取路径 不用进行加工处理 filename = 10928908590123.jpg
+   */
+  async easyGetPicPathWithoutRepeat(fileName) {
+    // 1、获取当前日期     20180920
+    const day = sd.format(new Date(), 'YYYYMMDD');
+    // 2、创建图片保存的路径
+    const dayStr = day + '';
+    const dir = path.join(this.config.articlePicDir, dayStr);
+    await mkdirp(dir);
+    const uploadDir = path.join(dir, fileName);
+    return {
+      uploadDir,
+      saveDir: this.dealUploadPath(uploadDir),
+    };
+  }
+
   /**
    * 获取路径
    */
@@ -57,6 +75,7 @@ class ToolService extends Service {
       fileExt,
     };
   }
+
 
   /** 处理图片路径 */
   dealUploadPath(path) {
