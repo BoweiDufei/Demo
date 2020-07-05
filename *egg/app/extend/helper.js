@@ -2,6 +2,7 @@
 
 const moment = require('moment');
 const sd = require('silly-datetime');
+const fs = require('fs');
 
 exports.formatTime = time => moment(time).formate('YYYY-MM-DD HH:mm:ss');
 
@@ -22,10 +23,31 @@ const fail = (ctx, res, msg = '请求失败') => {
   ctx.status = 404;
 };
 
+/**
+ * 递归删除方法
+ */
+const deleteDir = path => {
+  let files = [];
+  if (fs.existsSync(path)) {
+    files = fs.readdirSync(path);
+    files.forEach((file, index) => {
+      console.log(index);
+      const curPath = path + '/' + file;
+      if (fs.statSync(curPath).isDirectory()) {
+        deleteDir(curPath); // 递归删除文件夹
+      } else {
+        fs.unlinkSync(curPath); // 删除文件
+      }
+    });
+    fs.rmdirSync(path);
+  }
+};
+
+
 const getObjectId = function(idStr) {
   const mongoose = require('mongoose');
   return mongoose.Types.ObjectId(idStr);
-}
+};
 
 // 将某方法promise化
 const promisify = function(nodeFunction) {
@@ -778,7 +800,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime, promisify, getObjectId };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime, promisify, getObjectId, deleteDir };
 
 /**
  * 外部使用方法

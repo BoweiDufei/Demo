@@ -15,6 +15,7 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_123123';
   config.uploadDir = 'app/public/admin/upload';
+  config.articlePicDir = 'app/public/admin/artPic';
 
   // add your middleware config here
   config.middleware = [ 'errorHandler' ];

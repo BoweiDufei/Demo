@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const awaitWriteStream = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
-const download = require('image-downloader');
 
 const Controller = require('egg').Controller;
 
@@ -15,13 +14,12 @@ class UploadController extends Controller {
   /**
    * @summary 上传单个文件
    * @description 上传单个文件
-   * @router post /auth/upload/single
+   * @router post /api/upload/single
    * @request query uploadBaseRequest *query
    * @response 200 uploadBaseResponse 创建成功
    */
   async create() {
     const { ctx } = this;
-    console.log('上传方法');
     // 要通过 ctx.getFileStream 便捷的获取到用户上传的文件，需要满足两个条件:
     // 只支持上传一个文件。
     // 上传文件必须在所有其他的 fields 后面，否则在拿到文件流时可能还获取不到 fields。
