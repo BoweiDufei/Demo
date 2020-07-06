@@ -3,6 +3,7 @@
 const moment = require('moment');
 const sd = require('silly-datetime');
 const fs = require('fs');
+const request = require('request');
 
 exports.formatTime = time => moment(time).formate('YYYY-MM-DD HH:mm:ss');
 
