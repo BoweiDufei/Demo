@@ -24,17 +24,25 @@ const fail = (ctx, res, msg = '请求失败') => {
   ctx.status = 404;
 };
 
-/**下载图片 */
+/** 下载图片 */
 const easyDownImage = (uri, targetPath) => {
-  return new Promise((resolve, reject)=>{
-      var stream = fs.createWriteStream(targetPath);
-      var targetStream = request(uri).pipe(stream);
-      targetStream.on('close', function(){
-          resolve(true);
-      });
-      targetStream.on('error', function(err){
-          reject(false);
-      });
+  return new Promise((resolve, reject) => {
+    const src = uri + '';
+    const writeStream = fs.createWriteStream(targetPath);
+    const readStream = request(src);
+    readStream.pipe(writeStream);
+    readStream.on('end', function() {
+      console.log('文件下载成功');
+    });
+    readStream.on('error', function(err) {
+      console.log('错误信息:' + err);
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject(false);
+    });
+    writeStream.on('finish', function() {
+      resolve(true);
+      writeStream.end();
+    });
   });
 };
 
@@ -59,14 +67,14 @@ const deleteDir = path => {
 };
 
 
-const getObjectId = function(idStr) {
+const getObjectId = function (idStr) {
   const mongoose = require('mongoose');
   return mongoose.Types.ObjectId(idStr);
 };
 
 // 将某方法promise化
-const promisify = function(nodeFunction) {
-  return function(...args) {
+const promisify = function (nodeFunction) {
+  return function (...args) {
     return new Promise((resolve, reject) => {
       nodeFunction.call(this, ...args, (err, data) => {
         if (err) {
