@@ -130,9 +130,18 @@ class ToolService extends Service {
         const imgSrc = $('.grid a img').attr('src'); // 图片
 
         // 图片要下载下来 不然不能用
-        const url = await this.ctx.service.down.downImageWithUrl(imgSrc) + '';
-        const resultImg = url.length > 0?'http://127.0.0.1:8899/' + url:imgSrc;
+        const convstr = this.ctx.helper.md5(imgSrc); // md5图
 
+        const convfilename = convstr + '.jpg';
+        const fileResult = await this.service.tool.easyGetPicPathWithoutRepeat(convfilename);
+        const othername = path.join('app', fileResult.saveDir);
+        const flag = await this.ctx.helper.easyDownImage(imgSrc, othername);
+        if (flag) {
+          url = othername;
+        } else {
+          url = '';
+        }
+        const resultImg = url.length > 0?'http://127.0.0.1:8899/' + url:imgSrc;
         const item = { href, titleStr, contentStr, imgSrc: resultImg };
         const result = await this.ctx.model.Sumarticle.create(item);
 
