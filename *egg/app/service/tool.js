@@ -135,6 +135,7 @@ class ToolService extends Service {
         const convfilename = convstr + '.jpg';
         const fileResult = await this.service.tool.easyGetPicPathWithoutRepeat(convfilename);
         const othername = path.join('app', fileResult.saveDir);
+        console.log('imgSrc ====', imgSrc);
         const flag = await this.ctx.helper.easyDownImage(imgSrc, othername);
         if (flag) {
           url = othername;
@@ -177,18 +178,19 @@ class ToolService extends Service {
         const convstr = this.ctx.helper.md5(imgStr); // md5图
 
         // 先从数据库中搜索
-        const url = '';
+        let url = '';
         const locPic = await this.ctx.model.Picture.find({ title: convstr });
         if (locPic.length > 0) {
           // 数据库中有
           const firstObj = locPic[0];
           url = firstObj.url;
-        }else{
+        } else {
           // 数据库中没有就下载
           // 开始下载
           const convfilename = convstr + '.jpg';
           const fileResult = await this.service.tool.easyGetPicPathWithoutRepeat(convfilename);
           const othername = path.join('app', fileResult.saveDir);
+          console.log('getDetailArticleMethond imgStr = ', imgStr);
           const flag = await this.ctx.helper.easyDownImage(imgStr, othername);
           if (flag) {
             url = othername;
@@ -205,7 +207,7 @@ class ToolService extends Service {
             url = '';
           }
         }
-        const resultImg = url.length>0?'http://127.0.0.1:8899/'+url:imgStr;
+        const resultImg = url.length > 0 ? 'http://127.0.0.1:8899/' + url : imgStr;
         articleStr = articleStr.replace(new RegExp(imgStr,'g'),resultImg);
       }
       // 开始存储到详情

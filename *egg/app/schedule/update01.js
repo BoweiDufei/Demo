@@ -1,8 +1,7 @@
 'use strict';
 module.exports = {
   schedule: {
-    // cron: '0 0 */2 * * *',
-    interval: '1m',
+    interval: '120m',
     type: 'all', // 指定所有的 worker 都需要执行
   },
   async task(ctx) {
