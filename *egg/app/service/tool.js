@@ -130,14 +130,11 @@ class ToolService extends Service {
         const imgSrc = $('.grid a img').attr('src'); // 图片
 
         // 图片要下载下来 不然不能用
-        console.log('imgSrc = ', imgSrc);
         const url = await this.ctx.service.down.downImageWithUrl(imgSrc) + '';
-        console.log('url = ', url);
         const resultImg = url.length > 0?'http://127.0.0.1:8899/' + url:imgSrc;
 
         const item = { href, titleStr, contentStr, imgSrc: resultImg };
         const result = await this.ctx.model.Sumarticle.create(item);
-        console.log('result._id = ', result._id);
 
         // 获取文章内容
         const detailResult = await this.getDetailArticleMethond(href, result._id, '//*[@id="js_content"]');
@@ -162,27 +159,46 @@ class ToolService extends Service {
       const $ = cheerio.load(articleStr);
       const imglist = [];
       $('img').each(function(i, elem) {
-        imglist[i] = $(this).attr('data-src');
+        imglist.push($(this).attr('data-src'));
       });
       console.log('imglist ===== ',imglist.toString())
       // 开始遍历 图片并下载
       for (let index = 0; index < imglist.length; index++) {
         const imgStr = imglist[index];
-        const url = await this.ctx.service.down.downImageWithUrl(imgStr) + '';
-        const resultImg = url.length>0?'http://127.0.0.1:8899/'+url:imgStr;
-        articleStr = articleStr.replace(imgStr, resultImg);
-      }
-      // for (let index = 0; index < imglist.length; index++) {
-      //   const element = imglist[index];
-      //   console.log('img ======= ',element.attr('data-src'));
-      // }
-      // for (let index = 0; index < nodes.length; index++) {
-      //   const obj = nodes[index];
-      //   const objStr = obj.toString();
-      //   articleStr += objStr;
-      // }
+        const convstr = this.ctx.helper.md5(imgStr); // md5图
 
-      // const articleStr = nodes.toString();
+        // 先从数据库中搜索
+        const url = '';
+        const locPic = await this.ctx.model.Picture.find({ title: convstr });
+        if (locPic.length > 0) {
+          // 数据库中有
+          const firstObj = locPic[0];
+          url = firstObj.url;
+        }else{
+          // 数据库中没有就下载
+          // 开始下载
+          const convfilename = convstr + '.jpg';
+          const fileResult = await this.service.tool.easyGetPicPathWithoutRepeat(convfilename);
+          const othername = path.join('app', fileResult.saveDir);
+          const flag = await this.ctx.helper.easyDownImage(imgStr, othername);
+          if (flag) {
+            url = othername;
+            const pic = {
+              title: convstr,
+              link: othername,
+              url: othername,
+              jimp01: othername,
+              jimp02: othername,
+            };
+            // 存图片数据库
+            await this.ctx.model.Picture.create(pic);
+          } else {
+            url = '';
+          }
+        }
+        const resultImg = url.length>0?'http://127.0.0.1:8899/'+url:imgStr;
+        articleStr = articleStr.replace(new RegExp(imgStr,'g'),resultImg);
+      }
       // 开始存储到详情
       const item = { articleId, articleStr };
       await this.ctx.model.Detailarticle.create(item);
@@ -231,7 +247,6 @@ class ToolService extends Service {
   async jimpImg(filePath) {
     // 生成缩略图
     const lenna = await jimp.read(filePath);
-    console.log(`lenna.bitmap.width = ${lenna.bitmap.width} and lenna.bitmap.height = ${lenna.bitmap.height}`);
     const scale = lenna.bitmap.height * 1.0 / lenna.bitmap.width;
     const imgWidth1 = 200;
     const imgHeight1 = imgWidth1 * scale;

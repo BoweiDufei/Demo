@@ -44,6 +44,7 @@ class DownService extends Service {
       // 设置响应内容和响应状态码
       return othername;
     } catch (error) {
+      console.log('down.js - downImageWithUrl = error = ', error);
       return '';
     }
   }

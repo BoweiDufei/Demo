@@ -63,4 +63,8 @@ Linux常用的打包就是tar
   userdel -r lisi
 
 
+Mac上传文件到Linux服务器
+https://www.jianshu.com/p/1afd25e7459d
+sftp root@120.53.248.129
+put 本地文件路径 远程主机路径
   

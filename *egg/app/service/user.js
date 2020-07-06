@@ -104,7 +104,6 @@ class UserService extends Service {
    * 更新孩子
    */
   async updateManyChildren() {
-    console.log('updateManyChildren ---- service');
     return this.ctx.model.User.updateOne({ mobile: this.ctx.state.userId }, { $set: { realName: '飞翔ad发了卡时代峻峰离开' } });
   }
 }

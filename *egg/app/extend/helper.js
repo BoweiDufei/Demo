@@ -23,6 +23,21 @@ const fail = (ctx, res, msg = '请求失败') => {
   ctx.status = 404;
 };
 
+/**下载图片 */
+const easyDownImage = (uri, targetPath) => {
+  return new Promise((resolve, reject)=>{
+      var stream = fs.createWriteStream(targetPath);
+      var targetStream = request(uri).pipe(stream);
+      targetStream.end();
+      targetStream.on('close', function(){
+          resolve(true);
+      });
+      targetStream.on('error', function(err){
+          reject(false);
+      });
+  });
+};
+
 /**
  * 递归删除方法
  */
@@ -800,7 +815,7 @@ const dbw_json = {
 };
 
 
-module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime, promisify, getObjectId, deleteDir };
+module.exports = { dbw_util, dbw_net, dbw_fs, dbw_time, dbw_json, success, fail, md5, formateTime, promisify, getObjectId, deleteDir, easyDownImage };
 
 /**
  * 外部使用方法
