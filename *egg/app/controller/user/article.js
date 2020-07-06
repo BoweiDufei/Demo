@@ -103,7 +103,7 @@ class ArticleController extends Controller {
     const result = await this.ctx.model.Sumarticle.aggregate([
       {
         $match: {
-          _id: this.ctx.helper.getObjectId(article_id);
+          _id: this.ctx.helper.getObjectId(article_id),
         },
       },
       {
