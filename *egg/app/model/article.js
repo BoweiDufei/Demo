@@ -8,6 +8,7 @@ module.exports = app => {
     title: { type: String, required: true }, // 标题
     desc: { type: String, required: true }, // 描述
     content: { type: String, required: true }, // 内容
+    createdAt: { type: Date, default: Date.now },
   });
   return mongoose.model('Article', ArticleSchema, 'article');
 };
