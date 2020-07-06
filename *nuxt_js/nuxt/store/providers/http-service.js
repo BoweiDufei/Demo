@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL ='http://localhost:7001'; //填写域名
+axios.defaults.baseURL ='http://120.53.248.129:7001/'; //填写域名
+// axios.defaults.baseURL ='http://127.0.0.1:7001/'; //填写域名
 //http request 拦截器
 axios.interceptors.request.use(
     config => {
@@ -171,6 +172,9 @@ axios.interceptors.request.use(
       },
       login: function(paramObj){
           return post('/api/login',paramObj);
+      },
+      registry: function(paramObj){
+          return post('/api/createUser',paramObj);
       },
       addCarousel: function(paramObj){
           return post('/auth/addOneCarousel',paramObj);
