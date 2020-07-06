@@ -50,6 +50,10 @@ const easyDownImage = (uri, targetPath) => {
  * 递归删除方法
  */
 const deleteDir = path => {
+  if (!fs.statSync(path).isDirectory()) {
+    fs.unlinkSync(path); // 如果传入的不是文件夹，直接删掉
+    return;
+  }
   let files = [];
   if (fs.existsSync(path)) {
     files = fs.readdirSync(path);
