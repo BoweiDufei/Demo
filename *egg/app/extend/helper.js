@@ -29,7 +29,6 @@ const easyDownImage = (uri, targetPath) => {
   return new Promise((resolve, reject)=>{
       var stream = fs.createWriteStream(targetPath);
       var targetStream = request(uri).pipe(stream);
-      targetStream.end();
       targetStream.on('close', function(){
           resolve(true);
       });
