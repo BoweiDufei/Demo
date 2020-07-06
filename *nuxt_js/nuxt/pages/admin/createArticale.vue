@@ -93,7 +93,7 @@ export default {
   },
   computed: {
     uploadAddress(){
-      return 'http://127.0.0.1:7001/auth/upload/single'
+      return 'http://120.53.248.129:7001/auth/upload/single'
     },
     headInfo(){
 

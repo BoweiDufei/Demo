@@ -56,33 +56,36 @@ export default {
             }
             const randName = 'qcp'+Math.floor(Math.random()*1000000);
             let data = {"mobile":this.account,"password":this.psd,"realName":randName};
-            axios.post('http://localhost:7001/api/createUser',data).then(result=>{
-                console.log(result)
-                const d = result.data
-                console.log(d)
-                if(d.code === 0){
-                    const target = d.data
-                    console.log(target)
-                    // 获取到token，存储本地
-                    if(target){
-                        console.log('token')
-                        console.log(target.token)
-                        localStorage.setItem("token", target.token);
-                        localStorage.setItem("userinfo", target.userinfo);
-                        console.log('userinfo')
-                        console.log(target.userinfo)
-                        
-                        this.$router.push('/login')
-                    }
-                }else{
-                    const msg = d.error;
-                    this.$notify({
-                        title: '提示',
-                        message: msg,
-                        duration: 2000
-                    });
+
+            const result = await this.$server.registry(data)
+            // axios.post('http://localhost:7001/api/createUser',data).then(result=>{
+            //     console.log(result)
+            // })
+
+            const d = result.data
+            console.log(d)
+            if(d.code === 0){
+                const target = d.data
+                console.log(target)
+                // 获取到token，存储本地
+                if(target){
+                    console.log('token')
+                    console.log(target.token)
+                    localStorage.setItem("token", target.token);
+                    localStorage.setItem("userinfo", target.userinfo);
+                    console.log('userinfo')
+                    console.log(target.userinfo)
+                    
+                    this.$router.push('/login')
                 }
-            })
+            }else{
+                const msg = d.error;
+                this.$notify({
+                    title: '提示',
+                    message: msg,
+                    duration: 2000
+                });
+            }
         }
     },
 }

@@ -32,7 +32,7 @@ export default {
       if(typeof this.article.articleStr == 'string'){
         const infoStr = this.article.articleStr;
         const word1 = infoStr.replace('visibility: hidden','visibility: visible')
-        const word2 = word1.replace(new RegExp('http://127.0.0.1:8899/app','g'),"http://127.0.0.1:7001");
+        const word2 = word1.replace(new RegExp('http://127.0.0.1:8899/app','g'),"http://120.53.248.129:7001");
         const word = word2.replace(new RegExp('data-src','g'),"src");
         return word;
       }else{
