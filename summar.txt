@@ -21,6 +21,17 @@ vim ~/.bash_profile
 source ~/.bash_profile
 
 
+120.53.248.129（公）
+172.21.0.11（内）
+
+/home/nodejs/eggjs/myserver
+
+Mac上传文件到Linux服务器
+https://www.jianshu.com/p/1afd25e7459d
+sftp root@120.53.248.129
+put 本地文件路径 远程主机路径
+
+
 
 
 
