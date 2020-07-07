@@ -449,7 +449,6 @@ class Dbw_mongooseController extends Controller {
   async search19() {
     // 1，先查出109号同学分数
     const score = await this.ctx.model.Score.find({ sno: '109', cno: '3-105' });
-    console.log((`109号同学分数为：${score[0]}`));
     const scoreModel = score[0];
     if (scoreModel != null) {
       const stuScore = scoreModel.degree;

@@ -40,7 +40,6 @@ class UserController extends Controller {
     const token = await service.actionToken.apply(mobile);
     const userinfo = await service.user.createrUser(ctx.request.body);
     const res = { token, userinfo };
-    console.log('create----' + userinfo);
     ctx.helper.success(ctx, res);
   }
 
@@ -59,8 +58,6 @@ class UserController extends Controller {
     const password = ctx.request.body.password;
     // 根据mobile查找用户
     const userInfo = await service.user.findByMobile(mobile);
-    console.log(`对比结果前password = ${password} mobile = ${mobile}`);
-    console.log(`对比结果前locPassword = ${userInfo}`);
     const ensurePsd = await ctx.helper.md5(password);
     if (userInfo.password !== ensurePsd) {
       ctx.throw(404, `密码错误 : ${userInfo.password} and ${ensurePsd} ${password}`);
@@ -126,7 +123,6 @@ class UserController extends Controller {
    */
   async checkUser() {
     const { ctx } = this;
-    console.log('check----');
     const res = { userId: ctx.state.userId };
     ctx.helper.success(ctx, res);
   }
@@ -143,7 +139,6 @@ class UserController extends Controller {
     const { ctx, service } = this;
     // 参数验证
     ctx.validate(ctx.rule.addChildrenInfoRequest, ctx.request.body);
-    console.log('-----addChildInfo------');
     ctx.helper.success(ctx, await service.user.addChildInfo(ctx.request.body.info));
   }
 
@@ -179,7 +174,6 @@ class UserController extends Controller {
     for (let i = 0; i < 10; i++) {
       list.push(`这是第${i}条数据`);
     }
-    console.log(list);
     await service.user.updateManyChildren();
     return ctx.helper.success(ctx, '存储成功');
   }
@@ -225,7 +219,6 @@ class UserController extends Controller {
    */
   async deleteOneCarousel() {
     const _id = this.ctx.request.body._id;
-    console.log('userid = ${userId}');
     const result = await this.ctx.model.Carousel.deleteOne({ _id });
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }
@@ -283,7 +276,6 @@ class UserController extends Controller {
    */
   async deleteOneArticle() {
     const _id = this.ctx.request.body._id;
-    console.log('userid = ${userId}');
     const result = await this.ctx.model.Article.deleteOne({ _id });
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }
@@ -297,7 +289,6 @@ class UserController extends Controller {
    */
   async getArticleReptile() {
     const address = this.ctx.request.body.address;
-    console.log(address);
     if (address === null || address.length === 0) {
       this.ctx.helper.fail(this.ctx, '请输入address');
       return;
@@ -316,12 +307,10 @@ class UserController extends Controller {
    */
   async pcTextMethod() {
     const address = this.ctx.request.body.address;
-    console.log(`address = ${address}`);
     if (address === null) {
       this.ctx.helper.fail(this.ctx, '请输入address');
       return;
     }
-    console.log('************begin************');
     const result = await this.ctx.service.tool.setPcPromise2(address);
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }

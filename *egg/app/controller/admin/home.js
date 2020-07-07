@@ -13,8 +13,6 @@ class HomeController extends Controller {
         },
       },
     ]);
-    console.log(JSON.stringify(result));
-    console.log(`md5加密:${await this.service.tool.dbwMd5('123456')}`);
     this.ctx.body = await this.service.tool.getVerCode();
   }
 }

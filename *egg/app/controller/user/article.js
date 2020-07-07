@@ -46,7 +46,6 @@ class ArticleController extends Controller {
       ]);
       for (let index = 0; index < readList.length; index++) {
         const element = readList[index];
-        console.log(element);
         noShowList.push(this.ctx.helper.getObjectId(element.articleId));
       }
     }
@@ -73,7 +72,6 @@ class ArticleController extends Controller {
     if (currentUserId.length > 0) {
       for (let index = 0; index < result.length; index++) {
         const info = result[index];
-        console.log('info = ', info);
         const item = {};
         item.userId = currentUserId;
         item.articleId = info._id;

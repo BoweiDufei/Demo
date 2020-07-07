@@ -1,10 +1,8 @@
 'use strict';
 module.exports = (option, app) => {
   return async function verify(ctx, next) {
-    console.log(`ctx.request.headers = ${ctx.request.headers}`);
     try {
       if (ctx.request.headers.authorization === undefined) {
-        console.log('token无效');
         ctx.helper.fail(ctx, 'token无效');
         return;
       }

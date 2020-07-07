@@ -41,7 +41,6 @@ class ApnService extends Service {
     note.topic = params.topic;
     try {
       const result = await service.send(note, tokens);
-      console.log(`发送成功:${result.sent.length}，发送失败:${result.failed.length}`);
       service.shutdown();
       return result;
     } catch (error) {
