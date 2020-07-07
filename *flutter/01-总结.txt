@@ -463,7 +463,7 @@ button()onPress(){}
 	);
 
 保持页面的方法 （重要）
-1，with AutomaticKeepAliveClientMiXin
+1，with AutomaticKeepAliveClientMixin
 2，重写 bool get wantKeepAlive=>true;
 3，body：IndexedStatck()
         *** index:currentIndex,
