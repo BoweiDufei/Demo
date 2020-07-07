@@ -29,7 +29,6 @@ class DownController extends Controller {
     const fs = require('fs');
     const filePath = 'app/public/' + this.ctx.params.file;
     const range = this.ctx.request.headers.range;
-    console.log(`range = ${range}`);
     if (range) {
       let [ , start, end ] = range.match(/(\d*)-(\d*)/);
       const total = (await this.ctx.helper.promisify(fs.stat)(filePath)).size;

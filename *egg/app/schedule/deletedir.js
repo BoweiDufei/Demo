@@ -22,7 +22,6 @@ module.exports = {
       files.forEach((file, index) => {
         if (file < dayStr) {
           // 小于三十天前的图片，统统删除
-          // console.log('file = ', file);
           const deletepath = path.join(configPath, file);
           ctx.helper.deleteDir(deletepath);
         }

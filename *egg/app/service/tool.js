@@ -121,7 +121,6 @@ class ToolService extends Service {
         // 先查询一下，数据库中有没有此文章，有的话就不要爬了
         const locRes = await this.ctx.model.Sumarticle.find({ titleStr }) || [];
         if (locRes.length > 0) {
-          console.log('数据库中已经存在此文章 ', JSON.stringify(locRes[0]));
           continue;
         }
 
@@ -135,7 +134,6 @@ class ToolService extends Service {
         const convfilename = convstr + '.jpg';
         const fileResult = await this.service.tool.easyGetPicPathWithoutRepeat(convfilename);
         const othername = path.join('app', fileResult.saveDir);
-        console.log('imgSrc ====', imgSrc);
         const flag = await this.ctx.helper.easyDownImage(imgSrc, othername);
         if (flag) {
           url = othername;
@@ -171,7 +169,6 @@ class ToolService extends Service {
       $('img').each(function(i, elem) {
         imglist.push($(this).attr('data-src'));
       });
-      console.log('imglist ===== ',imglist.toString())
       // 开始遍历 图片并下载
       for (let index = 0; index < imglist.length; index++) {
         const imgStr = imglist[index];
@@ -190,7 +187,6 @@ class ToolService extends Service {
           const convfilename = convstr + '.jpg';
           const fileResult = await this.service.tool.easyGetPicPathWithoutRepeat(convfilename);
           const othername = path.join('app', fileResult.saveDir);
-          console.log('getDetailArticleMethond imgStr = ', imgStr);
           const flag = await this.ctx.helper.easyDownImage(imgStr, othername);
           if (flag) {
             url = othername;
@@ -208,13 +204,19 @@ class ToolService extends Service {
           }
         }
         const resultImg = url.length > 0 ? 'http://127.0.0.1:8899/' + url : imgStr;
-        articleStr = articleStr.replace(new RegExp(imgStr,'g'),resultImg);
+        if (url.length > 0) {
+          articleStr = articleStr.replace(new RegExp(imgStr,'g'),resultImg);
+        }
+      }
+      if (imglist.length === 0) {
+        console.log('imglist.length==0 url = ',url);
       }
       // 开始存储到详情
       const item = { articleId, articleStr };
       await this.ctx.model.Detailarticle.create(item);
       return true;
     } catch (error) {
+      console.log('捕捉到了错误 = ',error);
       return false;
     }
   }

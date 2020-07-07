@@ -32,10 +32,9 @@ const easyDownImage = (uri, targetPath) => {
     const readStream = request(src);
     readStream.pipe(writeStream);
     readStream.on('end', function() {
-      console.log('文件下载成功');
     });
     readStream.on('error', function(err) {
-      console.log('错误信息:' + err);
+      console.log('下载错误信息:' + err);
       // eslint-disable-next-line prefer-promise-reject-errors
       reject(false);
     });
@@ -58,7 +57,6 @@ const deleteDir = path => {
   if (fs.existsSync(path)) {
     files = fs.readdirSync(path);
     files.forEach((file, index) => {
-      console.log(index);
       const curPath = path + '/' + file;
       if (fs.statSync(curPath).isDirectory()) {
         deleteDir(curPath); // 递归删除文件夹

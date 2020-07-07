@@ -25,6 +25,7 @@ source ~/.bash_profile
 172.21.0.11（内）
 
 /home/nodejs/eggjs/myserver
+/root/logs
 
 Mac上传文件到Linux服务器
 https://www.jianshu.com/p/1afd25e7459d

@@ -39,7 +39,6 @@ class UploadController extends Controller {
     }
     // 制作缩略图
     const litImg = await this.service.tool.jimpImg(targetDict.uploadDir);
-    console.log('上传方法 成功 并且只做了缩略图');
     // 调用 Service 进行业务处理
     // 设置响应内容和响应状态码
     const url = targetDict.saveDir;
