@@ -23,7 +23,7 @@ class _WebViewPageState extends State<WebViewPage> {
       body: Container(
         color: Colors.deepPurple,
         child: InAppWebView(
-          initialUrl: "https://www.baidu.com",
+          initialUrl: "http://120.53.248.129:7001/public/dist/index.html#/article/${widget.arguments["id"]}",
           initialHeaders: {},
           initialOptions: InAppWebViewGroupOptions(
               crossPlatform: InAppWebViewOptions(
