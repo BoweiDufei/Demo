@@ -1,6 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 /**c语言风格 存储字符串到本地*/
+// ignore: non_constant_identifier_names
 Future<void> local_setStringWithKeyValue(String key, String value) async{
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString(key,value);

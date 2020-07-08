@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:date_format/date_format.dart';
 import 'package:device_info/device_info.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -80,7 +82,9 @@ Future<bool> dbw_launchMobile(String mobileStr) async {
 }
 
 /**获取安卓信息 (device_info) */
-Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
+Future<Map<String, dynamic>> readAndroidBuildData() async{
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo build = await deviceInfo.androidInfo;
     return <String, dynamic>{
       'version.securityPatch': build.version.securityPatch,
       'version.sdkInt': build.version.sdkInt,
@@ -92,7 +96,7 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
       'board': build.board,
       'bootloader': build.bootloader,
       'brand': build.brand,
-      'device': build.device,
+      'machineId': build.device,
       'display': build.display,
       'fingerprint': build.fingerprint,
       'hardware': build.hardware,
@@ -113,7 +117,9 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
   }
 
   /**获取ios信息 (device_info) */
-  Map<String, dynamic> readIosDeviceInfo(IosDeviceInfo data) {
+  Future<Map<String, dynamic>> readIosDeviceInfo() async{
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    IosDeviceInfo data = await deviceInfo.iosInfo;
     return <String, dynamic>{
       'name': data.name,
       'systemName': data.systemName,
@@ -126,8 +132,18 @@ Map<String, dynamic> readAndroidBuildData(AndroidDeviceInfo build) {
       'utsname.nodename:': data.utsname.nodename,
       'utsname.release:': data.utsname.release,
       'utsname.version:': data.utsname.version,
-      'utsname.machine:': data.utsname.machine,
+      'machineId:': data.utsname.machine,
     };
+  }
+
+  Future<String> getDivceUDID() async{
+    if (Platform.isIOS) {
+      Map<String, dynamic> map = await readIosDeviceInfo();
+      return map["machineId"];
+    }else{
+      Map<String, dynamic> map = await readAndroidBuildData();
+      return map["machineId"];
+    }
   }
 
   /**时间日期转换 */
