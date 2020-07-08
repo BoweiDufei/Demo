@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'dart:convert';
+
+import 'EasyMethods.dart';
 
 /*
  * dio网络请求失败的回调错误码 
@@ -42,8 +46,11 @@ class DioManager {
     return _instance;
   }
 
+
+  
+
   Dio dio = new Dio();
-  DioManager() {
+  DioManager(){
     dio.options.headers = {
       "version": '2.0.9',
       "Authorization": '_token',
@@ -59,12 +66,22 @@ class DioManager {
   //get请求
   get(String url, Map params, Function successCallBack,
       Function errorCallBack) async {
+    String deviceid = await getDivceUDID();
+    // dio.options.headers = {
+    //   "version": '2.0.9',
+    //   "deviceid": deviceid,
+    // };
     _requstHttp(url, successCallBack, 'get', params, errorCallBack);
   }
 
   //post请求
   post(String url, params, Function successCallBack,
       Function errorCallBack) async {
+    String deviceid = await getDivceUDID();
+    // dio.options.headers = {
+    //   "version": '2.0.9',
+    //   "deviceid": deviceid,
+    // };
     _requstHttp(url, successCallBack, "post", params, errorCallBack);
   }
 
