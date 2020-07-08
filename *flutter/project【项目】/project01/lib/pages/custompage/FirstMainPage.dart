@@ -18,24 +18,24 @@ class _FirstMainPageState extends State<FirstMainPage> {
       RefreshController(initialRefresh: false);
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
 
+    getFirstDataFromNet((list) {
+      setState(() {
+        dataArray = [];
+        dataArray.addAll(list);
+      });
+    }, null);
     // 先从本地获取字符串
-    String localStr = await local_getStringFromKey("localList");
-    if (localStr != null && localStr.length > 0) {
-      List localList = jsonDecode(localStr);
-      dataArray = [];
-      dataArray.addAll(localList);
-    } else {
-      // 本地获取不到就从服务器抓取
-      getFirstDataFromNet((list) {
-        setState(() {
-          dataArray = [];
-          dataArray.addAll(list);
-        });
-      }, null);
-    }
+    // String localStr = await local_getStringFromKey("localList");
+    // if (localStr != null && localStr.length > 0) {
+    //   List localList = jsonDecode(localStr);
+    //   dataArray = [];
+    //   dataArray.addAll(localList);
+    // } else {
+    //   // 本地获取不到就从服务器抓取
+    // }
   }
 
   /**第一次进入发送请求 */
@@ -135,19 +135,15 @@ class _FirstMainPageState extends State<FirstMainPage> {
                   child: Stack(
                     children: <Widget>[
                       Positioned(
-                        left: 0,
-                        top: 0,
-                        bottom: 0,
-                        right: 0,
                         child: Image.network(
                           imgUrl,
                           fit: BoxFit.cover,
                         ),
                       ),
                       Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
+                        bottom: setHeight(0),
+                        left: setWidth(0),
+                        right: setWidth(0),
                         child: Container(
                           height: setHeight(60),
                           color: Color.fromRGBO(0, 0, 0, 0.25),
