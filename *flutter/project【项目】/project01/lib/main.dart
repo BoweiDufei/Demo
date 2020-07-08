@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import './packages/Routes.dart';
 import './packages/ScreenAdaper.dart';
-
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

@@ -18,7 +18,7 @@ class _FirstMainPageState extends State<FirstMainPage> {
       RefreshController(initialRefresh: false);
 
   @override
-  void initState() async{
+  Future<void> initState() async {
     super.initState();
 
     // 先从本地获取字符串
@@ -27,7 +27,7 @@ class _FirstMainPageState extends State<FirstMainPage> {
       List localList = jsonDecode(localStr);
       dataArray = [];
       dataArray.addAll(localList);
-    }else{
+    } else {
       // 本地获取不到就从服务器抓取
       getFirstDataFromNet((list) {
         setState(() {
@@ -40,7 +40,7 @@ class _FirstMainPageState extends State<FirstMainPage> {
 
   /**第一次进入发送请求 */
   void getFirstDataFromNet(
-      void Function(List) finishBlock, Function errorBlock)  async{
+      void Function(List) finishBlock, Function errorBlock) async {
     Map<String, dynamic> params = Map();
     DioManager.getInstance().get('/api/getSumarArticles', params, (data) {
       var listData = data['data'];
@@ -151,7 +151,8 @@ class _FirstMainPageState extends State<FirstMainPage> {
                         child: Container(
                           height: setHeight(60),
                           color: Color.fromRGBO(0, 0, 0, 0.25),
-                          padding: EdgeInsets.fromLTRB(setWidth(10), 0, setWidth(10), 0),
+                          padding: EdgeInsets.fromLTRB(
+                              setWidth(10), 0, setWidth(10), 0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
