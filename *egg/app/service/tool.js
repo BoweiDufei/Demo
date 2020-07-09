@@ -164,6 +164,10 @@ class ToolService extends Service {
 
       // 文章中的图片也要下载
       let articleStr = nodes.toString();
+      // 去除特殊符号
+      articleStr = articleStr.replace(new RegExp('&lt;', 'g'), '<');
+      articleStr = articleStr.replace(new RegExp('&gt;', 'g'), '>');
+      articleStr = articleStr.replace(new RegExp('&amp;', 'g'), '&');
       const $ = cheerio.load(articleStr);
       const imglist = [];
       $('img').each(function(i, elem) {
