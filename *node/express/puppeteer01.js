@@ -36,6 +36,7 @@ app.get('/filedown', async (req, res, next) => {
               item.p = p.innerText;
               item.href = a.href;
               item.img = img.src;
+              item.text = element.outerHTML;
 
               links.push(item)
             }
