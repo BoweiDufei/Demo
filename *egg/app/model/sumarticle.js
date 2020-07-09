@@ -8,6 +8,7 @@ module.exports = app => {
     titleStr: { type: String }, // 标题
     contentStr: { type: String }, // 描述
     imgSrc: { type: String }, // 图片
+    type: { type: String, default: '0' }, // 类型 是 微文， 1：百度
     createdAt: { type: Date, default: Date.now }, // 创建时间
   });
   return mongoose.model('Sumarticle', SumarticleSchema, 'sumarticle');
