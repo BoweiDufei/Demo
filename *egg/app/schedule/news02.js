@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   schedule: {
-    interval: '1h',
+    interval: '90m',
     type: 'all', // 指定所有的 worker 都需要执行
   },
   async task(ctx) {
@@ -10,7 +10,8 @@ module.exports = {
     if (hour < 4 || hour > 23) {
       return;
     }
-    const address = 'http://webpage.mbd.baidu.com/home?context={%22app_id%22:%221573407181922932%22}';
+    // 渔网捕鱼
+    const address = 'https://ra.mbd.baidu.com/r/5ZHxh87IXu?f=cp&u=a7fde4e459a9a2dc';
     await ctx.service.news.startGetBaijiaNewsMethod(address);
 
   },

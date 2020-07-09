@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   schedule: {
-    interval: '1h',
+    interval: '6h', // 时间可以调长一点
     type: 'all', // 指定所有的 worker 都需要执行
   },
   async task(ctx) {
@@ -10,7 +10,8 @@ module.exports = {
     if (hour < 4 || hour > 23) {
       return;
     }
-    const address = 'http://webpage.mbd.baidu.com/home?context={%22app_id%22:%221573407181922932%22}';
+    // 全方位武器
+    const address = 'https://rs.mbd.baidu.com/r/5ZMEhEF1Vm?f=cp&u=f30d4afb26d432b3';
     await ctx.service.news.startGetBaijiaNewsMethod(address);
 
   },
