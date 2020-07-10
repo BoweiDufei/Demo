@@ -15,7 +15,9 @@ class NewsService extends Service {
       const browser = await (puppeteer.launch({
         // 若是手动下载的chromium需要指定chromium地址, 默认引用地址为 /项目目录/node_modules/puppeteer/.local-chromium/
         // 设置超时时间
-        timeout: 15000,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        // ignoreDefaultArgs: ['--disable-extensions'],
+        timeout: 35000,
         // 如果是访问https页面 此属性会忽略https错误
         ignoreHTTPSErrors: true,
         // 打开开发者工具, 当此值为true时, headless总为false
@@ -39,7 +41,7 @@ class NewsService extends Service {
             const right = mainElement.getElementsByClassName('s-image-wrap')[0];
             const imgDiv = right.getElementsByClassName('s-image')[0];
             const titleDiv = mainElement.getElementsByClassName('text-title line-clamp-2')[0];
-            const commentDiv = mainElement.getElementsByClassName('s-subscripts sfi-article-subscript tab-subscript')[0];
+            const commentDiv = mainElement.getElementsByClassName('s-subscripts sfi-article-subscript')[0];
             const commentSpan = commentDiv.getElementsByTagName('span')[1];
 
             // p
@@ -69,7 +71,43 @@ class NewsService extends Service {
         if (locRes.length > 0) {
           continue;
         }
-        const model = { href: item.url, titleStr, contentStr: '', imgSrc: item.img, type: '1' };
+
+        // 把图片下载下来并替换
+        const imgStr = item.img;
+        const convstr = this.ctx.helper.md5(imgStr); // md5图
+
+        // 先从数据库中搜索
+        let url = '';
+        const locPic = await this.ctx.model.Picture.find({ title: convstr });
+        if (locPic.length > 0) {
+          // 数据库中有
+          const firstObj = locPic[0];
+          url = firstObj.url;
+        } else {
+          // 数据库中没有就下载
+          // 开始下载
+          const convfilename = convstr + '.jpg';
+          const fileResult = await this.service.tool.easyGetPicPathWithoutRepeat(convfilename);
+          const othername = path.join('app', fileResult.saveDir);
+          const flag = await this.ctx.helper.easyDownImage(imgStr, othername);
+          if (flag) {
+            url = othername;
+            const pic = {
+              title: convstr,
+              link: othername,
+              url: othername,
+              jimp01: othername,
+              jimp02: othername,
+            };
+            // 存图片数据库
+            await this.ctx.model.Picture.create(pic);
+          } else {
+            url = '';
+          }
+        }
+        const resultImg = url.length > 0 ? 'http://127.0.0.1:8899/' + url : imgStr;
+
+        const model = { href: item.url, titleStr, contentStr: '', imgSrc: resultImg, type: '1' };
         const result = await this.ctx.model.Sumarticle.create(model);
         // 获取文章内容
         const detailResult = await this.getBaiduDetailArticleMethond(item.url, result._id);
@@ -90,6 +128,8 @@ class NewsService extends Service {
       const browser = await (puppeteer.launch({
         // 若是手动下载的chromium需要指定chromium地址, 默认引用地址为 /项目目录/node_modules/puppeteer/.local-chromium/
         // 设置超时时间
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        // ignoreDefaultArgs: ['--disable-extensions'],
         timeout: 15000,
         // 如果是访问https页面 此属性会忽略https错误
         ignoreHTTPSErrors: true,
