@@ -22,6 +22,7 @@ import axios from 'axios'
 
 export default {
   async mounted() {
+    // 5f08115589bd9f234a501a63
     const articleId = this.$route.params.id+'';
     const hostIp = 'http://120.53.248.129:7001';
     const detailArticleUrl = hostIp + '/api/getArticleDetailById?id='+articleId;
@@ -99,12 +100,14 @@ export default {
   align-items: center;
 }
 .title{
-  line-height: 28px;
   margin-bottom: 20px;
-  letter-spacing: 10px;
+  line-height: 40px;
 }
 .desc{
   margin-bottom: 20px;
+}
+.content{
+  font-size: 20px;
 }
 .content img{
   width: 100%;
