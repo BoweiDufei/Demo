@@ -13,15 +13,21 @@ export default {
 </script>
 
 <style>
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
 #app {
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
 }
 .item{
   flex: 1;
-  background-color: aqua;
+  background-color: white;
   margin-left: 10px;
 }
 </style>

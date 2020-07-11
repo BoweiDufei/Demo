@@ -84,6 +84,8 @@ export default {
 <style lang="scss" scoped>
   
 .articleController{
+  box-sizing: border-box;
+  width:100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -92,8 +94,6 @@ export default {
 }
 
 .artM{
-  min-width: 300px;
-  max-width: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
