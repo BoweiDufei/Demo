@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   schedule: {
-    interval: '20s',
+    interval: '20m',
     type: 'all', // 指定所有的 worker 都需要执行
   },
   async task(ctx) {
