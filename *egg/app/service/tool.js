@@ -172,6 +172,7 @@ class ToolService extends Service {
       const imglist = [];
       $('img').each(function(i, elem) {
         imglist.push($(this).attr('data-src'));
+        imglist.push($(this).attr('src'));
       });
       // 开始遍历 图片并下载
       for (let index = 0; index < imglist.length; index++) {
