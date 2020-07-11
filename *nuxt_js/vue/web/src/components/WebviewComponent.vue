@@ -24,8 +24,8 @@ export default {
   async mounted() {
     // 5f08115589bd9f234a501a63
     const articleId = this.$route.params.id+'';
-    // const hostIp = 'http://120.53.248.129:7001';
-    const hostIp = 'http://127.0.0.1:7001';
+    const hostIp = 'http://120.53.248.129:7001';
+    // const hostIp = 'http://127.0.0.1:7001';
     const detailArticleUrl = hostIp + '/api/getArticleDetailById?id='+articleId;
     if (articleId.length > 0) {
       const result = await axios.get(
