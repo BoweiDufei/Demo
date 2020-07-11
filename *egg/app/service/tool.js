@@ -171,8 +171,14 @@ class ToolService extends Service {
       const $ = cheerio.load(articleStr);
       const imglist = [];
       $('img').each(function(i, elem) {
-        imglist.push($(this).attr('data-src'));
-        imglist.push($(this).attr('src'));
+        const dataSrc = $(this).attr('data-src');
+        if (dataSrc.length > 0) {
+          imglist.push(dataSrc);
+        }
+        const src = $(this).attr('data-src');
+        if (src.length > 0) {
+          imglist.push(src);
+        }
       });
       // 开始遍历 图片并下载
       for (let index = 0; index < imglist.length; index++) {

@@ -24,7 +24,8 @@ export default {
   async mounted() {
     // 5f08115589bd9f234a501a63
     const articleId = this.$route.params.id+'';
-    const hostIp = 'http://120.53.248.129:7001';
+    // const hostIp = 'http://120.53.248.129:7001';
+    const hostIp = 'http://127.0.0.1:7001';
     const detailArticleUrl = hostIp + '/api/getArticleDetailById?id='+articleId;
     if (articleId.length > 0) {
       const result = await axios.get(
@@ -61,7 +62,7 @@ export default {
       if(typeof this.contentStr == 'string'){
         const infoStr = this.contentStr;
         const word1 = infoStr.replace('visibility: hidden','visibility: visible')
-        const word2 = word1.replace(new RegExp('http://127.0.0.1:8899/app','g'),"http://120.53.248.129:7001");
+        const word2 = word1.replace(new RegExp('http://127.0.0.1:8899/app','g'),"http://127.0.0.1:7001");
         const word = word2.replace(new RegExp('data-src','g'),"src");
         return word;
       }else{
@@ -81,7 +82,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   
 .articleController{
   box-sizing: border-box;
@@ -90,7 +91,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 10px;
 }
 
 .artM{
@@ -101,7 +102,11 @@ export default {
 }
 .title{
   margin-bottom: 20px;
-  line-height: 40px;
+  line-height: 1.3em;
+  font-size: 1.5em;
+  color: #383838;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 .desc{
   margin-bottom: 20px;
@@ -110,7 +115,10 @@ export default {
   font-size: 20px;
 }
 .content img{
-  width: 100%;
+  width: 85% !important;
+  display: block;
+  text-align: center;
+  margin: auto;
 }
 .rich_media_content {
   visibility: visible;
