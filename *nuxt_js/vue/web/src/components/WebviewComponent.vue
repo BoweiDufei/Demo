@@ -62,8 +62,11 @@ export default {
       if(typeof this.contentStr == 'string'){
         const infoStr = this.contentStr;
         const word1 = infoStr.replace('visibility: hidden','visibility: visible')
-        const word2 = word1.replace(new RegExp('http://127.0.0.1:8899/app','g'),"http://127.0.0.1:7001");
-        const word = word2.replace(new RegExp('data-src','g'),"src");
+        const hostIp = 'http://120.53.248.129:7001';
+        const word2 = word1.replace(new RegExp('http://127.0.0.1:8899/app','g'),hostIp);
+        const word3 = word2.replace(new RegExp('data-src','g'),"src");
+        const word = word3.replace(new RegExp('iframe','g'),"a");
+        console.log('word = ',word);
         return word;
       }else{
         return '';

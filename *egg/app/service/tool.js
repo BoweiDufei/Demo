@@ -94,7 +94,7 @@ class ToolService extends Service {
           const $ = cheerio.load(body);
           const target = [];
 
-          $('*').each(function(i, ele) {
+          $('*').each(function (i, ele) {
             if ($(ele).is('p')) {
               const txt = $(ele).text();
               const richTxt = `<p style="text-indent:2em; line-height:22px; font-size:16px;">${txt}</p>`
@@ -140,11 +140,12 @@ class ToolService extends Service {
         } else {
           url = '';
         }
-        const resultImg = url.length > 0?'http://127.0.0.1:8899/' + url:imgSrc;
+        const resultImg = url.length > 0 ? 'http://127.0.0.1:8899/' + url : imgSrc;
         const item = { href, titleStr, contentStr, imgSrc: resultImg };
         const result = await this.ctx.model.Sumarticle.create(item);
 
         // 获取文章内容
+        // product-details
         const detailResult = await this.getDetailArticleMethond(href, result._id, '//*[@id="js_content"]');
         if (!detailResult) {
           continue;
@@ -164,6 +165,7 @@ class ToolService extends Service {
 
       // 文章中的图片也要下载
       let articleStr = nodes.toString();
+      // console.log('articleStr = ', articleStr);
       // 去除特殊符号
       articleStr = articleStr.replace(new RegExp('&lt;', 'g'), '<');
       articleStr = articleStr.replace(new RegExp('&gt;', 'g'), '>');
@@ -216,18 +218,18 @@ class ToolService extends Service {
         }
         const resultImg = url.length > 0 ? 'http://127.0.0.1:8899/' + url : imgStr;
         if (url.length > 0) {
-          articleStr = articleStr.replace(new RegExp(imgStr,'g'),resultImg);
+          articleStr = articleStr.replace(new RegExp(imgStr, 'g'), resultImg);
         }
       }
       if (imglist.length === 0) {
-        console.log('imglist.length==0 url = ',url);
+        console.log('imglist.length==0 url = ', url);
       }
       // 开始存储到详情
       const item = { articleId, articleStr };
       await this.ctx.model.Detailarticle.create(item);
       return true;
     } catch (error) {
-      console.log('捕捉到了错误 = ',error);
+      console.log('捕捉到了错误 = ', error);
       return false;
     }
   }
@@ -236,7 +238,13 @@ class ToolService extends Service {
   getPcBasicContent(url, xpathPath) {
 
     return new Promise((resolve, reject) => {
-      http.get(url, function(res) {
+      const options = {
+        headers: {
+          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Mobile Safari/537.36',
+        },
+      };
+      http.get(url, options, function(res) {
         const htmlData = []; // 用于接收获取到的网页
         // eslint-disable-next-line no-unused-vars
         let htmlDataLength = 0;
@@ -254,7 +262,7 @@ class ToolService extends Service {
           const nodes = xpath.select(xpathPath, doc);
           resolve(nodes);
         });
-        res.on('error', function(err) {
+        res.on('error', function (err) {
           if (err != null) {
             reject(err);
           }

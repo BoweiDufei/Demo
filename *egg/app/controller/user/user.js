@@ -315,6 +315,22 @@ class UserController extends Controller {
     this.ctx.helper.success(this.ctx, result, '发送成功');
   }
 
+  /**
+   * @summary 获取爬虫 内容测试
+   * @description 爬虫测试
+   * @router post /api/pcDetailTestMethod
+   * @request bbb
+   * @response 200 baseResponse 创建成功
+   */
+  async pcDetailTestMethod() {
+    const address = this.ctx.request.body.address;
+    if (address === null) {
+      this.ctx.helper.fail(this.ctx, '请输入address');
+      return;
+    }
+    const result = await this.ctx.service.tool.getDetailArticleMethond(address, 'aaa', '//*[@id="js_content"]');
+    this.ctx.helper.success(this.ctx, result, '发送成功');
+  }
 }
 
 module.exports = UserController;
