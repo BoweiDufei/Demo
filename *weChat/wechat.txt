@@ -2,3 +2,149 @@
 ########################################################
 wxd41d6c19d3141180
 
+基础
+**************************************************************
+小程序开发 页面结构WXML  页面样式WXSS  交互响应JavaScript
+网页  开发 页面结构HTML  页面样式 CSS  交互响应JavaScript
+两个几乎一样
+
+使用flex布局
+支持TS语言
+也可以自行搭建less、sass开发环境
+
+在小程序中，页面渲染和业务逻辑是分开的，分别运行在不同的线程中，
+逻辑层运行在JSCore中，并没有一个完整的浏览器对象，因而缺少相关的DOM API和BOM API和BOM API和BOM AIP 
+因此jQuery不能使用
+小程序性能介于纯网页开发与原生之间
+
+运行环境
+iOS 逻辑层 JavaScriptCore  渲染层WKWebView
+Android   V8              chromium定制内核
+开发工具   NWJS             chrome WebView 
+
+不经常使用、但是刚需、不会停留太久的简单工具
+比如天气预报、买票、出行住宿、缴费、话费、外卖、快递
+
+小程序好处：跨平台、开发门槛低、开发周期短、开发成本低（对初创企业是个很好的选择）
+APP成本太高，每隔平台都要维护一套代码
+发布上线：提交微信公众平台审核
+
+vscode开发微信小程序
+插件：搜索微信 -- minapp
+     小程序开发助手
+
+重要：官方demo ： https://github.com/wechat-miniprogram/miniprogram-demo
+ 网友整理demo： https://github.com/justjavac/awesome-wechat-weapp
+ https://github.com/opendigg/awesome-github-wechat-weapp
+UI组件库：
+https://github.com/Tencent/weui-wxss
+https://github.com/TalkingData/iview-weapp
+https://github.com/youzan/vant-weapp
+https://github.com/meili/minui
+https://github.com/wux-weapp/wux-weapp
+https://github.com/weilanwl/ColorUI
+京东凹凸实验室https://github.com/NervJS/taro-ui
+
+小程序注册指南
+https://developers.weixin.qq.com/miniprogram/introduction/
+https://mp.weixin.qq.com/ 点击注册-小程序
+利用邮箱注册小程序：
+https://mp.weixin.qq.com/wxopen/waregister?action=step1
+
+开发者文档也可以在开发者工具中 -- 点击 帮助  -  开发者文档
+
+对JS代码进行断点调试
+app.js  中 onLaunch: function(){}  app一启动就会调用此方法
+开发者工具左上角 有个 调试器 按钮，可以显示console.log信息
+断点调试方法，在代码中添加
+第一种思路 debugger;
+第二种思路 在source文件的sm文件中打断点
+没有sm文件，可以在文件夹开合中打开
+
+目录结构
+小程序主要包含一个描述整体程序的app和多个描述个字页面的page
+app.js  app.json  app.wxss(全局布局样式，可有可无)  必须放在根目录（文件名固定）
+
+app.json 中配置导航栏的文字和主题色调
+
+重要*******************
+建议单位是rps，不是px
+可以根据屏幕宽度进行自适应，规定屏幕宽度为750rpx
+
+
+一个页面由4个文件组成
+js    页面逻辑
+wxml  页面结构
+json  页面配置
+wxss  页面样式表
+
+
+
+flex布局
+**************************************************************
+弹性布局，在小程序中开发经常使用
+div>div.item*5 快速设置h5框架
+
+flex默认是从左往右，不是从上到下
+display:flex 和 inline-flex都可以开启flex布局
+区别
+flex： container容器是以block-level形式存在 块级元素， 块级独占一行
+inline-flex： container容器是以inline-level形式存在，行内块级，能更其他div占一行
+
+（技巧）
+给class添加宽高
+w100+h100 回车，可以快速添加宽高各为100的属性
+
+文字居中
+text-align:center;
+line-height:100rps;
+
+flex-direction决定了主轴方向 有四个值 row/row-reverse/column/column-reverse 
+justfy-content主轴的对齐方式flex-start/flex-end/space-around/space-between
+
+
+微信小程序开发
+**************************************************************
+进入小程序显示的第一个页面是在app.json中配置的pages中排第一个的页面
+
+界面搭建.wxml中建议外面包一个view，方便后面调整
+<view></view>，第一选择就是view，如果不知道该使用哪个容器的情况下
+
+给按钮绑定点击事件： bindtap="btnClickMethod"
+data-*可以自定义属性
+点击按钮传值 要在按钮上添加data-方法  <button bindtap="btnClickMethod" data-age="123">按钮</button>
+在方法中获取传递的数据：
+btnClickMethod(value){
+  console.log("btnClickMethod - ",value.currentTarget.dataset.age)
+},
+不仅仅是button可以添加bindtap事件，view也可以
+
+循环布局 （在vscode可实现）
+1，先输入view ，2 在<>中输入for
+或者直接输入view-for 
+可以在src=""中添加{{}} 比如src="https://www.baidu.com/{{a.key}}"
+
+获取data数据
+this.data.name
+修改data数据并刷新页面
+this.setData({
+  name:'aaa'
+})
+
+设置阴影
+box-shadow:2rpx 2rpx 2rpx 0 rgb 
+前两个参数是x、y方向，
+第三个参数是阴影厚度
+第四个参数是阴影延伸
+第五个参数是颜色
+
+切角
+boder-radius: 50rpx
+
+
+
+
+
+
+
+
