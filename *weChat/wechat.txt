@@ -68,7 +68,7 @@ app.js  app.json  app.wxss(全局布局样式，可有可无)  必须放在根�
 app.json 中配置导航栏的文字和主题色调
 
 重要*******************
-建议单位是rps，不是px
+建议单位是rpx，不是px
 可以根据屏幕宽度进行自适应，规定屏幕宽度为750rpx
 
 
@@ -140,6 +140,117 @@ box-shadow:2rpx 2rpx 2rpx 0 rgb
 
 切角
 boder-radius: 50rpx
+
+设置view的高度占屏幕100%方法 设置高度为100vh
+计算属性：height: calc(10 * 10rpx);
+或者：calc(50% - 50px);
+注意：calc 内部的表达式，在使用运算符号时，两遍必须加上空格（虽然乘除可以无视，但还是建议带上）！！！！！，不然会解析错误！！
+
+view默认是block类型
+使用scroll-view步骤
+********************************************************************
+1，搭建基本框架，设置white-space为nowrap
+.myscrollView{
+  white-space: nowrap;
+}
+2，如果是横向移动，设置scroll-x="true" 内部子元素为display: inline-block;
+3，如果是纵轴移动，设置scroll-x="false" scroll-y="true" 注意scrollview高度要写死，不然会被撑起来
+   内部子元素设置为display: block;
+
+使用swiper要点：swiper一定要和swiper-item两个配合使用
+控制swiper滚动方向 vertical="false" ，把这个代码删除掉就是横向滚动，添加就是垂直滚动，不管怎么修改属性值
+注意，给swiper赋值的时候autoplay="false"这样赋值会出问题，要autoplay="{{false}}"
+很奇怪
+
+promise的写法
+********************************************************************
+/**获取用户信息
+ * 
+ * const tool = require('../../utils/tool.js')
+ * viewClickMethod: async function() {
+ *   const info = await tool.getUserinfo();
+ * }
+ * (注意:微信小程序中的async 写在function前面)
+ */
+const getUserinfo = function() {
+  return new Promise((resolve, reject) => { 
+    wx.getUserInfo({
+      complete: (res) => {
+        resolve(res)
+      },
+      fail: (err)=>{
+        reject(err)
+      },
+    })
+  });
+}
+
+module.exports = {
+  getUserinfo
+}
+********************************************************************
+
+icon的用法
+<icon type="success" size="20"></icon> 
+可以使用size来调节大小，通过type来控制图标显示，可以省图标
+普通警告// 通过控制color来实现
+<icon type="warn" size="93" color="#C9C9C9"></icon>
+type: info/success/warn(警告)/waiting(等待)/success_no_circle(选中)/circle(未选中)/download(下载)
+info_circle(提示)/cancel（关闭）/search(搜索)
+
+进度条用法
+<progress percent="20" show-info stroke-width="3"/> 不带动画
+<progress percent="40" active stroke-width="3" /> 带有动画
+
+
+富文本渲染，相当于vue中的v-html
+<rich-text nodes="{{htmlSnip}}"></rich-text>
+
+按钮button
+漂亮的按钮要添加type属性
+primary/default/warn
+plain属性可以控制按钮内部是否填充
+disabled属性控制按钮是否允许被点击
+open-type可以添加微信开放的部分功能
+
+多选check的使用
+********************************************************************
+<checkbox-group bindchange="checkBoxGroupClick">
+    <label class="innerlabel">
+      <checkbox class="check" value="v1">
+      </checkbox>
+        你好01
+    </label>
+    <label class="innerlabel">
+      <checkbox class="check" value="v2">
+      </checkbox>
+        你好02
+    </label>
+</checkbox-group>
+
+在js文件中实现checkBoxGroupClick方法
+
+checkBoxGroupClick(e){
+  console.log('e.value = ',e.detail.value);
+  // value中是value的数组
+}
+********************************************************************
+单选框
+<radio-group name="radio">
+  <label><radio value="radio1"/>选项一</label>
+  <label><radio value="radio2"/>选项二</label>
+</radio-group>
+
+输入框
+<input class="weui-input" name="input" placeholder="这是一个输入框" />
+
+picker选择器
+<picker class="myPicker" range="{{list}}">
+  {{list[selectedIndex]}}
+</picker>
+
+注意点要在picker内部包一个显示的文本，选择器才会出现，具体可以参考文档
+https://developers.weixin.qq.com/miniprogram/dev/component/picker.html
 
 
 
