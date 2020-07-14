@@ -252,9 +252,34 @@ picker选择器
 注意点要在picker内部包一个显示的文本，选择器才会出现，具体可以参考文档
 https://developers.weixin.qq.com/miniprogram/dev/component/picker.html
 
+********************************************************************
+导航跳转方法
+在vscode中输入wx-navigator即可
+路由相对于当前 比如: "../first/first?id=111"
+下个界面接受参数方法为
+onLoad: function (options) {
+  console.log(options.id);
+},
+返回上个page
+wx-navigatorback
+如何返回传值
+重点来了：
+在下一个界面的按钮点击进入方法中
 
+   // 获取当前所有page数量
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];  //上一个页面
+    prevPage.setData({
+      params:'last'
+    });
+    wx.navigateBack({
+      delta: 1
+    });
 
-
+********************************************************************
+图片组件
+注意千万不要和img组件搞混淆了
+<image class="myImage" src="{{imgSrc}}" mode="aspectFill" lazy-load="{{true}}" binderror="" bindload="">
 
 
 
