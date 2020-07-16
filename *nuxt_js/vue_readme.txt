@@ -11,6 +11,8 @@ vue create XXX
 运行 npm run serve 
 编译 npm run build
 
+npm install vue-router axios -s
+
 vscode 安装vue插件 Vue 2 Snippets
 
 vue数据格式
@@ -202,6 +204,11 @@ const result = await axios.get('http://localhost:3000?id=xxx');
      this.$router.push({name: 'product'}) // 不传参
      this.$router.push({name: 'content',params:{id:'lfkdjaklsdf'}}) // 传参
 
+     this.$router.push({ path: '/first/th' , query:{'id':'lfkdjaklsdf'}});
+
+     注意query传值是可见的，?和&拼接形式
+     params传值不是可见的，是判断 / 后参数来取值的
+
      history 了解
 
 16 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -229,6 +236,11 @@ const result = await axios.get('http://localhost:3000?id=xxx');
             path: 'userlist', // 注意没有 /
             component: UserList
           },
+          // 重点来了，传参
+          {
+            path: ':id',
+            component: Four,
+          }
         ]
       }
   4> 在MainUser配置路由分支
@@ -241,6 +253,18 @@ const result = await axios.get('http://localhost:3000?id=xxx');
     <div class="rightBlock">
       <router-view></router-view>
     </div>
+
+    // 子路由传参 要提前在main.js中匹配子路由 
+    {
+      path: ':id',
+      component: Four,
+    }
+    this.$router.push({ path: '/first/aaaaa'}); 
+    下个界面接console.log(this.$route.params);
+
+    // ? 传参
+    this.$router.push({ path: '/first/th' , query:{'id':'lfkdjaklsdf'}});
+    下个界面接console.log(this.$route.query);
 
 17 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 VUEX 解决不同组件数据共享以及数据持久化
