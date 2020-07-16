@@ -1,1 +1,46 @@
 官网：https://uniapp.dcloud.io/quickstart
+
+HbuilderX创建小程序项目
+打开hx- 文件 - 新建 - 项目 - uni-app - 默认模板 - 创建
+运行在微信开发者工具，第一次运行需要设置小程序位置
+如果不能运行，要在微信开发者工具中 设置 - 安全 - 端口号 开启
+
+文件介绍中比较重要的点
+App.vue是根组件，所有的页面都在App.vue下面进行切换的，是页面的入口文件，可以调用应用的
+声明周期函数。（比如：进入后台，进入前台）
+main.js 是项目的入口文件，项目加载的时候，首先加载main.js
+mainifest.json是用来配置应用打包的，比如应用图标，启动图
+pages.json 是用来设置整个项目页面的存放路径和外观
+uni.scss 是常用的外观变量
+
+uni开发规范
+组件标签靠近小程序，比如<view>
+接口能力也靠近小程序，但需将前缀wx改成uni
+数据绑定和数据处理考勤vue
+同时补充了app和页面的生命周期
+
+全局配置和页面配置
+pages.json中进行全局配置
+https://uniapp.dcloud.io/collocation/pages?id=globalstyle
+navigationBarBackgroundColor 顶部导航背景色
+
+创建一个简单页面
+所有页面都要放在pages里面
+鼠标右键 创建目录 创建.vue文件
+在pages.json中配置页面
+pages数组中第一项表示应用启动页
+
+给h5设置特有的样式
+h5:{
+  "titleNView":{}
+}
+
+配置tabbar
+tabbar与pages和globalStyle是同一级别
+代码直接复制修改即可，注意图片路径，一定更要存在
+具体步骤，1，新建page 2，在pages.json中配置pages 3，配置tabbar
+
+condition启动模式配置
+
+
+
