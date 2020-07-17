@@ -11,7 +11,7 @@ vue create XXX
 运行 npm run serve 
 编译 npm run build
 
-npm install vue-router axios -s
+npm install vue-router axios vuex -s
 
 vscode 安装vue插件 Vue 2 Snippets
 
