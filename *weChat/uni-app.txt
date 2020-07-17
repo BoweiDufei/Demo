@@ -42,5 +42,32 @@ tabbar与pages和globalStyle是同一级别
 
 condition启动模式配置
 
+开发技巧
+*********************************************
+1，下拉刷新
+   1>在pages.json的style中配置 "enablePullDownRefresh": true
+   2>在配置的页面中实现onPullDownRefresh(){} 方法
+   3>数据处理完成后执行uni.stopPullDownRefresh() 收回刷新
 
+   点击触发下来刷新方法
+   uni.startPullDownRefresh(()=>{
+
+   })
+   更多资料：https://uniapp.dcloud.io/api/ui/pulldown?id=stoppulldownrefresh
+2，定时器
+   setTimeout(callback, delay, rest) 会返回一个Number类型的timeoutID，可以通过这个id进行取消
+   clearTimeout(timeoutID) // 取消某个定时器
+   同理：
+   间隔执行方法 setInterval(callback, delay, rest)也会返回一个Number类型的timeoutID
+   clearInterval(intervalID) // 取消由 setInterval 设置的定时器。
+
+3，页面生命周期： 
+onLoad , onShow , onReady , onHide(监听页面隐藏) , onUpload(监听页面卸载)
+onPullDownRefresh(监听用户下拉动作) , 
+onReachBottom(页面滚动到底部的事件（不是scroll-view滚到底），常用于上拉加载下一页数据。如使用scroll-view导致页面级没有滚动，则触底事件不会被触发)
+onTabItemTap(点击 tab 时触发，参数为Object)
+onShareAppMessage(用户点击右上角分享)
+onPageScroll(监听页面滚动，参数为Object)
+
+   
 
