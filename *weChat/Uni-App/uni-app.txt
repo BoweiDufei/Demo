@@ -54,6 +54,12 @@ condition启动模式配置
 
    })
    更多资料：https://uniapp.dcloud.io/api/ui/pulldown?id=stoppulldownrefresh
+
+   上拉加载更多
+   onReachBottom 监听页面滚动到底部的事件
+   可以在pages.json中配置onReachBottomDistance来设置触底距离
+
+   this.list = [...this.list, ...['a', 'b']];
 2，定时器
    setTimeout(callback, delay, rest) 会返回一个Number类型的timeoutID，可以通过这个id进行取消
    clearTimeout(timeoutID) // 取消某个定时器
@@ -70,4 +76,152 @@ onShareAppMessage(用户点击右上角分享)
 onPageScroll(监听页面滚动，参数为Object)
 
    
+4，<view> 组件的使用
+class="box"
+hover-class="box-active" // 设置按下去的样式
+组织冒泡 hover-stop-propagation，只要添加这个属性，就能实现组织冒泡方法 (重要)
+hover-start-time="2000" 多久后执行hover属性 注意这个是有问题的，
+hover-start-time需要传入一个int类型，而这样传入的是个字符串
+需要在前面添加一个： 
+也就是:hover-start-time="2000"  这个时候，2000就是个整数类型
+
+5, <Button>
+常见属性
+size="mini" // 小按钮，默认是大按钮
+type 设置按钮的样式类型。 primary / default / warm
+plain: 按钮是否镂空，背景色透明，只有一个边框
+disable 按钮是否禁用
+loading 是否显示一个正在加载的菊花，只有设置一个属性就行，跟前面的hover-stop-propagation属性一样
+
+
+6，<Image>组件
+就是用来显示图片的，千万不要写成img
+src="" 可以是线上的图片，也可以是本地的
+组件默认是宽度300px高度225px，会导致图片缩放，解决办法，使用mode属性来解决
+mode属性值 aspectFit
+
+
+7，样式
+rpx动态响应单位，满屏幕宽度750rpx
+view和字体都能使用rpx
+@import 语句可以导入外链样式表
+比如在.vue同等级 创建一个a.css 
+.content{
+  color: 'red'
+}
+在<style>中导入
+@import url('./a.css');
+
+在uni-app中不能使用 * 
+<page> 就相当于body节点
+
+定义在app.vue中的样式为全局样式，作用于每一个页面
+在Pages中的vue页面中的样式，是局部样式，只能作用于对应的页面
+并且会覆盖app.vue中的相同选择器
+uni-app使用字体图标
+注意：文件小于40kb
+字体文件应用推荐使用~@开头
+项目中使用 scss  <style lang="scss"> </style>
+要安装插件 
+方法：工具 - 插件安装 - scss/sass编译
+安装好scss后就可以使用scss语法了 （重要）
+uni-app中默认的全局样式，也可以使用了 
+比如：background-color: $uni-color-primary;
+以后就可以全局管理颜色样式了
+
+8，数据绑定和vue几乎一样
+按钮点击事件，也可以通过@click=""来实现，传参也一样
+
+9，生命周期
+onLoad(options){}
+options是从上个界面传递过来的数据
+
+10，网络请求
+https://uniapp.dcloud.io/api/request/request
+注意：在各个小程序平台运行时，网络相关的 API 在使用前需要配置域名白名单。
+如果没有传入 success / fail / complete 参数，则会返回封装后的 Promise 对象：Promise 封装
+如果在小程序中无法正确发送数据，要在详情中进行配置 - 本地设置 -  不校验合法域名
+
+
+11，组件的创建
+在uni-app中，可以通过一个后缀为.vue下面进行切换的，是页面的入口文件，可以调用应用的即床架哪一个组件
+其他组件可以将该组件通过import的方式导入
+在通过components进行注册即可
+步骤： 1，在uni-app中新建组件，右键-新建组件
+2，在需要使用到组建的地方，导入 import test from '../../components/dbw-test/dbw-test.vue'
+3，注册一下组件
+components:{
+  test
+},
+4，使用该组件
+<test></test>
+传值可以在组件中使用props来实现
+props:{
+  msg:String,
+}
+也可以 props: [ 'msg' ]  
+为啥会有两种写法？
+
+5，组件给父组件传值使用$emmit
+<button type="default" @click="sendNumberMethod">给父组件传值</button>
+
+sendNumberMethod(){
+  console.log('sendNumberMethod')
+  this.$emit('myEven', this.myNum)
+}
+
+<test msg='标题' @myEven='getNumber'></test>
+
+6，在uni-app中使用vuex
+由于uni-app已经内置了vuex，所以只要正确引入就好了。
+在项目的根目录下，创建一个名为store的文件夹然后在该文件夹下创建一个store.js的js文件
+
+ 在store.js中添加代码
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex);
+/**1，在vue中主要用于存储数据 */
+var state = {
+  count:1
+}
+/**2，mutations 主要放的是方法，用于改变state中的数据 */
+var mutations = {
+  increseCount(){
+    state.count++;
+  },
+  setCountNumber(state, value){ // 直接修改count数值 注意参数
+    state.count = value;
+  }
+}
+const store = new Vuex.Store({
+  state,
+  mutations
+})
+export default store
+
+4> vuex的使用 （展示数据）
+  1、在<script> 中引入 import store from '../../vuex/store.js'
+  2、在<script> 中注册  要与data并列平行
+      export default {
+      data() {
+        return {
+          
+        }
+      },
+      store,
+    }
+  3、在合适的地方使用 {{this.$store.state.count}}
+
+  改变数据： this.$store.commit('increseCount') //触发increseCount方法
+  如果直接修改数据 this.$store.commit('setCountNumber',100)
+
+
+页面通讯相关方法：
+https://uniapp.dcloud.io/collocation/frame/communication
+
+
+uni的UI库 扩展组件
+https://uniapp.dcloud.io/component/README?id=uniui
 
