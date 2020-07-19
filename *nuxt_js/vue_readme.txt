@@ -317,3 +317,14 @@ VUEX 解决不同组件数据共享以及数据持久化
 
     
 
+
+扩展：
+子组件给父组件传值使用$emmit
+<button type="default" @click="sendNumberMethod">给父组件传值</button>
+
+sendNumberMethod(){
+  console.log('sendNumberMethod')
+  this.$emit('myEven', this.myNum)
+}
+
+<test msg='标题' @myEven='getNumber'></test>

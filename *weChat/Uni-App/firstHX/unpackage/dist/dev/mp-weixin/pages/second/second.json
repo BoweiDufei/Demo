@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "人员",
+  "usingComponents": {
+    "test": "/components/dbw-test/dbw-test"
+  }
+}

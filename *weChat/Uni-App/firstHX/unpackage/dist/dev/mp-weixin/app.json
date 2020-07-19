@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/second/second"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#4187e1",
+    "backgroundColor": "#faffff"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#4086de",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "/static/goutou-unselected.png",
+        "selectedIconPath": "/static/goutou-selected.png",
+        "text": "沟通"
+      },
+      {
+        "pagePath": "pages/second/second",
+        "iconPath": "/static/user-unselected.png",
+        "selectedIconPath": "/static/user-selected.png",
+        "text": "人员"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}
