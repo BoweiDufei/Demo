@@ -1,1 +1,0 @@
-<view>{{'这是我的组件 dbw-test  - '+msg+''}}<view><button type="default" data-event-opts="{{[['tap',[['sendNumberMethod',['$event']]]]]}}" bindtap="__e">给父组件传值</button></view></view>
