@@ -18,6 +18,14 @@ export default {
   padding: 0px;
   box-sizing: border-box;
 }
+body,html{
+	height:100%;
+	width:100%;
+	background:white;
+	overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
 #app {
   width: 100%;
   display: flex;

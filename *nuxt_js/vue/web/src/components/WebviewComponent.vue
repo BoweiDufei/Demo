@@ -89,13 +89,13 @@ export default {
 <style lang="scss">
   
 .articleController{
+  padding: 10px 10px;
   box-sizing: border-box;
   width:100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 10px;
 }
 
 .artM{
