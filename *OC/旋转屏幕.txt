@@ -1,0 +1,5 @@
+设置屏幕旋转，需要在父控制器CustomViewController.m中的viewDidAppear方法中进行设置
+1，声明一个标记uprightFlag，在init方法中设置为YES
+2，在AppDelegate.h中声明
+具体参考如下
+https://www.jianshu.com/p/32ac0b200931
