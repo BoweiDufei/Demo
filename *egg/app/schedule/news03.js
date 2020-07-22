@@ -11,8 +11,8 @@ module.exports = {
       return;
     }
     // 全方位武器
-    const address = 'https://rs.mbd.baidu.com/r/5ZMEhEF1Vm?f=cp&u=f30d4afb26d432b3';
-    await ctx.service.news.startGetBaijiaNewsMethod(address);
+    // const address = 'https://rs.mbd.baidu.com/r/5ZMEhEF1Vm?f=cp&u=f30d4afb26d432b3';
+    // await ctx.service.news.startGetBaijiaNewsMethod(address);
 
   },
 };

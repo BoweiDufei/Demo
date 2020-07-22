@@ -11,8 +11,8 @@ module.exports = {
       return;
     }
     // 渔网捕鱼
-    const address = 'https://ra.mbd.baidu.com/r/5ZHxh87IXu?f=cp&u=a7fde4e459a9a2dc';
-    await ctx.service.news.startGetBaijiaNewsMethod(address);
+    // const address = 'https://ra.mbd.baidu.com/r/5ZHxh87IXu?f=cp&u=a7fde4e459a9a2dc';
+    // await ctx.service.news.startGetBaijiaNewsMethod(address);
 
   },
 };

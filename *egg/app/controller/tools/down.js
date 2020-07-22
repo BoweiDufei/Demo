@@ -27,7 +27,8 @@ class DownController extends Controller {
    */
   async superDown() {
     const fs = require('fs');
-    const filePath = 'app/public/' + this.ctx.params.file;
+    // this.ctx
+    const filePath = path.join(this.config.uploadDir, this.ctx.params.file);
     const range = this.ctx.request.headers.range;
     if (range) {
       let [ , start, end ] = range.match(/(\d*)-(\d*)/);

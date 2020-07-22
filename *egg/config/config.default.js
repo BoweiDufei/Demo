@@ -2,6 +2,8 @@
 
 'use strict';
 
+const path = require('path');
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -14,11 +16,24 @@ module.exports = appInfo => {
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_123123';
-  config.uploadDir = 'app/public/admin/upload';
-  config.articlePicDir = 'app/public/admin/artPic';
 
   // add your middleware config here
   config.middleware = [ 'errorHandler' ];
+
+
+  // 配置资源路径
+  config.static = {
+    prefix: '/public/', //靜態化URL  我這裏默認網站根目錄（項目需要）
+    dir: path.join(appInfo.baseDir, 'mypublic'), // 靜態文件夾地址 可以設置多個 可以簡寫為 ：['app/public','app/public1']
+    dynamic: true, //是否緩存靜態資源
+    preload: false, //啓動項目開啓緩存
+    // maxAge: 31536000,
+    maxAge: 0, //緩存時間 開發建議設0 跳坑
+    buffer: true, //是否緩存到内存 默認prod 緩存
+  };
+
+  config.uploadDir = path.join(config.static.dir, 'admin/upload');
+  config.articlePicDir = path.join(config.static.dir, 'admin/artPic');
 
   config.swaggerdoc = {
     dirScanner: './app/controller',
