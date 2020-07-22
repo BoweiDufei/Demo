@@ -11,8 +11,8 @@ module.exports = {
       return;
     }
     // 央视网新闻
-    const address = 'http://webpage.mbd.baidu.com/home?context={%22app_id%22:%221573407181922932%22}';
-    await ctx.service.news.startGetBaijiaNewsMethod(address);
+    // const address = 'http://webpage.mbd.baidu.com/home?context={%22app_id%22:%221573407181922932%22}';
+    // await ctx.service.news.startGetBaijiaNewsMethod(address);
 
   },
 };
