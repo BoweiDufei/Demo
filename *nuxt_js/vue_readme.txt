@@ -328,3 +328,11 @@ sendNumberMethod(){
 }
 
 <test msg='标题' @myEven='getNumber'></test>
+
+
+
+
+非常重要
+****************************************************************************
+vue项目引入bootstrap正确姿势
+https://www.cnblogs.com/freephp/p/11671521.html
