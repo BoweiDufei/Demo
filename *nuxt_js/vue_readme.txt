@@ -336,3 +336,54 @@ sendNumberMethod(){
 ****************************************************************************
 vue项目引入bootstrap正确姿势
 https://www.cnblogs.com/freephp/p/11671521.html
+
+
+BootStrap4的总结***********
+最优秀的前端框架
+翻译的中文网 http://code.z01.com/v4/
+
+CDN部署好处：最新版本、体积小
+坏处：没有网络就凉凉
+
+doctype头部规范 国内的要<html lang='zh-cn'>
+响应标签：<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+在做页面整体布局的时候，必须要加一个容器.container
+<div class="container">aaa</div>
+.container: 流式布局
+.container-fluid
+http://code.z01.com/v4/layout/overview.html
+
+匹配屏幕宽度
+@media (min-width: 788px) and (max-width:991px){
+  .container-self{
+    background-color: blue;
+  }
+}
+常用.container 这个类作为主容器
+
+栅格系统是精髓，处理行与列的关系
+基于一个12列的布局，有5种响应尺寸
+
+1，容器为.container 
+2，内部有行.row 和列 .col组成
+3，内容必须放在列里面，只有列是行的直接子元素，否则都是违法的
+4，col-*后面有不同的数字，
+5，5个栅格等级 特小.col，小.col-sm-*，中.col-md-*
+大.col-lg-*，特大.col-xl-*
+
+
+栅格案例
+div.container
+   ***div.row
+      ***div.col-8
+      ***div.col-2
+      ***div.col-2
+
+超小屏幕 当屏幕宽度非常小的时候，div的宽度会变成100%
+div.container
+   ***div.row
+      ***div.sm
+      ***div.sm
+      ***div.sm
+
