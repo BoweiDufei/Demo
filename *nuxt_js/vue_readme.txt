@@ -383,7 +383,15 @@ div.container
 超小屏幕 当屏幕宽度非常小的时候，div的宽度会变成100%
 div.container
    ***div.row
-      ***div.sm
-      ***div.sm
-      ***div.sm
+      ***div.col-sm
+      ***div.col-sm
+      ***div.col-sm
+
+适配大屏幕和超大屏幕，当是超大屏幕的时候 5：2：5
+当时大屏幕的时候，3：6：3
+div.container
+   ***div.row
+      ***div.col-md-3 .col-lg-5
+      ***div.col-md-6 .col-lg-2
+      ***div.col-md-3 .col-lg-5
 
