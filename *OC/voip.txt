@@ -13,7 +13,8 @@ http://home.eeworld.com.cn/home.php?mod=space&uid=78216&do=blog&id=38105
 如何在CentOS 7上安装Asterisk
 https://www.howtoing.com/install-asterisk-on-centos-7
 
-WebRTC
+WebRTC比较官方的文档
+https://webrtc.org.cn/
 
 
 
