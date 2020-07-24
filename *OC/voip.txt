@@ -1,0 +1,21 @@
+Asterisk 的介绍
+Asterisk 是一个开放源代码的软件VoIP PBX系统，它是一个运行在Linux环境下的纯软件实施方案。Asterisk是一种功能非常齐全的应用程序，提供了许多电信功能，能够把你的 x86 机器变成你自己的交换机，还能够当作一台企业级的商用交换机。Asterisk让人激动的事情是它在小企业预算可承受的范围内提供了商业交换机的功能和可伸缩性。你可以使用一台老式的奔腾3计算机，让你的机构看起来就同世界上的大企业一样。
+
+
+freeswitch的介绍
+FreeSWITCH 是一个电话的软交换解决方案，包括一个软电话和软交换机用以提供语音和聊天的产品驱动。FreeSWITCH 可以用作交换机引擎、PBX、多媒体网关以及多媒体服务器等。
+
+
+参考资料
+centos 使用Yum安装Asterisk
+http://home.eeworld.com.cn/home.php?mod=space&uid=78216&do=blog&id=38105
+
+如何在CentOS 7上安装Asterisk
+https://www.howtoing.com/install-asterisk-on-centos-7
+
+WebRTC
+
+
+
+
+
