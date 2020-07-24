@@ -37,7 +37,7 @@ put 本地文件路径 远程主机路径
 在登录sftp后
 cd 到某个文件夹下面
 使用get ***.conf 命令来实现下载
-下载的路径可以通过lpwd来查找
+下载的路径可以通过 lpwd 来查找
 
 爬虫利器 Puppeteer 实战
 https://www.jianshu.com/p/a9a55c03f768
@@ -48,6 +48,10 @@ https://www.jianshu.com/p/a9a55c03f768
 达摩云 SSL购买
 https://www.moduyun.com/ssl.html
 
+查看根目录下所有文件夹大小的方法如下：
+1、进入根目录：cd /
+2、使用命令 ： du -sh * 查看根目录下每个文件夹的大小
+3、进入占用空间比较大的文件夹，然后再使用2中命令查找大文件。
 
 
 
