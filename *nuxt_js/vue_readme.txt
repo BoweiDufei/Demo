@@ -395,6 +395,15 @@ div.container
       ***div.col-md-6 .col-lg-2
       ***div.col-md-3 .col-lg-5
 
+间隙沟槽(gutters)清除 您可以使用.no-gutters类来消除它，这将影响到.row行、列平行间隙及所有子列
+
+排序和偏移
+Class顺序重定义
+使用 .order-* class选择符，可以对DIV空间进行 可视化排序,系统提供了.order-1到.order-1212个级别的顺序，在五种浏览器和设备宽度上都能生效
+order-sm-1 // 小屏幕
+order-2 // 所有屏幕
+
+偏移 offset-md-3 在哪个row前偏移就在哪个row上添加这个offset
 
 
 
