@@ -11,7 +11,7 @@
 <!-- Bootstrap 核心CSS -->
 <link rel="stylesheet" href="https://code.z01.com/v4/dist/css/bootstrap.min.css" >
 <style>
-body { padding-top: 2rem; padding-bottom: 3rem; color: #5a5a5a; }
+body { padding-top: 3rem; padding-bottom: 3rem; color: #5a5a5a; }
 
 .carousel {  margin-bottom: 4rem;}
 .carousel-caption {  bottom: 3rem;  z-index: 10;}
@@ -54,7 +54,7 @@ body { padding-top: 2rem; padding-bottom: 3rem; color: #5a5a5a; }
 </header>
 <main role="main">
   <h1 class="d-none">大连旷云科技官网</h1>
-  <div id="myCarousel" class="carousel slide no-gutters" data-ride="carousel">
+  <div id="myCarousel" class="carousel slide " data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -63,13 +63,12 @@ body { padding-top: 2rem; padding-bottom: 3rem; color: #5a5a5a; }
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-
-        ​<picture>
+        <picture>
           <source srcset="./imgs/big-01.jpg"  media="(min-width: 600px)">
           <source srcset="./imgs/sm-01.jpg">
           <img class="first-slide d-block w-100" src="./imgs/big-01.jpg" alt="First slide">
         </picture>
-        
+
         <div class="container">
           <div class="carousel-caption text-left">
             <h3>创新是我们的根本！</h3>
@@ -77,8 +76,7 @@ body { padding-top: 2rem; padding-bottom: 3rem; color: #5a5a5a; }
         </div>
       </div>
       <div class="carousel-item">
-        
-        ​<picture>
+        <picture>
           <source srcset="./imgs/big-02.jpg"  media="(min-width: 600px)">
           <source srcset="./imgs/sm-02.jpg">
           <img class="first-slide d-block w-100" src="./imgs/big-02.jpg" alt="First slide">
@@ -90,10 +88,10 @@ body { padding-top: 2rem; padding-bottom: 3rem; color: #5a5a5a; }
           </div>
         </div>
       </div>
-      <div class="carousel-item"> 
+      <div class="carousel-item">
 
 
-        ​<picture>
+        <picture>
           <source srcset="./imgs/big-03.jpg"  media="(min-width: 600px)">
           <source srcset="./imgs/sm-03.jpg">
           <img class="first-slide d-block w-100" src="./imgs/big-03.jpg" alt="First slide">
@@ -107,10 +105,10 @@ body { padding-top: 2rem; padding-bottom: 3rem; color: #5a5a5a; }
         </div>
       </div>
 
-      <div class="carousel-item"> 
+      <div class="carousel-item">
 
 
-        ​<picture>
+        <picture>
           <source srcset="./imgs/big-04.jpg"  media="(min-width: 600px)">
           <source srcset="./imgs/sm-04.jpg">
           <img class="first-slide d-block w-100" src="./imgs/big-04.jpg" alt="First slide">
@@ -205,5 +203,8 @@ body { padding-top: 2rem; padding-bottom: 3rem; color: #5a5a5a; }
 <script src="https://code.z01.com/v4/dist/js/bootstrap.min.js" ></script>
 <!-- 下面是JS图像占位符，不要用于生产环境! -->
 <script src="../album/holder.min.js"></script>
+<script>
+  ($("#myCarousel").text()).replace(/\u200B/g,'');
+</script>
 </body>
 </html>
