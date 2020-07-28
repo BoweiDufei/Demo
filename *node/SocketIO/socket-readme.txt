@@ -29,4 +29,8 @@ socket.io 可以跨域
 服务器监听/chat 路由，并且获取名字参数 ?name=张三
 渲染html后，提交数据的时候，将名字带入 socket.emit('msg', {name:'张三',msg:'提交的信息'})
 
+多房间聊天，定向广播
+关键是客户端在创建io连接的时候，添加上房间号码
+var socket = io.connect('http://...:8000?roomid=1')
 
+服务端中通过 socket.request.url 来获取房间号
