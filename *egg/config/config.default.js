@@ -18,7 +18,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_123123';
 
   // add your middleware config here
-  config.middleware = [ 'errorHandler' ];
+  config.middleware = ['errorHandler'];
 
 
   // 配置资源路径
@@ -42,9 +42,9 @@ module.exports = appInfo => {
       description: 'swagger-ui for egg',
       version: '1.0.0',
     },
-    schemes: [ 'http', 'https' ],
-    consumes: [ 'application/json' ],
-    produces: [ 'application/json' ],
+    schemes: ['http', 'https'],
+    consumes: ['application/json'],
+    produces: ['application/json'],
     securityDefinitions: {},
     enableSecurity: false,
     routerMap: true,
@@ -81,11 +81,24 @@ module.exports = appInfo => {
       enable: false,
       ignoreJSON: true,
     },
-    domainWhiteList: [ 'http://127.0.0.1:3000' ],
+    domainWhiteList: ['http://127.0.0.1:3000'],
   };
   config.cors = {
     origin: '*', // 匹配规则  域名+端口  *则为全匹配
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
+  config.io = {
+    init: {}, // passed to engine.io
+    namespace: {
+      '/': {
+        connectionMiddleware: [],
+        packetMiddleware: [],
+      },
+      '/example': {
+        connectionMiddleware: [],
+        packetMiddleware: [],
+      },
+    },
   };
 
   // add your user config here

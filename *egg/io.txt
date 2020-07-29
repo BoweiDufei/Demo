@@ -1,0 +1,31 @@
+在eggjs中集合io
+具体可参考 ： https://www.jianshu.com/p/9f79fd9c81f6
+1，安装egg-socket.io
+npm i egg-socket.io -S
+
+2，开启插件
+/config/plugin.js
+exports.io = {
+  enable: true,
+  package: 'egg-socket.io',
+};
+
+3，配置插件/config/config.default.js
+io: {
+    # namespace命名空间配置为/
+    namespace: {
+      '/': {
+        # 预处理器中间件, 我们这里配置了一个auth, 进行权限判断, 它对应的文件是/app/io/middleware/auth.js, 这里可以配置多个文件, 用逗号隔开
+        connectionMiddleware: ['auth'], #这里我们可以做一些权限校验之类的操作
+        packetMiddleware: [], # 通常用于对消息做预处理，又或者是对加密消息的解密等操作
+      },
+    },
+    # 配置redis, 非必须, 不需要的可以不配置这块, egg-socket.io内置了socket-io-redis， 在cluster模式下, 使用redis可以较为简单的实现clients/rooms等信息共享
+    redis: {
+      host: 'ip地址',
+      prot: 6379,
+      auth_pass: 123456,
+      db:0, 
+    }
+  }
+}

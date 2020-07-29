@@ -15,7 +15,7 @@ open http://127.0.0.1:7001
 
 2，添加依赖
 
-npm i egg-swagger-doc-feat egg-validate egg-mongoose egg-bcrypt egg-jwt apn crypto await-stream-ready stream-wormhole image-downloader svg-captcha silly-datetime mz-modules jimp egg-redis egg-cors collaborative-filter juice cheerio iconv-lite xmldom xpath egg-scripts puppeteer -s
+npm i egg-swagger-doc-feat egg-validate egg-mongoose egg-bcrypt egg-jwt apn crypto await-stream-ready stream-wormhole image-downloader svg-captcha silly-datetime mz-modules jimp egg-redis egg-cors collaborative-filter juice cheerio iconv-lite xmldom xpath egg-scripts puppeteer egg-socket.io -s
 
 3, 数据库的配置，一定要先mongod --dbpath ***/***
 
