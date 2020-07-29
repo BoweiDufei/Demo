@@ -15,6 +15,8 @@ class HomeController extends Controller {
     // ]);
     // this.ctx.body = await this.service.tool.getVerCode();
 
+    console.log('连接了');
+
     const {app, query} = this.ctx;
     // 给谁发, socket连接的id
     const id = query.id;
