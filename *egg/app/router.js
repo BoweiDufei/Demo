@@ -9,6 +9,8 @@ module.exports = app => {
   app.io.route('chat', app.io.controller.chat.index);
   app.io.route('chatToSomeOne', app.io.controller.chat.chatToSomeOne);
   app.io.route('chatInRoom', app.io.controller.chat.chatInRoom); // 房间群聊
+  
+  app.io.route('logOut', app.io.controller.login.logOut); // 退出
   app.io.route('login', app.io.controller.login.index); // 登录
   
 };
