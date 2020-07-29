@@ -1,0 +1,70 @@
+{
+  "name": "myserver",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "egg": {
+    "declarations": true
+  },
+  "dependencies": {
+    "apn": "^2.2.0",
+    "await-stream-ready": "^1.0.1",
+    "cheerio": "^1.0.0-rc.3",
+    "collaborative-filter": "^1.0.0-beta.1",
+    "crypto": "^1.0.1",
+    "egg": "^2.15.1",
+    "egg-bcrypt": "^1.1.0",
+    "egg-cors": "^2.2.3",
+    "egg-jwt": "^3.1.7",
+    "egg-mongoose": "^3.2.0",
+    "egg-redis": "^2.4.0",
+    "egg-scripts": "^2.13.0",
+    "egg-socket.io": "^4.1.6",
+    "egg-swagger-doc-feat": "^2.2.13",
+    "egg-validate": "^2.0.2",
+    "iconv-lite": "^0.6.2",
+    "image-downloader": "^4.0.1",
+    "jimp": "^0.12.1",
+    "juice": "^6.0.0",
+    "mz-modules": "^2.1.0",
+    "puppeteer": "^5.0.0",
+    "silly-datetime": "^0.1.2",
+    "stream-wormhole": "^1.1.0",
+    "svg-captcha": "^1.4.0",
+    "xmldom": "^0.3.0",
+    "xpath": "0.0.27"
+  },
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.11.0",
+    "egg-ci": "^1.11.0",
+    "egg-mock": "^3.21.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --title=egg-server-myserver --sticky",
+    "stop": "egg-scripts stop --title=egg-server-myserver",
+    "dev": "egg-bin dev --sticky",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
+  },
+  "ci": {
+    "version": "10"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT"
+}
