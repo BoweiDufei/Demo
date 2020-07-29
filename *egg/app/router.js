@@ -6,5 +6,8 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.admin.home.index);
-  app.io.route('chat', app.io.controller.default.index);
+  app.io.route('chat', app.io.controller.chat.index);
+  app.io.route('chatToSomeOne', app.io.controller.chat.chatToSomeOne);
+  app.io.route('login', app.io.controller.login.index); // 登录
+  
 };

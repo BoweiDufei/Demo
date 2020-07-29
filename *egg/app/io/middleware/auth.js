@@ -1,10 +1,7 @@
 module.exports = app => {
   return async (ctx, next) => {
-    if (true) {
-      ctx.socket.disconnect();
-      return;
-    }
-    await next();
+    ctx.socket.emit('res', 'connected!');
+    await next;
     console.log('disconnection!');
   };
 };
