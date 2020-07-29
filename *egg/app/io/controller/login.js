@@ -14,6 +14,8 @@ class ChatController extends Controller {
       console.log('loginStr = ',loginStr)
       const item = JSON.parse(loginStr)
       console.log('获取的登录数据为： ', item.loginNam)
+      // 加入room
+      socket.join('room')
     }
     const loginItem = {};
     loginItem.socketIo = id;
