@@ -21,6 +21,23 @@ class ChatController extends Controller {
     loginItem.socketIo = id;
     nsp.sockets[id].emit('login', JSON.stringify(loginItem));
   }
+
+  // 退出登录
+  async logOut(){
+    const {app, socket, logger, helper} = this.ctx;
+    const id = socket.id;
+    const nsp = app.io.of('/');
+    // 根据id给指定连接发送消息
+    nsp.sockets[id].emit('logOut', '您已经成功退出');
+    socket.disconnect();
+    // 客户端可以通过
+    /**
+            if (this.$socket.connected === false) {
+              this.$socket.connect();
+            }
+            实现重新连接
+     */
+  }
 }
 
 module.exports = ChatController;
