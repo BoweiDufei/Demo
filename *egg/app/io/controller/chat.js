@@ -21,16 +21,34 @@ class ChatController extends Controller {
   // 给某人发送信息
   async chatToSomeOne(){
     const {app, socket, logger, helper} = this.ctx;
+    try {
+      const id = socket.id;
+      const nsp = app.io.of('/');
+      // 根据id给指定连接发送消息
+      console.log(socket.request.args[0]); // 聊天信息
+      const loginStr = socket.request.args[0] + '';
+      if (loginStr.length > 0) {
+        console.log('loginStr = ',loginStr)
+        const item = JSON.parse(loginStr)
+        console.log('targetIo： ', item.target)
+        nsp.sockets[item.target].emit('chatToSomeOne', item.msg);
+      }
+    } catch (error) {
+      
+    }
+  }
+
+  // 给某房间的所有人发送信息
+  async chatInRoom(){
+    const {app, socket, logger, helper} = this.ctx;
     const id = socket.id;
     const nsp = app.io.of('/');
-    // 根据id给指定连接发送消息
-    console.log(socket.request.args[0]); // 聊天信息
-    const loginStr = socket.request.args[0] + '';
-    if (loginStr.length > 0) {
-      console.log('loginStr = ',loginStr)
-      const item = JSON.parse(loginStr)
-      console.log('targetIo： ', item.target)
-      nsp.sockets[item.target].emit('chatToSomeOne', item.msg);
+    try {
+      const roomStr = socket.request.args[0] + '';
+      const item = JSON.parse(roomStr)
+      this.ctx.app.io.of('/').to(item.room).emit(item.room, item.msg);
+    } catch (error) {
+      
     }
   }
 }
