@@ -6,6 +6,10 @@
 			</el-carousel-item>
     </el-carousel>-->
 
+    <viewer :images="signImages">
+        <img v-for="src in signImages" :src="src" :key="src" width="50">
+    </viewer>
+
     <div><label for="">目标</label> <input type="text" v-model="targetIO"></div>
     <br>
     <div><label for="">内容</label> <input type="text" v-model="contentMsg"></div>
@@ -57,7 +61,9 @@ export default {
       banners: ["首页", "介绍", "room", "联系方式", "下载"],
       bannerSelectedIndex: 0,
       targetIO: '',
-      contentMsg:''
+      contentMsg:'',
+      signImages: ['https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'],
+      
     };
   },
   methods: {

@@ -15,6 +15,20 @@ import FirstContract from './components/FirstContract.vue'
 
 import QrLogin from './components/QrLogin.vue'
 
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
+
+// 图片第几会放大预览
+
+/**
+ * <viewer :images="signImages">
+        <img v-for="src in signImages" :src="src" :key="src" width="50">
+    </viewer>
+ */
+Vue.use(Viewer);
+Viewer.setDefaults({
+  Options: { 'inline': true, 'button': true, 'navbar': true, 'title': true, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': true, 'scalable': true, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source' }
+})
 
 import io from "socket.io-client";
 const socket = io("http://127.0.0.1:7001");
