@@ -1,5 +1,7 @@
 'use strict';
 
+const await = require('await-stream-ready/lib/await');
+
 const Controller = require('egg').Controller;
 
 /**
@@ -8,12 +10,28 @@ const Controller = require('egg').Controller;
 class TestController extends Controller {
 
   /**
-   * @summary 测试
+   * @summary 生成唯一时间戳
    * @description 测试
-   * @router get /api/signtest
+   * @router get /api/getRandomTimeStamp
+   * @response 200 baseResponse 创建成功
+   */
+  async getRandomTimeStamp() {
+    const timeStampStr = await this.ctx.service.tool.createUniqueTimeStamp(true);
+    this.ctx.helper.success(this.ctx, timeStampStr);
+  }
+
+  /**
+   * @summary 创建一个二维码图片
+   * @description 测试
+   * @router get /api/getQrImage
    * @response 200 baseResponse 创建成功
    */
   async index() {
+    // 创建二维码测试 获取到socketID
+    const article_id = this.ctx.query.id;
+    const str = await this.ctx.service.tool.createQRImageWithInfo(article_id)
+    this.ctx.helper.success(this.ctx, str);
+
     // const order = new this.ctx.model.Order();
     // order.desc = '第二个订单';
     // order.totalPrice = 200;
@@ -68,38 +86,38 @@ class TestController extends Controller {
     //   }
     // }
 
-    console.time('begin');
-    const result = await this.ctx.model.Order.aggregate([
-      {
-        $lookup: {
-          from: 'product',
-          localField: '_id',
-          foreignField: 'orderId',
-          as: 'items',
-        },
-      },
-      {
-        $match: {
-          totalPrice: {
-            $gt: 30,
-            $lt: 80,
-          },
-        },
-      },
-      {
-        $project: {
-          desc: 1,
-          totalPrice: 1,
-          items: {
-            $filter: {
-              input: '$items',
-              as: 'a',
-              cond: { $gt: [ '$$a.price', 40 ] },
-            },
-          },
-        },
-      },
-    ]);
+    // console.time('begin');
+    // const result = await this.ctx.model.Order.aggregate([
+    //   {
+    //     $lookup: {
+    //       from: 'product',
+    //       localField: '_id',
+    //       foreignField: 'orderId',
+    //       as: 'items',
+    //     },
+    //   },
+    //   {
+    //     $match: {
+    //       totalPrice: {
+    //         $gt: 30,
+    //         $lt: 80,
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       desc: 1,
+    //       totalPrice: 1,
+    //       items: {
+    //         $filter: {
+    //           input: '$items',
+    //           as: 'a',
+    //           cond: { $gt: [ '$$a.price', 40 ] },
+    //         },
+    //       },
+    //     },
+    //   },
+    // ]);
 
     // console.time('begin');
     // const result = await this.ctx.model.Order.find({
@@ -124,8 +142,8 @@ class TestController extends Controller {
 
 
     // 过滤子文档，$fliter比多次查询拼装效率高
-    console.timeEnd('begin');
-    this.ctx.body = JSON.stringify(result);
+    // console.timeEnd('begin');
+    // this.ctx.body = JSON.stringify(result);
   }
 
   /**

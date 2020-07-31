@@ -96,7 +96,7 @@ const md5 = content => {
 
 // 13位的时间戳，10位的要*1000
 const formateTime = params => {
-  return sd.format(new Date(params), 'YYY-MM-DD HH:mm');
+  return sd.format(new Date(params), 'YYYY-MM-DD HH:mm:ss');
 };
 
 // https://blog.csdn.net/weidfyr/article/details/48209537

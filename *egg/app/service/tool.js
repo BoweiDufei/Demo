@@ -236,7 +236,6 @@ class ToolService extends Service {
 
   // 根据url和xpath路径 获取到内容字符串
   getPcBasicContent(url, xpathPath) {
-
     return new Promise((resolve, reject) => {
       const options = {
         headers: {
@@ -296,6 +295,32 @@ class ToolService extends Service {
       .quality(60) // set JPEG quality
       .write(img02); // save
     return { img01: this.dealUploadPath(img01), img02: this.dealUploadPath(img02) };
+  }
+
+  /**
+   * 创建一个二维码图片
+   * 使用的是第三发 qr-image 
+   * 返回一个base64的字符串
+   */
+  async createQRImageWithInfo(infoStr){
+    const qr = require('qr-image');
+    const imageData = qr.imageSync(infoStr,{type: 'png' ,size: 40});
+    const targetData = 'data:image/'+ 'png' +';base64,' + imageData.toString('base64');
+    return targetData;
+  }
+
+  /**
+   * 生成一个唯一的时间戳
+   * 使用的是第三方 node-uuid
+   */
+  async createUniqueTimeStamp(md5Flag){
+    const uuid = require('node-uuid');
+    const uuidStr = uuid.v4();
+    if (md5Flag) {
+      return await this.dbwMd5(uuidStr);
+    }else{
+      return uuidStr;
+    }
   }
 
 }
