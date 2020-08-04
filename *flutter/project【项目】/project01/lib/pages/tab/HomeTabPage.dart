@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import '../custompage/FirstMainPage.dart';
 import '../custompage/MinePage.dart';
+// 测试
+import '../custompage/DemoShopPage.dart';
 
-class HomeTabPage extends StatefulWidget  {
+class HomeTabPage extends StatefulWidget {
   @override
   _HomeTabPageState createState() => _HomeTabPageState();
 }
 
-
-class _HomeTabPageState extends State<HomeTabPage> with AutomaticKeepAliveClientMixin {
-
+class _HomeTabPageState extends State<HomeTabPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -22,19 +23,22 @@ class _HomeTabPageState extends State<HomeTabPage> with AutomaticKeepAliveClient
       icon: Icon(Icons.person),
       title: Text('我的'),
     ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.shop),
+      title: Text('购物'),
+    )
   ];
 
   List<Widget> bodys = [
     FirstMainPage(),
     MinePage(),
+    DemoShopPage(),
   ];
 
   int _currentIndex = 0;
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: IndexedStack(
         children: bodys,
@@ -45,7 +49,7 @@ class _HomeTabPageState extends State<HomeTabPage> with AutomaticKeepAliveClient
         currentIndex: _currentIndex,
         fixedColor: Colors.red,
         type: BottomNavigationBarType.fixed,
-        onTap: (index){
+        onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
@@ -53,5 +57,4 @@ class _HomeTabPageState extends State<HomeTabPage> with AutomaticKeepAliveClient
       ),
     );
   }
-
 }

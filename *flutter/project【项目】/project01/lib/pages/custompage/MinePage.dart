@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../models/Counter.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -6,13 +8,13 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print('object');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +24,13 @@ class _MinePageState extends State<MinePage> {
       ),
       body: Container(
         color: Colors.yellow,
+        child: Center(
+          child: FlatButton(
+              onPressed: () {
+                context.read<Counter>().increamCount();
+              },
+              child: Text('增加')),
+        ),
       ),
     );
   }

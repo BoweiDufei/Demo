@@ -9,11 +9,11 @@ import '../pages/custompage/WebViewPage.dart';
 
 final Map routes = {
   '/': (context) => HomeTabPage(),
-  '/location':(context) => LocationManager(),
-  '/dio':(context) => DioTest(),
-  '/swipper':(context) => SwipperDemo(),
-  '/webpage':(context,{arguments}) => WebViewPage(arguments: arguments), 
-  
+  '/location': (context) => LocationManager(),
+  '/dio': (context) => DioTest(),
+  '/swipper': (context) => SwipperDemo(),
+  '/webpage': (context, {arguments}) => WebViewPage(arguments: arguments),
+
   // 使用 Navigator.pushNamed(context, '/productInfo',arguments: {"id":'我是上个界面传过来的id'});
 };
 
