@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenAdaper {
   /**初始化 */
-  static init(context){
-    double width = 750;
-    double height = 1334;
-    ScreenUtil.init(width: width*0.5, height: height*0.5, allowFontScaling: false);
+  static init(BuildContext context){
+    double width = 750.0;
+    double height = 1334.0;
+    // allowFontScaling：是否会跟随系统文字进行缩放，设置为false，不跟随系统文字
+    ScreenUtil.init(context,width: width*0.5, height: height*0.5, allowFontScaling: false);
   }
 }
 

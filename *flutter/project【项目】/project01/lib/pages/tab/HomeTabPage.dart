@@ -1,3 +1,4 @@
+import 'package:demo02/packages/ScreenAdaper.dart';
 import 'package:flutter/material.dart';
 import '../custompage/FirstMainPage.dart';
 import '../custompage/MinePage.dart';
@@ -39,6 +40,7 @@ class _HomeTabPageState extends State<HomeTabPage>
 
   @override
   Widget build(BuildContext context) {
+    ScreenAdaper.init(context);
     return Scaffold(
       body: IndexedStack(
         children: bodys,
