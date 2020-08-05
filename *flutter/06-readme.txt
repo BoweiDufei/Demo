@@ -32,5 +32,11 @@ MultiProvider(
 )
 
 
+tensorflow案例：
+https://github.com/ranajit1996/flutter_tflite_mobilenet_demo
+
+
+
+
 
 
